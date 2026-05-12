@@ -1,0 +1,4 @@
+baseURL = 'https://boniufamily.top/'
+locale = 'zh-cn'
+title = 'gamerurara'
+theme = "reimu"
