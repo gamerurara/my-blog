@@ -2,10 +2,31 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://192.168.1.107:1313/categories/</loc>
+    <loc>https://boniufamily.top/tags/ai/</loc>
+    <lastmod>2026-05-23T16:00:00+08:00</lastmod>
   </url><url>
-    <loc>http://192.168.1.107:1313/</loc>
+    <loc>https://boniufamily.top/categories/</loc>
+    <lastmod>2026-05-23T16:00:00+08:00</lastmod>
   </url><url>
-    <loc>http://192.168.1.107:1313/tags/</loc>
+    <loc>https://boniufamily.top/</loc>
+    <lastmod>2026-05-23T16:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://boniufamily.top/tags/hermes/</loc>
+    <lastmod>2026-05-23T16:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://boniufamily.top/post/</loc>
+    <lastmod>2026-05-23T16:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://boniufamily.top/tags/</loc>
+    <lastmod>2026-05-23T16:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://boniufamily.top/tags/%E5%BC%80%E6%BA%90/</loc>
+    <lastmod>2026-05-23T16:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://boniufamily.top/post/hermes-setup/</loc>
+    <lastmod>2026-05-23T16:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://boniufamily.top/categories/%E6%8A%80%E6%9C%AF/</loc>
+    <lastmod>2026-05-23T16:00:00+08:00</lastmod>
   </url>
 </urlset>
