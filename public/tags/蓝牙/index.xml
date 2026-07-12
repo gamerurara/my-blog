@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>技术 on gamerurara</title>
-    <link>https://boniufamily.top/categories/%E6%8A%80%E6%9C%AF/</link>
+    <title>蓝牙 on gamerurara</title>
+    <link>https://boniufamily.top/tags/%E8%93%9D%E7%89%99/</link>
     <description>Recent content from gamerurara</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
@@ -15,7 +15,7 @@
     <lastBuildDate>Sun, 12 Jul 2026 17:10:00 +0800</lastBuildDate>
     
     
-    <atom:link href="https://boniufamily.top/categories/%E6%8A%80%E6%9C%AF/index.xml" rel="self" type="application/rss&#43;xml" />
+    <atom:link href="https://boniufamily.top/tags/%E8%93%9D%E7%89%99/index.xml" rel="self" type="application/rss&#43;xml" />
     
 
     
@@ -33,26 +33,6 @@
           
         
         <hr><p>本文2026-07-12首发于<a href='https://boniufamily.top/'>gamerurara</a>，最后修改于2026-07-12</p>]]>
-      </description>
-      
-        <category>技术</category>
-      
-    </item>
-    
-    
-
-    <item>
-      <title>我用上了 Hermes —— 开源 AI 助手安装全记录</title>
-      <link>https://boniufamily.top/post/hermes-setup/</link>
-      <pubDate>Sat, 23 May 2026 16:00:00 &#43;0800</pubDate>
-      <author>xxx@example.com (D-Sketon)</author>
-      <guid>https://boniufamily.top/post/hermes-setup/</guid>
-      <description>
-        <![CDATA[<h1>我用上了 Hermes —— 开源 AI 助手安装全记录</h1><p>作者：D-Sketon（xxx@example.com）</p>
-        
-          <p>最近用上了 <a href="https://github.com/NousResearch/hermes-agent">Hermes Agent</a>，一个由 Nous Research 开发的开源 AI 助手框架。它可以接入多种 LLM 提供商，支持终端、浏览器、文件操作、GitHub 集成等工具，还能通过 WeChat 等平台直接对话，体验相当流畅。</p>
-        
-        <hr><p>本文2026-05-23首发于<a href='https://boniufamily.top/'>gamerurara</a>，最后修改于2026-05-23</p>]]>
       </description>
       
         <category>技术</category>

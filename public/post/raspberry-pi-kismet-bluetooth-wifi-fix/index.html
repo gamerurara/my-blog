@@ -8,10 +8,10 @@
   name="viewport"
   content="width=device-width, initial-scale=1, shrink-to-fit=no"
 /><title>
-  我用上了 Hermes —— 开源 AI 助手安装全记录 | D-Sketon
+  树莓派 Kali 折腾记：修复 Kismet 蓝牙扫描与 Wi-Fi 热点 | D-Sketon
 </title>
-<meta name="description" content="记录在本地部署 Hermes Agent 的过程与初体验"/>
-    <meta name="keywords" content="hermes,hermes-agent,ai助手,nous-research,deepseek" /><script>
+<meta name="description" content="记录树莓派 3B 上 Kali Linux 运行 Kismet 时蓝牙扫描失效和 Wi-Fi 热点无法连接的排查与修复过程。"/>
+    <meta name="keywords" content="树莓派,Kali,Kismet,蓝牙,Wi-Fi热点,hostapd,hciuart,systemd" /><script>
   window.siteConfig = JSON.parse("{\"anchor\":{\"auto\":{\"enable\":false,\"length\":60},\"explicit\":{\"enable\":false,\"marker\":\"{#anchor-\",\"prefix\":\"anchor-\"}},\"anchor_icon\":null,\"base\":\"https://boniufamily.top/\",\"clipboard\":{\"copyright\":{\"count\":50,\"enable\":false,\"license_type\":\"by-nc-sa\"},\"fail\":{\"en\":\"Copy failed (ﾟ⊿ﾟ)ﾂ\",\"ja\":\"コピー失敗 (ﾟ⊿ﾟ)ﾂ\",\"pt-br\":\"Falha ao copiar (ﾟ⊿ﾟ)ﾂ\",\"zh-cn\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"zh-tw\":\"複製失敗 (ﾟ⊿ﾟ)ﾂ\"},\"success\":{\"en\":\"Copy successfully (*^▽^*)\",\"ja\":\"コピー成功 (*^▽^*)\",\"pt-br\":\"Copiado com sucesso (*^▽^*)\",\"zh-cn\":\"复制成功 (*^▽^*)\",\"zh-tw\":\"複製成功 (*^▽^*)\"}},\"code_block\":{\"expand\":true},\"icon_font\":\"4552607_ex15nbittbh\",\"outdate\":{\"daysago\":180,\"enable\":false,\"message\":{\"en\":\"This article was last updated on {time}. Please note that the content may no longer be applicable.\",\"ja\":\"この記事は最終更新日：{time}。記載内容が現在有効でない可能性がありますのでご注意ください。\",\"pt-br\":\"Este artigo foi atualizado pela última vez em {time}. Observe que o conteúdo pode não ser mais aplicável.\",\"zh-cn\":\"本文最后更新于 {time}，请注意文中内容可能已不适用。\",\"zh-tw\":\"本文最後更新於 {time}，請注意文中內容可能已不適用。\"}}}");
   
 </script>
@@ -34,20 +34,20 @@
     type="font/woff2"
     crossorigin="anonymous"
   /><link rel="stylesheet" href="/css/loader.min.ac746e154f756f8220326eeb52a719f142ab038be5a8ddf30ea5ef15ef2356ea.css" /><meta property="og:type" content="website" />
-  <meta property="og:title" content="我用上了 Hermes —— 开源 AI 助手安装全记录 | D-Sketon" />
+  <meta property="og:title" content="树莓派 Kali 折腾记：修复 Kismet 蓝牙扫描与 Wi-Fi 热点 | D-Sketon" />
   <meta
     property="og:description"
-    content="记录在本地部署 Hermes Agent 的过程与初体验"
+    content="记录树莓派 3B 上 Kali Linux 运行 Kismet 时蓝牙扫描失效和 Wi-Fi 热点无法连接的排查与修复过程。"
   />
-  <meta property="og:url" content="https://boniufamily.top/post/hermes-setup/" />
+  <meta property="og:url" content="https://boniufamily.top/post/raspberry-pi-kismet-bluetooth-wifi-fix/" />
   <meta
     property="og:site_name"
     content="gamerurara"
   />
   <meta property="og:image" content="https://boniufamily.top/images/banner.webp" />
   <meta property="article:author" content="D-Sketon" />
-  <meta property="article:published_time" content="2026-05-23T16:00:00&#43;08:00" />
-  <meta property="article:modified_time" content="2026-05-23T16:00:00&#43;08:00" /><meta property="article:tag" content="AI, Hermes, 开源" /><meta name="twitter:card" content="summary" /><meta name="twitter:image" content="https://boniufamily.top/images/banner.webp" />
+  <meta property="article:published_time" content="2026-07-12T17:10:00&#43;08:00" />
+  <meta property="article:modified_time" content="2026-07-12T17:10:00&#43;08:00" /><meta property="article:tag" content="树莓派, Kali, Kismet, 蓝牙, Wi-Fi, Linux" /><meta name="twitter:card" content="summary" /><meta name="twitter:image" content="https://boniufamily.top/images/banner.webp" />
 <link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/main.min.5a0a43eb14b8f925af7fd8d543b60f5f2fe844f4d718b141cb8b28f2f5e127fa.css" /><link
     rel="preload"
     as="style"
@@ -122,9 +122,9 @@
       </a><a id="main-nav-toggle" class="nav-icon" aria-label="Toggle navigation" role="button"></a>
   </nav>
   <nav id="sub-nav" aria-label="Secondary navigation"></nav></div>
-<header id="header" aria-label="Site header"><picture></picture><img  fetchpriority="high" src="/images/banner.webp" alt="我用上了 Hermes —— 开源 AI 助手安装全记录"><div id="header-outer">
+<header id="header" aria-label="Site header"><picture></picture><img  fetchpriority="high" src="/images/banner.webp" alt="树莓派 Kali 折腾记：修复 Kismet 蓝牙扫描与 Wi-Fi 热点"><div id="header-outer">
     <div id="header-title"><span id="logo">
-            <h1 data-aos="slide-up">我用上了 Hermes —— 开源 AI 助手安装全记录</h1>
+            <h1 data-aos="slide-up">树莓派 Kali 折腾记：修复 Kismet 蓝牙扫描与 Wi-Fi 热点</h1>
           </span><h2 id="subtitle-wrap" data-aos="slide-down"></h2></div>
   </div>
 </header><div id="content"
@@ -138,18 +138,23 @@
 <div class="sidebar-toc-wrapper toc-div-class">
   <nav id="TableOfContents">
   <ul>
-    <li><a href="#什么是-hermes">什么是 Hermes</a></li>
-    <li><a href="#安装步骤">安装步骤</a>
+    <li><a href="#环境">环境</a></li>
+    <li><a href="#问题一kismet-蓝牙扫描失效">问题一：Kismet 蓝牙扫描失效</a>
       <ul>
-        <li><a href="#1-克隆仓库">1. 克隆仓库</a></li>
-        <li><a href="#2-运行安装脚本">2. 运行安装脚本</a></li>
-        <li><a href="#3-配置模型提供商">3. 配置模型提供商</a></li>
-        <li><a href="#4-设置-api-key">4. 设置 API Key</a></li>
-        <li><a href="#5-启动">5. 启动</a></li>
+        <li><a href="#现象">现象</a></li>
+        <li><a href="#排查">排查</a></li>
+        <li><a href="#根因">根因</a></li>
+        <li><a href="#修复">修复</a></li>
       </ul>
     </li>
-    <li><a href="#连接-wechat">连接 WeChat</a></li>
-    <li><a href="#初体验">初体验</a></li>
+    <li><a href="#问题二wi-fi-热点手机无法连接">问题二：Wi-Fi 热点手机无法连接</a>
+      <ul>
+        <li><a href="#现象-1">现象</a></li>
+        <li><a href="#排查-1">排查</a></li>
+        <li><a href="#修复-1">修复</a></li>
+      </ul>
+    </li>
+    <li><a href="#总结">总结</a></li>
   </ul>
 </nav>
 </div></div>
@@ -221,63 +226,158 @@
     class="article-date-link icon-calendar"
     data-aos="zoom-in"
   >
-    <time datetime="2026-05-23 16:00:00 &#43;0800 CST" itemprop="datePublished"
-      >2026-05-23</time
+    <time datetime="2026-07-12 17:10:00 &#43;0800 CST" itemprop="datePublished"
+      >2026-07-12</time
     >
     <time style="display: none;" id="post-update-time"
-      >2026-05-23</time
+      >2026-07-12</time
     >
   </span></div>
-</div><div class="hr-line"></div><div class="e-content article-entry" itemprop="articleBody"><p>最近用上了 <a href="https://github.com/NousResearch/hermes-agent">Hermes Agent</a>，一个由 Nous Research 开发的开源 AI 助手框架。它可以接入多种 LLM 提供商，支持终端、浏览器、文件操作、GitHub 集成等工具，还能通过 WeChat 等平台直接对话，体验相当流畅。</p>
-<h2 id="什么是-hermes">
-<a class="header-anchor" href="#%e4%bb%80%e4%b9%88%e6%98%af-hermes"></a>
-什么是 Hermes
-</h2><p>Hermes 是一个本地运行的 AI Agent，你可以把它看作一个能力远超普通聊天机器人的&quot;终端里的 AI 同事&quot;。它能执行命令、读写文件、搜索网页、管理 GitHub 仓库，甚至可以定时运行任务。</p>
-<h2 id="安装步骤">
-<a class="header-anchor" href="#%e5%ae%89%e8%a3%85%e6%ad%a5%e9%aa%a4"></a>
-安装步骤
-</h2><p>以下是部署过程的记录，供参考：</p>
-<h3 id="1-克隆仓库">
-<a class="header-anchor" href="#1-%e5%85%8b%e9%9a%86%e4%bb%93%e5%ba%93"></a>
-1. 克隆仓库
-</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git clone https://github.com/NousResearch/hermes-agent.git
-</span></span><span style="display:flex;"><span>cd hermes-agent
-</span></span></code></pre></div><h3 id="2-运行安装脚本">
-<a class="header-anchor" href="#2-%e8%bf%90%e8%a1%8c%e5%ae%89%e8%a3%85%e8%84%9a%e6%9c%ac"></a>
-2. 运行安装脚本
-</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>bash scripts/install.sh
-</span></span></code></pre></div><p>脚本会自动检测你的系统类型并完成依赖安装，包括 Python 环境和必要的系统包。</p>
-<h3 id="3-配置模型提供商">
-<a class="header-anchor" href="#3-%e9%85%8d%e7%bd%ae%e6%a8%a1%e5%9e%8b%e6%8f%90%e4%be%9b%e5%95%86"></a>
-3. 配置模型提供商
-</h3><p>安装完成后，编辑 <code>~/.hermes/config.yaml</code>，配置你使用的 LLM 提供商。我使用的是 DeepSeek：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">model_provider</span>: <span style="color:#ae81ff">deepseek</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">model</span>: <span style="color:#ae81ff">deepseek-v4-pro</span>
-</span></span></code></pre></div><p>Hermes 支持多种提供商：OpenAI、Anthropic、DeepSeek、OpenRouter 等，按需选择即可。</p>
-<h3 id="4-设置-api-key">
-<a class="header-anchor" href="#4-%e8%ae%be%e7%bd%ae-api-key"></a>
-4. 设置 API Key
-</h3><p>将 API Key 写入 <code>~/.hermes/.env</code>：</p>
-<pre tabindex="0"><code>DEEPSEEK_API_KEY=你的密钥
-</code></pre><h3 id="5-启动">
-<a class="header-anchor" href="#5-%e5%90%af%e5%8a%a8"></a>
-5. 启动
-</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hermes
-</span></span></code></pre></div><p>首次启动会进入 TUI 界面，你就可以和 Hermes 对话了。</p>
-<h2 id="连接-wechat">
-<a class="header-anchor" href="#%e8%bf%9e%e6%8e%a5-wechat"></a>
-连接 WeChat
-</h2><p>Hermes 的一大亮点是支持多平台消息接入。我用 <code>hermes setup</code> 配置了 WeChat 通道，绑定后就能在微信里直接和 Hermes 聊天，随时随地让它帮忙处理任务。</p>
-<h2 id="初体验">
-<a class="header-anchor" href="#%e5%88%9d%e4%bd%93%e9%aa%8c"></a>
-初体验
-</h2><p>上手之后发现它的几个实用场景：</p>
-<ul>
-<li><strong>写博客</strong>：就像这篇文章，直接告诉它&quot;帮我在 Hugo 博客里创建一篇新文章并推送&quot;，它就能自己找到项目目录、理解主题结构、写好 markdown、甚至帮你 commit 和 push</li>
-<li><strong>执行任务</strong>：代码搜索、文件操作、运行脚本都不在话下</li>
-<li><strong>定时任务</strong>：可以设置 cron job 定时执行检查或发送通知</li>
+</div><div class="hr-line"></div><div class="e-content article-entry" itemprop="articleBody"><p>最近发现树莓派 3B 上的 Kismet 蓝牙扫描又双叒不工作了，同时 Wi-Fi 热点手机也连不上。排查一圈发现是两个独立问题，记录一下修复过程。</p>
+<h2 id="环境">
+<a class="header-anchor" href="#%e7%8e%af%e5%a2%83"></a>
+环境
+</h2><ul>
+<li>硬件：树莓派 3B</li>
+<li>系统：Kali Linux ARM</li>
+<li>Wi-Fi 热点：USB 网卡 RTL8192EU（wlan1），SSID <code>ssss</code>，2.4G Channel 6</li>
+<li>蓝牙：板载 BCM43430（hci0），通过 hciuart 服务管理</li>
+<li>Kismet：双数据源（wlan0 Wi-Fi + hci0 蓝牙）</li>
 </ul>
-<p>总体来说，Hermes 的本地化部署 + 多平台接入的设计让 AI 助手真正融入了日常工作流。后续计划探索更多自动化场景。</p></div>
+<hr>
+<h2 id="问题一kismet-蓝牙扫描失效">
+<a class="header-anchor" href="#%e9%97%ae%e9%a2%98%e4%b8%80kismet-%e8%93%9d%e7%89%99%e6%89%ab%e6%8f%8f%e5%a4%b1%e6%95%88"></a>
+问题一：Kismet 蓝牙扫描失效
+</h2><h3 id="现象">
+<a class="header-anchor" href="#%e7%8e%b0%e8%b1%a1"></a>
+现象
+</h3><p>Kismet 正常运行，Wi-Fi 数据源正常捕获设备，但蓝牙数据源完全没有任何设备被发现。系统服务状态看起来一切正常：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ systemctl status kismet bluetooth hciuart
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 全部 active (running)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$ hciconfig hci0
+</span></span><span style="display:flex;"><span>hci0: Type: Primary Bus: UART
+</span></span><span style="display:flex;"><span>    UP RUNNING          <span style="color:#75715e"># ← 看起来是 UP 的</span>
+</span></span><span style="display:flex;"><span>    Link mode: PERIPHERAL ACCEPT  <span style="color:#75715e"># ← 问题在这里！</span>
+</span></span></code></pre></div><h3 id="排查">
+<a class="header-anchor" href="#%e6%8e%92%e6%9f%a5"></a>
+排查
+</h3><p>用 <code>hcitool scan</code> 测试，不加 sudo 时扫描没有任何结果，但加上 sudo 后却能看到多个蓝牙设备：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ sudo hcitool scan
+</span></span><span style="display:flex;"><span>Scanning ...
+</span></span><span style="display:flex;"><span>    40:EF:4C:15:8F:38  EDIFIER R1700BT
+</span></span><span style="display:flex;"><span>    5C:C5:63:82:17:E8  尹生的盒子
+</span></span><span style="display:flex;"><span>    CC:DA:20:ED:46:3F  Mijia Scale S400
+</span></span><span style="display:flex;"><span>    44:27:F3:39:7F:12  Redmi Watch <span style="color:#ae81ff">2</span>
+</span></span></code></pre></div><p>这说明蓝牙硬件和驱动都正常，问题出在接口模式上。</p>
+<h3 id="根因">
+<a class="header-anchor" href="#%e6%a0%b9%e5%9b%a0"></a>
+根因
+</h3><p>树莓派板载 BCM43430 蓝牙在 <code>hciuart</code> 初始化后默认处于 <strong>PERIPHERAL ACCEPT</strong> 模式（外设模式，等待被连接），而不是主动扫描模式。Kismet 的 <code>kismet_cap_linux_bluetooth</code> 进程不会自动切换到扫描模式，所以一直没有任何蓝牙数据。</p>
+<h3 id="修复">
+<a class="header-anchor" href="#%e4%bf%ae%e5%a4%8d"></a>
+修复
+</h3><p>需要确保在 Kismet 启动之前，hci0 处于 <strong>PSCAN + ISCAN</strong>（Page Scan + Inquiry Scan）模式。创建一个 systemd oneshot 服务来解决：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-ini" data-lang="ini"><span style="display:flex;"><span><span style="color:#75715e"># /etc/systemd/system/bt-piscan.service</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">[Unit]</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Description</span><span style="color:#f92672">=</span><span style="color:#e6db74">Enable Bluetooth PSCAN/ISCAN for Kismet</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Before</span><span style="color:#f92672">=</span><span style="color:#e6db74">kismet.service</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">After</span><span style="color:#f92672">=</span><span style="color:#e6db74">hciuart.service bluetooth.service</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Requires</span><span style="color:#f92672">=</span><span style="color:#e6db74">hciuart.service bluetooth.service</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">[Service]</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Type</span><span style="color:#f92672">=</span><span style="color:#e6db74">oneshot</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ExecStart</span><span style="color:#f92672">=</span><span style="color:#e6db74">/usr/bin/hciconfig hci0 piscan</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">RemainAfterExit</span><span style="color:#f92672">=</span><span style="color:#e6db74">yes</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">[Install]</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">WantedBy</span><span style="color:#f92672">=</span><span style="color:#e6db74">multi-user.target</span>
+</span></span></code></pre></div><p>启用并启动：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo systemctl daemon-reload
+</span></span><span style="display:flex;"><span>sudo systemctl enable --now bt-piscan.service
+</span></span></code></pre></div><p>这样 <code>bt-piscan</code> 会在 hciuart 初始化蓝牙后、Kismet 启动前执行 <code>hciconfig hci0 piscan</code>，确保蓝牙处于扫描模式。</p>
+<p>重启验证，Kismet 日志中蓝牙设备恢复正常：</p>
+<pre tabindex="0"><code>Detected new Bluetooth device CC:DA:20:ED:46:3F (Mijia Scale S400)
+Detected new Bluetooth device 44:DF:65:B5:78:03 (DL02V1)
+Detected new Bluetooth device 44:27:F3:39:7F:12 (Redmi Watch 2)
+...
+</code></pre><hr>
+<h2 id="问题二wi-fi-热点手机无法连接">
+<a class="header-anchor" href="#%e9%97%ae%e9%a2%98%e4%ba%8cwi-fi-%e7%83%ad%e7%82%b9%e6%89%8b%e6%9c%ba%e6%97%a0%e6%b3%95%e8%bf%9e%e6%8e%a5"></a>
+问题二：Wi-Fi 热点手机无法连接
+</h2><h3 id="现象-1">
+<a class="header-anchor" href="#%e7%8e%b0%e8%b1%a1-1"></a>
+现象
+</h3><p>手机能看到 SSID <code>ssss</code>，但连接时提示「无法接入网络」。树莓派端 hostapd 和 dnsmasq 日志完全没有任何客户端连接记录。</p>
+<h3 id="排查-1">
+<a class="header-anchor" href="#%e6%8e%92%e6%9f%a5-1"></a>
+排查
+</h3><p>检查 hostapd 配置文件：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-ini" data-lang="ini"><span style="display:flex;"><span><span style="color:#75715e"># /etc/hostapd/hostapd.conf（修复前）</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">interface</span><span style="color:#f92672">=</span><span style="color:#e6db74">wlan1</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">driver</span><span style="color:#f92672">=</span><span style="color:#e6db74">nl80211</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ssid</span><span style="color:#f92672">=</span><span style="color:#e6db74">ssss</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">hw_mode</span><span style="color:#f92672">=</span><span style="color:#e6db74">g          # ← 只有 802.11g</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">channel</span><span style="color:#f92672">=</span><span style="color:#e6db74">6</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">wmm_enabled</span><span style="color:#f92672">=</span><span style="color:#e6db74">0       # ← WMM 关闭</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">wpa</span><span style="color:#f92672">=</span><span style="color:#e6db74">2</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">wpa_passphrase</span><span style="color:#f92672">=</span><span style="color:#e6db74">a2659633~</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">wpa_key_mgmt</span><span style="color:#f92672">=</span><span style="color:#e6db74">WPA-PSK</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">wpa_pairwise</span><span style="color:#f92672">=</span><span style="color:#e6db74">TKIP</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">rsn_pairwise</span><span style="color:#f92672">=</span><span style="color:#e6db74">CCMP</span>
+</span></span></code></pre></div><p>问题很明显：配置只启用了 <strong>802.11g</strong>（最高 54Mbps），且 <strong>WMM（Wi-Fi Multimedia）被关闭</strong>。现代手机（尤其是 iPhone）对纯 802.11g 且无 WMM 的热点兼容性很差，要么不显示，要么连接失败。</p>
+<h3 id="修复-1">
+<a class="header-anchor" href="#%e4%bf%ae%e5%a4%8d-1"></a>
+修复
+</h3><p>开启 <strong>802.11n</strong> 和 <strong>WMM</strong>：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-ini" data-lang="ini"><span style="display:flex;"><span><span style="color:#75715e"># /etc/hostapd/hostapd.conf（修复后）</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">interface</span><span style="color:#f92672">=</span><span style="color:#e6db74">wlan1</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">driver</span><span style="color:#f92672">=</span><span style="color:#e6db74">nl80211</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ssid</span><span style="color:#f92672">=</span><span style="color:#e6db74">ssss</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">hw_mode</span><span style="color:#f92672">=</span><span style="color:#e6db74">g</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">channel</span><span style="color:#f92672">=</span><span style="color:#e6db74">6</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ieee80211n</span><span style="color:#f92672">=</span><span style="color:#e6db74">1        # ← 新增：开启 802.11n</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">wmm_enabled</span><span style="color:#f92672">=</span><span style="color:#e6db74">1        # ← 修复：开启 WMM</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">macaddr_acl</span><span style="color:#f92672">=</span><span style="color:#e6db74">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">auth_algs</span><span style="color:#f92672">=</span><span style="color:#e6db74">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ignore_broadcast_ssid</span><span style="color:#f92672">=</span><span style="color:#e6db74">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">wpa</span><span style="color:#f92672">=</span><span style="color:#e6db74">2</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">wpa_passphrase</span><span style="color:#f92672">=</span><span style="color:#e6db74">a2659633~</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">wpa_key_mgmt</span><span style="color:#f92672">=</span><span style="color:#e6db74">WPA-PSK</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">wpa_pairwise</span><span style="color:#f92672">=</span><span style="color:#e6db74">TKIP</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">rsn_pairwise</span><span style="color:#f92672">=</span><span style="color:#e6db74">CCMP</span>
+</span></span></code></pre></div><p>重启 hostapd 后，iPhone 秒连：</p>
+<pre tabindex="0"><code>wlan1: STA 8a:07:7e:5b:cb:b5 IEEE 802.11: authenticated
+wlan1: STA 8a:07:7e:5b:cb:b5 IEEE 802.11: associated (aid 1)
+WPA: pairwise key handshake completed (RSN)
+DHCPACK(wlan1) 192.168.10.88 iPhone
+</code></pre><p>连接后 TX 速率达到 <strong>104 Mbit/s</strong>（802.11n MCS 13），比之前纯 802.11g 带宽翻倍。</p>
+<hr>
+<h2 id="总结">
+<a class="header-anchor" href="#%e6%80%bb%e7%bb%93"></a>
+总结
+</h2><table>
+  <thead>
+      <tr>
+          <th>问题</th>
+          <th>根因</th>
+          <th>修复方式</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Kismet 蓝牙不扫描</td>
+          <td>hci0 处于 PERIPHERAL 模式，未开启扫描</td>
+          <td>创建 <code>bt-piscan.service</code> 在 Kismet 启动前执行 <code>hciconfig hci0 piscan</code></td>
+      </tr>
+      <tr>
+          <td>手机连不上热点</td>
+          <td>hostapd 仅有 802.11g 且 WMM 关闭</td>
+          <td>开启 <code>ieee80211n=1</code> + <code>wmm_enabled=1</code></td>
+      </tr>
+  </tbody>
+</table>
+<p>两个修复都已通过重启验证，配置持久化，不会再复发。</p></div>
     <footer class="article-footer"><ul class="article-category-list"><li class="article-tag-list-item" data-aos="zoom-in">
     <a
       class="article-category-link"
@@ -289,23 +389,44 @@
 <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in">
       <a
         class="article-tag-list-link"
-        href="/tags/ai"
+        href="/tags/%e6%a0%91%e8%8e%93%e6%b4%be"
         rel="tag"
-        >AI</a
+        >树莓派</a
       >
     </li><li class="article-tag-list-item" data-aos="zoom-in">
       <a
         class="article-tag-list-link"
-        href="/tags/hermes"
+        href="/tags/kali"
         rel="tag"
-        >Hermes</a
+        >Kali</a
       >
     </li><li class="article-tag-list-item" data-aos="zoom-in">
       <a
         class="article-tag-list-link"
-        href="/tags/%e5%bc%80%e6%ba%90"
+        href="/tags/kismet"
         rel="tag"
-        >开源</a
+        >Kismet</a
+      >
+    </li><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e8%93%9d%e7%89%99"
+        rel="tag"
+        >蓝牙</a
+      >
+    </li><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/wi-fi"
+        rel="tag"
+        >Wi-Fi</a
+      >
+    </li><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/linux"
+        rel="tag"
+        >Linux</a
       >
     </li></ul>
 </footer>
@@ -313,17 +434,17 @@
     id="article-nav"
     aria-label="Article navigation"
     data-aos="fade-up"
-  ><div class="article-nav-link-wrap right"><img
+  ><div class="article-nav-link-wrap left"><img
               data-src="https://d-sketon.top/img/_backwebp/bg1.webp"
               data-sizes="auto"
               alt="上海出差小记 —— 工行数据中心 &amp; 外滩夜游"
               class="lazyload"
             /><a
           href="/post/shanghai-bund-trip/"
-          aria-label="后一篇:上海出差小记 —— 工行数据中心 &amp; 外滩夜游"
-          title="后一篇:上海出差小记 —— 工行数据中心 &amp; 外滩夜游"
+          aria-label="前一篇:上海出差小记 —— 工行数据中心 &amp; 外滩夜游"
+          title="前一篇:上海出差小记 —— 工行数据中心 &amp; 外滩夜游"
         ></a>
-        <div class="article-nav-caption">后一篇</div>
+        <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">上海出差小记 —— 工行数据中心 &amp; 外滩夜游</h3>
       </div></nav></article></section>
         </div><footer id="footer" aria-label="Site footer">
@@ -375,18 +496,23 @@
 <div class="sidebar-toc-wrapper toc-div-class">
   <nav id="TableOfContents">
   <ul>
-    <li><a href="#什么是-hermes">什么是 Hermes</a></li>
-    <li><a href="#安装步骤">安装步骤</a>
+    <li><a href="#环境">环境</a></li>
+    <li><a href="#问题一kismet-蓝牙扫描失效">问题一：Kismet 蓝牙扫描失效</a>
       <ul>
-        <li><a href="#1-克隆仓库">1. 克隆仓库</a></li>
-        <li><a href="#2-运行安装脚本">2. 运行安装脚本</a></li>
-        <li><a href="#3-配置模型提供商">3. 配置模型提供商</a></li>
-        <li><a href="#4-设置-api-key">4. 设置 API Key</a></li>
-        <li><a href="#5-启动">5. 启动</a></li>
+        <li><a href="#现象">现象</a></li>
+        <li><a href="#排查">排查</a></li>
+        <li><a href="#根因">根因</a></li>
+        <li><a href="#修复">修复</a></li>
       </ul>
     </li>
-    <li><a href="#连接-wechat">连接 WeChat</a></li>
-    <li><a href="#初体验">初体验</a></li>
+    <li><a href="#问题二wi-fi-热点手机无法连接">问题二：Wi-Fi 热点手机无法连接</a>
+      <ul>
+        <li><a href="#现象-1">现象</a></li>
+        <li><a href="#排查-1">排查</a></li>
+        <li><a href="#修复-1">修复</a></li>
+      </ul>
+    </li>
+    <li><a href="#总结">总结</a></li>
   </ul>
 </nav>
 </div></div>
@@ -492,9 +618,9 @@
   <div><script data-pjax>
         window.REIMU_POST = {
           author: "D-Sketon",
-          title: "我用上了 Hermes —— 开源 AI 助手安装全记录",
-          url: "https:\/\/boniufamily.top\/post\/hermes-setup\/",
-          description: "记录在本地部署 Hermes Agent 的过程与初体验",
+          title: "树莓派 Kali 折腾记：修复 Kismet 蓝牙扫描与 Wi-Fi 热点",
+          url: "https:\/\/boniufamily.top\/post\/raspberry-pi-kismet-bluetooth-wifi-fix\/",
+          description: "记录树莓派 3B 上 Kali Linux 运行 Kismet 时蓝牙扫描失效和 Wi-Fi 热点无法连接的排查与修复过程。",
           cover: "https:\/\/boniufamily.top\/images\/banner.webp",
         };
       </script><script src="/js/insert_highlight.js" integrity="" crossorigin="anonymous" data-pjax ></script><script src="/js/tabs.js" integrity="" crossorigin="anonymous" data-pjax defer></script><script type="module" data-pjax>const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;const initPswp = (gallery, children) => {
