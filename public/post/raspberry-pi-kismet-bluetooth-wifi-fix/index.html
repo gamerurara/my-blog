@@ -265,10 +265,10 @@
 </h3><p>用 <code>hcitool scan</code> 测试，不加 sudo 时扫描没有任何结果，但加上 sudo 后却能看到多个蓝牙设备：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ sudo hcitool scan
 </span></span><span style="display:flex;"><span>Scanning ...
-</span></span><span style="display:flex;"><span>    40:EF:4C:15:8F:38  EDIFIER R1700BT
-</span></span><span style="display:flex;"><span>    5C:C5:63:82:17:E8  尹生的盒子
-</span></span><span style="display:flex;"><span>    CC:DA:20:ED:46:3F  Mijia Scale S400
-</span></span><span style="display:flex;"><span>    44:27:F3:39:7F:12  Redmi Watch <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>    40:EF:4C:15:**:**  EDIFIER R1700BT
+</span></span><span style="display:flex;"><span>    5C:C5:63:82:**:**  尹生的盒子
+</span></span><span style="display:flex;"><span>    CC:DA:20:ED:**:**  Mijia Scale S400
+</span></span><span style="display:flex;"><span>    44:27:F3:39:**:**  Redmi Watch <span style="color:#ae81ff">2</span>
 </span></span></code></pre></div><p>这说明蓝牙硬件和驱动都正常，问题出在接口模式上。</p>
 <h3 id="根因">
 <a class="header-anchor" href="#%e6%a0%b9%e5%9b%a0"></a>
@@ -297,9 +297,9 @@
 </span></span><span style="display:flex;"><span>sudo systemctl enable --now bt-piscan.service
 </span></span></code></pre></div><p>这样 <code>bt-piscan</code> 会在 hciuart 初始化蓝牙后、Kismet 启动前执行 <code>hciconfig hci0 piscan</code>，确保蓝牙处于扫描模式。</p>
 <p>重启验证，Kismet 日志中蓝牙设备恢复正常：</p>
-<pre tabindex="0"><code>Detected new Bluetooth device CC:DA:20:ED:46:3F (Mijia Scale S400)
-Detected new Bluetooth device 44:DF:65:B5:78:03 (DL02V1)
-Detected new Bluetooth device 44:27:F3:39:7F:12 (Redmi Watch 2)
+<pre tabindex="0"><code>Detected new Bluetooth device CC:DA:20:ED:**:** (Mijia Scale S400)
+Detected new Bluetooth device 44:DF:65:B5:**:** (DL02V1)
+Detected new Bluetooth device 44:27:F3:39:**:** (Redmi Watch 2)
 ...
 </code></pre><hr>
 <h2 id="问题二wi-fi-热点手机无法连接">
@@ -321,7 +321,7 @@ Detected new Bluetooth device 44:27:F3:39:7F:12 (Redmi Watch 2)
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">channel</span><span style="color:#f92672">=</span><span style="color:#e6db74">6</span>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">wmm_enabled</span><span style="color:#f92672">=</span><span style="color:#e6db74">0       # ← WMM 关闭</span>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">wpa</span><span style="color:#f92672">=</span><span style="color:#e6db74">2</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">wpa_passphrase</span><span style="color:#f92672">=</span><span style="color:#e6db74">a2659633~</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">wpa_passphrase</span><span style="color:#f92672">=</span><span style="color:#e6db74">******</span>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">wpa_key_mgmt</span><span style="color:#f92672">=</span><span style="color:#e6db74">WPA-PSK</span>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">wpa_pairwise</span><span style="color:#f92672">=</span><span style="color:#e6db74">TKIP</span>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">rsn_pairwise</span><span style="color:#f92672">=</span><span style="color:#e6db74">CCMP</span>
@@ -342,13 +342,13 @@ Detected new Bluetooth device 44:27:F3:39:7F:12 (Redmi Watch 2)
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">auth_algs</span><span style="color:#f92672">=</span><span style="color:#e6db74">1</span>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">ignore_broadcast_ssid</span><span style="color:#f92672">=</span><span style="color:#e6db74">0</span>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">wpa</span><span style="color:#f92672">=</span><span style="color:#e6db74">2</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">wpa_passphrase</span><span style="color:#f92672">=</span><span style="color:#e6db74">a2659633~</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">wpa_passphrase</span><span style="color:#f92672">=</span><span style="color:#e6db74">*****</span>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">wpa_key_mgmt</span><span style="color:#f92672">=</span><span style="color:#e6db74">WPA-PSK</span>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">wpa_pairwise</span><span style="color:#f92672">=</span><span style="color:#e6db74">TKIP</span>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">rsn_pairwise</span><span style="color:#f92672">=</span><span style="color:#e6db74">CCMP</span>
 </span></span></code></pre></div><p>重启 hostapd 后，iPhone 秒连：</p>
-<pre tabindex="0"><code>wlan1: STA 8a:07:7e:5b:cb:b5 IEEE 802.11: authenticated
-wlan1: STA 8a:07:7e:5b:cb:b5 IEEE 802.11: associated (aid 1)
+<pre tabindex="0"><code>wlan1: STA 8a:07:7e:5b:**:** IEEE 802.11: authenticated
+wlan1: STA 8a:07:7e:5b:**:** IEEE 802.11: associated (aid 1)
 WPA: pairwise key handshake completed (RSN)
 DHCPACK(wlan1) 192.168.10.88 iPhone
 </code></pre><p>连接后 TX 速率达到 <strong>104 Mbit/s</strong>（802.11n MCS 13），比之前纯 802.11g 带宽翻倍。</p>

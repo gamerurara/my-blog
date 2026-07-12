@@ -52,10 +52,10 @@ hci0: Type: Primary Bus: UART
 ```bash
 $ sudo hcitool scan
 Scanning ...
-    40:EF:4C:15:8F:38  EDIFIER R1700BT
-    5C:C5:63:82:17:E8  尹生的盒子
-    CC:DA:20:ED:46:3F  Mijia Scale S400
-    44:27:F3:39:7F:12  Redmi Watch 2
+    40:EF:4C:15:**:**  EDIFIER R1700BT
+    5C:C5:63:82:**:**  尹生的盒子
+    CC:DA:20:ED:**:**  Mijia Scale S400
+    44:27:F3:39:**:**  Redmi Watch 2
 ```
 
 这说明蓝牙硬件和驱动都正常，问题出在接口模式上。
@@ -97,9 +97,9 @@ sudo systemctl enable --now bt-piscan.service
 重启验证，Kismet 日志中蓝牙设备恢复正常：
 
 ```
-Detected new Bluetooth device CC:DA:20:ED:46:3F (Mijia Scale S400)
-Detected new Bluetooth device 44:DF:65:B5:78:03 (DL02V1)
-Detected new Bluetooth device 44:27:F3:39:7F:12 (Redmi Watch 2)
+Detected new Bluetooth device CC:DA:20:ED:**:** (Mijia Scale S400)
+Detected new Bluetooth device 44:DF:65:B5:**:** (DL02V1)
+Detected new Bluetooth device 44:27:F3:39:**:** (Redmi Watch 2)
 ...
 ```
 
@@ -124,7 +124,7 @@ hw_mode=g          # ← 只有 802.11g
 channel=6
 wmm_enabled=0       # ← WMM 关闭
 wpa=2
-wpa_passphrase=a2659633~
+wpa_passphrase=******
 wpa_key_mgmt=WPA-PSK
 wpa_pairwise=TKIP
 rsn_pairwise=CCMP
@@ -149,7 +149,7 @@ macaddr_acl=0
 auth_algs=1
 ignore_broadcast_ssid=0
 wpa=2
-wpa_passphrase=a2659633~
+wpa_passphrase=*****
 wpa_key_mgmt=WPA-PSK
 wpa_pairwise=TKIP
 rsn_pairwise=CCMP
@@ -158,8 +158,8 @@ rsn_pairwise=CCMP
 重启 hostapd 后，iPhone 秒连：
 
 ```
-wlan1: STA 8a:07:7e:5b:cb:b5 IEEE 802.11: authenticated
-wlan1: STA 8a:07:7e:5b:cb:b5 IEEE 802.11: associated (aid 1)
+wlan1: STA 8a:07:7e:5b:**:** IEEE 802.11: authenticated
+wlan1: STA 8a:07:7e:5b:**:** IEEE 802.11: associated (aid 1)
 WPA: pairwise key handshake completed (RSN)
 DHCPACK(wlan1) 192.168.10.88 iPhone
 ```
