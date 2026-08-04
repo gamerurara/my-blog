@@ -8,10 +8,10 @@
   name="viewport"
   content="width=device-width, initial-scale=1, shrink-to-fit=no"
 /><title>
-  树莓派 Kali 折腾记：修复 Kismet 蓝牙扫描与 Wi-Fi 热点 | D-Sketon
+  OpenClash 订阅更新故障排查与本地订阅转换器搭建 | D-Sketon
 </title>
-<meta name="description" content="记录树莓派 3B 上 Kali Linux 运行 Kismet 时蓝牙扫描失效和 Wi-Fi 热点无法连接的排查与修复过程。"/>
-    <meta name="keywords" content="树莓派,Kali,Kismet,蓝牙,Wi-Fi热点,hostapd,hciuart,systemd" /><script>
+<meta name="description" content="记录 OpenWrt 上 OpenClash 订阅更新持续失败的排查过程：从 DNS 逐层定位到订阅转换器无法解析 vless reality 节点，最终在本机搭建轻量转换器彻底解决，并实现了规则自动更新与开机自启。"/>
+    <meta name="keywords" content="OpenClash,OpenWrt,订阅转换器,subconverter,vless,reality,AdGuard,广告拦截,Clash" /><script>
   window.siteConfig = JSON.parse("{\"anchor\":{\"auto\":{\"enable\":false,\"length\":60},\"explicit\":{\"enable\":false,\"marker\":\"{#anchor-\",\"prefix\":\"anchor-\"}},\"anchor_icon\":null,\"base\":\"https://boniufamily.top/\",\"clipboard\":{\"copyright\":{\"count\":50,\"enable\":false,\"license_type\":\"by-nc-sa\"},\"fail\":{\"en\":\"Copy failed (ﾟ⊿ﾟ)ﾂ\",\"ja\":\"コピー失敗 (ﾟ⊿ﾟ)ﾂ\",\"pt-br\":\"Falha ao copiar (ﾟ⊿ﾟ)ﾂ\",\"zh-cn\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"zh-tw\":\"複製失敗 (ﾟ⊿ﾟ)ﾂ\"},\"success\":{\"en\":\"Copy successfully (*^▽^*)\",\"ja\":\"コピー成功 (*^▽^*)\",\"pt-br\":\"Copiado com sucesso (*^▽^*)\",\"zh-cn\":\"复制成功 (*^▽^*)\",\"zh-tw\":\"複製成功 (*^▽^*)\"}},\"code_block\":{\"expand\":true},\"icon_font\":\"4552607_ex15nbittbh\",\"outdate\":{\"daysago\":180,\"enable\":false,\"message\":{\"en\":\"This article was last updated on {time}. Please note that the content may no longer be applicable.\",\"ja\":\"この記事は最終更新日：{time}。記載内容が現在有効でない可能性がありますのでご注意ください。\",\"pt-br\":\"Este artigo foi atualizado pela última vez em {time}. Observe que o conteúdo pode não ser mais aplicável.\",\"zh-cn\":\"本文最后更新于 {time}，请注意文中内容可能已不适用。\",\"zh-tw\":\"本文最後更新於 {time}，請注意文中內容可能已不適用。\"}}}");
   
 </script>
@@ -34,20 +34,20 @@
     type="font/woff2"
     crossorigin="anonymous"
   /><link rel="stylesheet" href="/css/loader.min.ac746e154f756f8220326eeb52a719f142ab038be5a8ddf30ea5ef15ef2356ea.css" /><meta property="og:type" content="website" />
-  <meta property="og:title" content="树莓派 Kali 折腾记：修复 Kismet 蓝牙扫描与 Wi-Fi 热点 | D-Sketon" />
+  <meta property="og:title" content="OpenClash 订阅更新故障排查与本地订阅转换器搭建 | D-Sketon" />
   <meta
     property="og:description"
-    content="记录树莓派 3B 上 Kali Linux 运行 Kismet 时蓝牙扫描失效和 Wi-Fi 热点无法连接的排查与修复过程。"
+    content="记录 OpenWrt 上 OpenClash 订阅更新持续失败的排查过程：从 DNS 逐层定位到订阅转换器无法解析 vless reality 节点，最终在本机搭建轻量转换器彻底解决，并实现了规则自动更新与开机自启。"
   />
-  <meta property="og:url" content="https://boniufamily.top/post/raspberry-pi-kismet-bluetooth-wifi-fix/" />
+  <meta property="og:url" content="https://boniufamily.top/post/openclash-subconverter-fix/" />
   <meta
     property="og:site_name"
     content="gamerurara"
   />
   <meta property="og:image" content="https://boniufamily.top/images/banner.webp" />
   <meta property="article:author" content="D-Sketon" />
-  <meta property="article:published_time" content="2026-07-12T17:10:00&#43;08:00" />
-  <meta property="article:modified_time" content="2026-07-12T17:10:00&#43;08:00" /><meta property="article:tag" content="树莓派, Kali, Kismet, 蓝牙, Wi-Fi, Linux" /><meta name="twitter:card" content="summary" /><meta name="twitter:image" content="https://boniufamily.top/images/banner.webp" />
+  <meta property="article:published_time" content="2026-08-04T15:00:00&#43;08:00" />
+  <meta property="article:modified_time" content="2026-08-04T15:00:00&#43;08:00" /><meta property="article:tag" content="OpenClash, OpenWrt, 网络, 代理, Linux" /><meta name="twitter:card" content="summary" /><meta name="twitter:image" content="https://boniufamily.top/images/banner.webp" />
 <link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/main.min.5a0a43eb14b8f925af7fd8d543b60f5f2fe844f4d718b141cb8b28f2f5e127fa.css" /><link
     rel="preload"
     as="style"
@@ -122,9 +122,9 @@
       </a><a id="main-nav-toggle" class="nav-icon" aria-label="Toggle navigation" role="button"></a>
   </nav>
   <nav id="sub-nav" aria-label="Secondary navigation"></nav></div>
-<header id="header" aria-label="Site header"><picture></picture><img  fetchpriority="high" src="/images/banner.webp" alt="树莓派 Kali 折腾记：修复 Kismet 蓝牙扫描与 Wi-Fi 热点"><div id="header-outer">
+<header id="header" aria-label="Site header"><picture></picture><img  fetchpriority="high" src="/images/banner.webp" alt="OpenClash 订阅更新故障排查与本地订阅转换器搭建"><div id="header-outer">
     <div id="header-title"><span id="logo">
-            <h1 data-aos="slide-up">树莓派 Kali 折腾记：修复 Kismet 蓝牙扫描与 Wi-Fi 热点</h1>
+            <h1 data-aos="slide-up">OpenClash 订阅更新故障排查与本地订阅转换器搭建</h1>
           </span><h2 id="subtitle-wrap" data-aos="slide-down"></h2></div>
   </div>
 </header><div id="content"
@@ -139,22 +139,27 @@
   <nav id="TableOfContents">
   <ul>
     <li><a href="#环境">环境</a></li>
-    <li><a href="#问题一kismet-蓝牙扫描失效">问题一：Kismet 蓝牙扫描失效</a>
+    <li><a href="#现象">现象</a></li>
+    <li><a href="#排查过程apidlerio-到底怎么了">排查过程：api.dler.io 到底怎么了</a>
       <ul>
-        <li><a href="#现象">现象</a></li>
-        <li><a href="#排查">排查</a></li>
-        <li><a href="#根因">根因</a></li>
-        <li><a href="#修复">修复</a></li>
+        <li><a href="#第一步dns-解析">第一步：DNS 解析</a></li>
+        <li><a href="#第二步http-请求">第二步：HTTP 请求</a></li>
+        <li><a href="#第三步找到第一个元凶--noss1-参数">第三步：找到第一个元凶 —— <code>noss=1</code> 参数</a></li>
+        <li><a href="#第四步第二个元凶--转换器不认识-vless-reality">第四步：第二个元凶 —— 转换器不认识 vless reality</a></li>
+        <li><a href="#第五步顺带发现-http2-响应截断">第五步：顺带发现 HTTP/2 响应截断</a></li>
       </ul>
     </li>
-    <li><a href="#问题二wi-fi-热点手机无法连接">问题二：Wi-Fi 热点手机无法连接</a>
+    <li><a href="#解决方案本地搭建轻量订阅转换器">解决方案：本地搭建轻量订阅转换器</a>
       <ul>
-        <li><a href="#现象-1">现象</a></li>
-        <li><a href="#排查-1">排查</a></li>
-        <li><a href="#修复-1">修复</a></li>
+        <li><a href="#架构">架构</a></li>
+        <li><a href="#核心逻辑">核心逻辑</a></li>
+        <li><a href="#关键配置修改">关键配置修改</a></li>
+        <li><a href="#开机自启systemd-用户服务">开机自启（systemd 用户服务）</a></li>
+        <li><a href="#规则自动更新">规则自动更新</a></li>
       </ul>
     </li>
-    <li><a href="#总结">总结</a></li>
+    <li><a href="#最终效果">最终效果</a></li>
+    <li><a href="#经验总结">经验总结</a></li>
   </ul>
 </nav>
 </div></div>
@@ -226,158 +231,219 @@
     class="article-date-link icon-calendar"
     data-aos="zoom-in"
   >
-    <time datetime="2026-07-12 17:10:00 &#43;0800 CST" itemprop="datePublished"
-      >2026-07-12</time
+    <time datetime="2026-08-04 15:00:00 &#43;0800 CST" itemprop="datePublished"
+      >2026-08-04</time
     >
     <time style="display: none;" id="post-update-time"
-      >2026-07-12</time
+      >2026-08-04</time
     >
   </span></div>
-</div><div class="hr-line"></div><div class="e-content article-entry" itemprop="articleBody"><p>最近发现树莓派 3B 上的 Kismet 蓝牙扫描又双叒不工作了，同时 Wi-Fi 热点手机也连不上。排查一圈发现是两个独立问题，记录一下修复过程。</p>
+</div><div class="hr-line"></div><div class="e-content article-entry" itemprop="articleBody"><p>最近家里的网络又出问题了：YouTube 和 Google 全部打不开，OpenClash 日志里全是 <code>i/o timeout</code>。之前遇到这种情况手动切一下&quot;增强-TUN&quot;模式能撑一两天，但这次怎么切都不行。排查下来发现根本不是模式的问题，而是一个&quot;转换器&quot;在背后捣乱。记录一下完整过程。</p>
 <h2 id="环境">
 <a class="header-anchor" href="#%e7%8e%af%e5%a2%83"></a>
 环境
 </h2><ul>
-<li>硬件：树莓派 3B</li>
-<li>系统：Kali Linux ARM</li>
-<li>Wi-Fi 热点：USB 网卡 RTL8192EU（wlan1），SSID <code>ssss</code>，2.4G Channel 6</li>
-<li>蓝牙：板载 BCM43430（hci0），通过 hciuart 服务管理</li>
-<li>Kismet：双数据源（wlan0 Wi-Fi + hci0 蓝牙）</li>
+<li>软路由：OpenWrt（x86_64，OpenClash 运行中）</li>
+<li>机场订阅：某机场（后文用 <code>&lt;订阅地址&gt;</code> 代替）</li>
+<li>订阅转换器：<code>api.dler.io</code>（OpenClash 默认）</li>
+<li>客户端：Clash（mihomo 内核）</li>
 </ul>
-<hr>
-<h2 id="问题一kismet-蓝牙扫描失效">
-<a class="header-anchor" href="#%e9%97%ae%e9%a2%98%e4%b8%80kismet-%e8%93%9d%e7%89%99%e6%89%ab%e6%8f%8f%e5%a4%b1%e6%95%88"></a>
-问题一：Kismet 蓝牙扫描失效
-</h2><h3 id="现象">
+<h2 id="现象">
 <a class="header-anchor" href="#%e7%8e%b0%e8%b1%a1"></a>
 现象
-</h3><p>Kismet 正常运行，Wi-Fi 数据源正常捕获设备，但蓝牙数据源完全没有任何设备被发现。系统服务状态看起来一切正常：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ systemctl status kismet bluetooth hciuart
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 全部 active (running)</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>$ hciconfig hci0
-</span></span><span style="display:flex;"><span>hci0: Type: Primary Bus: UART
-</span></span><span style="display:flex;"><span>    UP RUNNING          <span style="color:#75715e"># ← 看起来是 UP 的</span>
-</span></span><span style="display:flex;"><span>    Link mode: PERIPHERAL ACCEPT  <span style="color:#75715e"># ← 问题在这里！</span>
-</span></span></code></pre></div><h3 id="排查">
-<a class="header-anchor" href="#%e6%8e%92%e6%9f%a5"></a>
-排查
-</h3><p>用 <code>hcitool scan</code> 测试，不加 sudo 时扫描没有任何结果，但加上 sudo 后却能看到多个蓝牙设备：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ sudo hcitool scan
-</span></span><span style="display:flex;"><span>Scanning ...
-</span></span><span style="display:flex;"><span>    40:EF:4C:15:**:**  EDIFIER R1700BT
-</span></span><span style="display:flex;"><span>    5C:C5:63:82:**:**  尹生的盒子
-</span></span><span style="display:flex;"><span>    CC:DA:20:ED:**:**  Mijia Scale S400
-</span></span><span style="display:flex;"><span>    44:27:F3:39:**:**  Redmi Watch <span style="color:#ae81ff">2</span>
-</span></span></code></pre></div><p>这说明蓝牙硬件和驱动都正常，问题出在接口模式上。</p>
-<h3 id="根因">
-<a class="header-anchor" href="#%e6%a0%b9%e5%9b%a0"></a>
-根因
-</h3><p>树莓派板载 BCM43430 蓝牙在 <code>hciuart</code> 初始化后默认处于 <strong>PERIPHERAL ACCEPT</strong> 模式（外设模式，等待被连接），而不是主动扫描模式。Kismet 的 <code>kismet_cap_linux_bluetooth</code> 进程不会自动切换到扫描模式，所以一直没有任何蓝牙数据。</p>
-<h3 id="修复">
-<a class="header-anchor" href="#%e4%bf%ae%e5%a4%8d"></a>
-修复
-</h3><p>需要确保在 Kismet 启动之前，hci0 处于 <strong>PSCAN + ISCAN</strong>（Page Scan + Inquiry Scan）模式。创建一个 systemd oneshot 服务来解决：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-ini" data-lang="ini"><span style="display:flex;"><span><span style="color:#75715e"># /etc/systemd/system/bt-piscan.service</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">[Unit]</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Description</span><span style="color:#f92672">=</span><span style="color:#e6db74">Enable Bluetooth PSCAN/ISCAN for Kismet</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Before</span><span style="color:#f92672">=</span><span style="color:#e6db74">kismet.service</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">After</span><span style="color:#f92672">=</span><span style="color:#e6db74">hciuart.service bluetooth.service</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Requires</span><span style="color:#f92672">=</span><span style="color:#e6db74">hciuart.service bluetooth.service</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">[Service]</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Type</span><span style="color:#f92672">=</span><span style="color:#e6db74">oneshot</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ExecStart</span><span style="color:#f92672">=</span><span style="color:#e6db74">/usr/bin/hciconfig hci0 piscan</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">RemainAfterExit</span><span style="color:#f92672">=</span><span style="color:#e6db74">yes</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">[Install]</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">WantedBy</span><span style="color:#f92672">=</span><span style="color:#e6db74">multi-user.target</span>
-</span></span></code></pre></div><p>启用并启动：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo systemctl daemon-reload
-</span></span><span style="display:flex;"><span>sudo systemctl enable --now bt-piscan.service
-</span></span></code></pre></div><p>这样 <code>bt-piscan</code> 会在 hciuart 初始化蓝牙后、Kismet 启动前执行 <code>hciconfig hci0 piscan</code>，确保蓝牙处于扫描模式。</p>
-<p>重启验证，Kismet 日志中蓝牙设备恢复正常：</p>
-<pre tabindex="0"><code>Detected new Bluetooth device CC:DA:20:ED:**:** (Mijia Scale S400)
-Detected new Bluetooth device 44:DF:65:B5:**:** (DL02V1)
-Detected new Bluetooth device 44:27:F3:39:**:** (Redmi Watch 2)
-...
-</code></pre><hr>
-<h2 id="问题二wi-fi-热点手机无法连接">
-<a class="header-anchor" href="#%e9%97%ae%e9%a2%98%e4%ba%8cwi-fi-%e7%83%ad%e7%82%b9%e6%89%8b%e6%9c%ba%e6%97%a0%e6%b3%95%e8%bf%9e%e6%8e%a5"></a>
-问题二：Wi-Fi 热点手机无法连接
-</h2><h3 id="现象-1">
-<a class="header-anchor" href="#%e7%8e%b0%e8%b1%a1-1"></a>
-现象
-</h3><p>手机能看到 SSID <code>ssss</code>，但连接时提示「无法接入网络」。树莓派端 hostapd 和 dnsmasq 日志完全没有任何客户端连接记录。</p>
-<h3 id="排查-1">
-<a class="header-anchor" href="#%e6%8e%92%e6%9f%a5-1"></a>
-排查
-</h3><p>检查 hostapd 配置文件：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-ini" data-lang="ini"><span style="display:flex;"><span><span style="color:#75715e"># /etc/hostapd/hostapd.conf（修复前）</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">interface</span><span style="color:#f92672">=</span><span style="color:#e6db74">wlan1</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">driver</span><span style="color:#f92672">=</span><span style="color:#e6db74">nl80211</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ssid</span><span style="color:#f92672">=</span><span style="color:#e6db74">ssss</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">hw_mode</span><span style="color:#f92672">=</span><span style="color:#e6db74">g          # ← 只有 802.11g</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">channel</span><span style="color:#f92672">=</span><span style="color:#e6db74">6</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">wmm_enabled</span><span style="color:#f92672">=</span><span style="color:#e6db74">0       # ← WMM 关闭</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">wpa</span><span style="color:#f92672">=</span><span style="color:#e6db74">2</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">wpa_passphrase</span><span style="color:#f92672">=</span><span style="color:#e6db74">******</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">wpa_key_mgmt</span><span style="color:#f92672">=</span><span style="color:#e6db74">WPA-PSK</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">wpa_pairwise</span><span style="color:#f92672">=</span><span style="color:#e6db74">TKIP</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">rsn_pairwise</span><span style="color:#f92672">=</span><span style="color:#e6db74">CCMP</span>
-</span></span></code></pre></div><p>问题很明显：配置只启用了 <strong>802.11g</strong>（最高 54Mbps），且 <strong>WMM（Wi-Fi Multimedia）被关闭</strong>。现代手机（尤其是 iPhone）对纯 802.11g 且无 WMM 的热点兼容性很差，要么不显示，要么连接失败。</p>
-<h3 id="修复-1">
-<a class="header-anchor" href="#%e4%bf%ae%e5%a4%8d-1"></a>
-修复
-</h3><p>开启 <strong>802.11n</strong> 和 <strong>WMM</strong>：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-ini" data-lang="ini"><span style="display:flex;"><span><span style="color:#75715e"># /etc/hostapd/hostapd.conf（修复后）</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">interface</span><span style="color:#f92672">=</span><span style="color:#e6db74">wlan1</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">driver</span><span style="color:#f92672">=</span><span style="color:#e6db74">nl80211</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ssid</span><span style="color:#f92672">=</span><span style="color:#e6db74">ssss</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">hw_mode</span><span style="color:#f92672">=</span><span style="color:#e6db74">g</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">channel</span><span style="color:#f92672">=</span><span style="color:#e6db74">6</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ieee80211n</span><span style="color:#f92672">=</span><span style="color:#e6db74">1        # ← 新增：开启 802.11n</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">wmm_enabled</span><span style="color:#f92672">=</span><span style="color:#e6db74">1        # ← 修复：开启 WMM</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">macaddr_acl</span><span style="color:#f92672">=</span><span style="color:#e6db74">0</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">auth_algs</span><span style="color:#f92672">=</span><span style="color:#e6db74">1</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ignore_broadcast_ssid</span><span style="color:#f92672">=</span><span style="color:#e6db74">0</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">wpa</span><span style="color:#f92672">=</span><span style="color:#e6db74">2</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">wpa_passphrase</span><span style="color:#f92672">=</span><span style="color:#e6db74">*****</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">wpa_key_mgmt</span><span style="color:#f92672">=</span><span style="color:#e6db74">WPA-PSK</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">wpa_pairwise</span><span style="color:#f92672">=</span><span style="color:#e6db74">TKIP</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">rsn_pairwise</span><span style="color:#f92672">=</span><span style="color:#e6db74">CCMP</span>
-</span></span></code></pre></div><p>重启 hostapd 后，iPhone 秒连：</p>
-<pre tabindex="0"><code>wlan1: STA 8a:07:7e:5b:**:** IEEE 802.11: authenticated
-wlan1: STA 8a:07:7e:5b:**:** IEEE 802.11: associated (aid 1)
-WPA: pairwise key handshake completed (RSN)
-DHCPACK(wlan1) 192.168.10.88 iPhone
-</code></pre><p>连接后 TX 速率达到 <strong>104 Mbit/s</strong>（802.11n MCS 13），比之前纯 802.11g 带宽翻倍。</p>
-<hr>
-<h2 id="总结">
-<a class="header-anchor" href="#%e6%80%bb%e7%bb%93"></a>
-总结
-</h2><table>
+</h2><ul>
+<li>本机 <code>curl https://www.google.com</code> 超时（exit 28）</li>
+<li>OpenClash 日志反复出现：</li>
+</ul>
+<pre tabindex="0"><code>dial 🐟 漏网之鱼 mihomo --&gt; 8.8.8.8:443 error: &lt;旧节点IP&gt;:6688 connect error: dial tcp &lt;旧节点IP&gt;:6688: i/o timeout
+</code></pre><ul>
+<li>运行中的 <code>config.yaml</code> 只有一个节点，且该节点<strong>端口已死</strong>（TCP 直测不通，Clash API 显示 <code>alive: false</code>）</li>
+</ul>
+<blockquote>
+<p>疑问：为什么手动切换&quot;增强-TUN&quot;模式偶尔能恢复？因为切换模式 = 重启 OpenClash = 重新测速，死节点偶尔能短暂握手成功。治标不治本。</p>
+</blockquote>
+<h2 id="排查过程apidlerio-到底怎么了">
+<a class="header-anchor" href="#%e6%8e%92%e6%9f%a5%e8%bf%87%e7%a8%8bapidlerio-%e5%88%b0%e5%ba%95%e6%80%8e%e4%b9%88%e4%ba%86"></a>
+排查过程：api.dler.io 到底怎么了
+</h2><h3 id="第一步dns-解析">
+<a class="header-anchor" href="#%e7%ac%ac%e4%b8%80%e6%ad%a5dns-%e8%a7%a3%e6%9e%90"></a>
+第一步：DNS 解析
+</h3><p>在 OpenWrt 上分别用本机 DNS 和公共 DNS 解析转换器域名：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nslookup api.dler.io          <span style="color:#75715e"># → 104.21.69.27（Cloudflare，正常）</span>
+</span></span><span style="display:flex;"><span>nslookup api.dler.io 8.8.8.8  <span style="color:#75715e"># → 172.67.203.47（正常）</span>
+</span></span></code></pre></div><p>DNS 没问题，不是解析失败。</p>
+<h3 id="第二步http-请求">
+<a class="header-anchor" href="#%e7%ac%ac%e4%ba%8c%e6%ad%a5http-%e8%af%b7%e6%b1%82"></a>
+第二步：HTTP 请求
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -sv <span style="color:#e6db74">&#34;https://api.dler.io/sub?target=clash&amp;url=&lt;订阅地址&gt;&#34;</span>
+</span></span></code></pre></div><p>结果：</p>
+<pre tabindex="0"><code>HTTP/2 400
+No nodes were found!
+</code></pre><p><strong>转换器根本没挂</strong>，它明确拒绝了请求：拉取订阅后&quot;找不到任何节点&quot;。但直接访问订阅地址明明能拿到节点啊？</p>
+<h3 id="第三步找到第一个元凶--noss1-参数">
+<a class="header-anchor" href="#%e7%ac%ac%e4%b8%89%e6%ad%a5%e6%89%be%e5%88%b0%e7%ac%ac%e4%b8%80%e4%b8%aa%e5%85%83%e5%87%b6--noss1-%e5%8f%82%e6%95%b0"></a>
+第三步：找到第一个元凶 —— <code>noss=1</code> 参数
+</h3><p>对比测试：</p>
+<table>
   <thead>
       <tr>
-          <th>问题</th>
-          <th>根因</th>
-          <th>修复方式</th>
+          <th>请求</th>
+          <th>结果</th>
       </tr>
   </thead>
   <tbody>
       <tr>
-          <td>Kismet 蓝牙不扫描</td>
-          <td>hci0 处于 PERIPHERAL 模式，未开启扫描</td>
-          <td>创建 <code>bt-piscan.service</code> 在 Kismet 启动前执行 <code>hciconfig hci0 piscan</code></td>
+          <td>转换器 + 订阅地址带 <code>noss=1</code></td>
+          <td>❌ 400 <code>No nodes were found!</code></td>
       </tr>
       <tr>
-          <td>手机连不上热点</td>
-          <td>hostapd 仅有 802.11g 且 WMM 关闭</td>
-          <td>开启 <code>ieee80211n=1</code> + <code>wmm_enabled=1</code></td>
+          <td>转换器 + 订阅地址不带 <code>noss=1</code></td>
+          <td>✅ 200，正常返回配置</td>
       </tr>
   </tbody>
 </table>
-<p>两个修复都已通过重启验证，配置持久化，不会再复发。</p></div>
+<p><code>noss=1</code> 是&quot;排除 SS 节点&quot;的参数，但转换器在应用该参数时把节点全过滤了，返回空。<strong>把 OpenClash 订阅地址里的 <code>&amp;noss=1</code> 去掉</strong>，订阅更新恢复。</p>
+<h3 id="第四步第二个元凶--转换器不认识-vless-reality">
+<a class="header-anchor" href="#%e7%ac%ac%e5%9b%9b%e6%ad%a5%e7%ac%ac%e4%ba%8c%e4%b8%aa%e5%85%83%e5%87%b6--%e8%bd%ac%e6%8d%a2%e5%99%a8%e4%b8%8d%e8%ae%a4%e8%af%86-vless-reality"></a>
+第四步：第二个元凶 —— 转换器不认识 vless reality
+</h3><p>去掉 <code>noss=1</code> 后订阅更新&quot;成功&quot;了，但打开 config.yaml 一看：节点全是 <strong>ss 类型</strong>，而订阅源里明明有 4 个 vless reality 节点。</p>
+<p>进一步测试发现：</p>
+<table>
+  <thead>
+      <tr>
+          <th>输入</th>
+          <th>dler.io 输出</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>订阅源（2 ss + 4 vless）</td>
+          <td>只有 2 个 ss</td>
+      </tr>
+      <tr>
+          <td>纯 vless 订阅（<code>noss=1</code> 过滤后）</td>
+          <td><code>No nodes were found!</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>结论：api.dler.io 这个转换器实例无法解析 vless reality 节点</strong>（reality 是较新的协议，很多公共转换器实例版本陈旧不支持）。而我又不想要 ss 节点，于是陷入死结：</p>
+<ul>
+<li>不带 <code>noss=1</code> → 只有 ss（不想要）</li>
+<li>带 <code>noss=1</code> → 纯 vless → 转换器报&quot;无节点&quot;</li>
+</ul>
+<h3 id="第五步顺带发现-http2-响应截断">
+<a class="header-anchor" href="#%e7%ac%ac%e4%ba%94%e6%ad%a5%e9%a1%ba%e5%b8%a6%e5%8f%91%e7%8e%b0-http2-%e5%93%8d%e5%ba%94%e6%88%aa%e6%96%ad"></a>
+第五步：顺带发现 HTTP/2 响应截断
+</h3><p>排查中还发现 dler.io 对带模板的请求会返回 <strong>Content-Length 与实际不符</strong>的响应：</p>
+<pre tabindex="0"><code>HTTP/1.1 200 OK
+Content-Length: 529455   ← 声称 529KB
+实际只收到 130802 字节  ← 差 398653 字节
+</code></pre><p>curl 因此报 <code>(18) end of response with N bytes missing</code>。给 OpenClash 的下载脚本加了 <code>--http1.1</code> 也只是换了个报错，治不了根。</p>
+<h2 id="解决方案本地搭建轻量订阅转换器">
+<a class="header-anchor" href="#%e8%a7%a3%e5%86%b3%e6%96%b9%e6%a1%88%e6%9c%ac%e5%9c%b0%e6%90%ad%e5%bb%ba%e8%bd%bb%e9%87%8f%e8%ae%a2%e9%98%85%e8%bd%ac%e6%8d%a2%e5%99%a8"></a>
+解决方案：本地搭建轻量订阅转换器
+</h2><p>既然 dler.io 靠不住，订阅源本身又是好的（返回标准 vless:// 链接），那就在本机写一个<strong>轻量转换器</strong>：拉取订阅 → 解析 vless 链接 → 生成 Clash YAML。</p>
+<h3 id="架构">
+<a class="header-anchor" href="#%e6%9e%b6%e6%9e%84"></a>
+架构
+</h3><pre tabindex="0"><code>本机 :8080 转换器 (Python, systemd 自启)
+  ├─ 拉取机场订阅 (UA: clash.meta)
+  ├─ base64 解码 → 解析 vless:// 链接
+  ├─ 自动排除 ss 节点
+  ├─ 生成 proxy-groups + rules
+  └─ OpenClash convert_address 指向本机
+</code></pre><h3 id="核心逻辑">
+<a class="header-anchor" href="#%e6%a0%b8%e5%bf%83%e9%80%bb%e8%be%91"></a>
+核心逻辑
+</h3><ol>
+<li><strong>解析 vless 链接</strong>：<code>vless://uuid@server:port?flow=...&amp;security=reality&amp;pbk=...&amp;sid=...</code> → Clash proxy 字段</li>
+<li><strong>排除 ss</strong>：只保留 <code>type: vless</code> 的节点</li>
+<li><strong>规则</strong>：从 AdGuard 官方 DNS 过滤列表（adguardteam.github.io）生成广告拦截规则，叠加本地静态规则（直连/微软/苹果等分组）</li>
+</ol>
+<h3 id="关键配置修改">
+<a class="header-anchor" href="#%e5%85%b3%e9%94%ae%e9%85%8d%e7%bd%ae%e4%bf%ae%e6%94%b9"></a>
+关键配置修改
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># OpenWrt 上把转换器指向本机</span>
+</span></span><span style="display:flex;"><span>uci set openclash.@config_subscribe<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span>.convert_address<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://&lt;本机IP&gt;:8080/sub&#34;</span>
+</span></span><span style="display:flex;"><span>uci commit openclash
+</span></span><span style="display:flex;"><span>/usr/share/openclash/openclash.sh config
+</span></span><span style="display:flex;"><span>/etc/init.d/openclash restart
+</span></span></code></pre></div><h3 id="开机自启systemd-用户服务">
+<a class="header-anchor" href="#%e5%bc%80%e6%9c%ba%e8%87%aa%e5%90%afsystemd-%e7%94%a8%e6%88%b7%e6%9c%8d%e5%8a%a1"></a>
+开机自启（systemd 用户服务）
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-ini" data-lang="ini"><span style="display:flex;"><span><span style="color:#75715e"># ~/.config/systemd/user/subconverter-local.service</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">[Unit]</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Description</span><span style="color:#f92672">=</span><span style="color:#e6db74">Local Clash Subscription Converter</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">After</span><span style="color:#f92672">=</span><span style="color:#e6db74">network-online.target</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">[Service]</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Type</span><span style="color:#f92672">=</span><span style="color:#e6db74">simple</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ExecStart</span><span style="color:#f92672">=</span><span style="color:#e6db74">/usr/bin/python3 /home/&lt;user&gt;/.hermes/scripts/subconverter_local.py 8080</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Restart</span><span style="color:#f92672">=</span><span style="color:#e6db74">always</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">RestartSec</span><span style="color:#f92672">=</span><span style="color:#e6db74">5</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">[Install]</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">WantedBy</span><span style="color:#f92672">=</span><span style="color:#e6db74">default.target</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>systemctl --user enable --now subconverter-local.service
+</span></span></code></pre></div><blockquote>
+<p>注意：用户服务要开机自启（无需登录），需开启 linger：<code>loginctl enable-linger &lt;user&gt;</code>。另外转换器需要响应 <strong>HEAD 请求</strong>，OpenClash 更新时会先发 HEAD 拿 ETag，不实现的话会 501。</p>
+</blockquote>
+<h3 id="规则自动更新">
+<a class="header-anchor" href="#%e8%a7%84%e5%88%99%e8%87%aa%e5%8a%a8%e6%9b%b4%e6%96%b0"></a>
+规则自动更新
+</h3><p>AdGuard 官方列表每天都会更新，写了个定时任务每天凌晨 4 点拉取最新规则并重启转换器：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 每天 4:00 cron：拉取 → 重建规则文件 → systemctl --user restart subconverter-local.service</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 网络不可用时静默跳过，保留旧规则，不影响服务</span>
+</span></span></code></pre></div><h2 id="最终效果">
+<a class="header-anchor" href="#%e6%9c%80%e7%bb%88%e6%95%88%e6%9e%9c"></a>
+最终效果
+</h2><table>
+  <thead>
+      <tr>
+          <th>项目</th>
+          <th>修复前</th>
+          <th>修复后</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>节点</td>
+          <td>1 个死节点</td>
+          <td>4 个 vless reality 节点</td>
+      </tr>
+      <tr>
+          <td>ss 节点</td>
+          <td>不需要但强制存在</td>
+          <td>自动排除，0 个</td>
+      </tr>
+      <tr>
+          <td>广告拦截规则</td>
+          <td>依赖 dler.io 模板</td>
+          <td><strong>16 万+ 条</strong>，直连 AdGuard 官方源</td>
+      </tr>
+      <tr>
+          <td>订阅更新</td>
+          <td>反复失败</td>
+          <td>正常</td>
+      </tr>
+      <tr>
+          <td>网络</td>
+          <td>YouTube/Google 全断</td>
+          <td>全通</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="经验总结">
+<a class="header-anchor" href="#%e7%bb%8f%e9%aa%8c%e6%80%bb%e7%bb%93"></a>
+经验总结
+</h2><ol>
+<li><strong>先看响应体再下结论</strong>：<code>HTTP 400</code> 不等于&quot;服务挂了&quot;，读 body 才能看到 <code>No nodes were found!</code> 这种真实原因。</li>
+<li><strong>公共转换器靠不住</strong>：版本陈旧、不支持新协议、响应还会截断。自建轻量转换器其实很简单——订阅源返回的链接格式是标准的，解析成本很低。</li>
+<li><strong><code>noss=1</code> 这类参数要谨慎</strong>：它在不同转换器上的行为不一致，可能把节点全过滤掉。</li>
+<li><strong>重启 ≠ 修复</strong>：切换&quot;增强-TUN&quot;模式能临时恢复是因为触发了重启，掩盖了真正的问题（节点失效 + 订阅更新失败）。</li>
+</ol>
+<hr>
+<p><em>文中所有订阅地址、节点 IP、密码等信息均已脱敏。</em></p></div>
     <footer class="article-footer"><ul class="article-category-list"><li class="article-tag-list-item" data-aos="zoom-in">
     <a
       class="article-category-link"
@@ -389,37 +455,30 @@ DHCPACK(wlan1) 192.168.10.88 iPhone
 <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in">
       <a
         class="article-tag-list-link"
-        href="/tags/%e6%a0%91%e8%8e%93%e6%b4%be"
+        href="/tags/openclash"
         rel="tag"
-        >树莓派</a
+        >OpenClash</a
       >
     </li><li class="article-tag-list-item" data-aos="zoom-in">
       <a
         class="article-tag-list-link"
-        href="/tags/kali"
+        href="/tags/openwrt"
         rel="tag"
-        >Kali</a
+        >OpenWrt</a
       >
     </li><li class="article-tag-list-item" data-aos="zoom-in">
       <a
         class="article-tag-list-link"
-        href="/tags/kismet"
+        href="/tags/%e7%bd%91%e7%bb%9c"
         rel="tag"
-        >Kismet</a
+        >网络</a
       >
     </li><li class="article-tag-list-item" data-aos="zoom-in">
       <a
         class="article-tag-list-link"
-        href="/tags/%e8%93%9d%e7%89%99"
+        href="/tags/%e4%bb%a3%e7%90%86"
         rel="tag"
-        >蓝牙</a
-      >
-    </li><li class="article-tag-list-item" data-aos="zoom-in">
-      <a
-        class="article-tag-list-link"
-        href="/tags/wi-fi"
-        rel="tag"
-        >Wi-Fi</a
+        >代理</a
       >
     </li><li class="article-tag-list-item" data-aos="zoom-in">
       <a
@@ -437,27 +496,15 @@ DHCPACK(wlan1) 192.168.10.88 iPhone
   ><div class="article-nav-link-wrap left"><img
               data-src="https://d-sketon.top/img/_backwebp/bg1.webp"
               data-sizes="auto"
-              alt="上海出差小记 —— 工行数据中心 &amp; 外滩夜游"
+              alt="树莓派 Kali 折腾记：修复 Kismet 蓝牙扫描与 Wi-Fi 热点"
               class="lazyload"
             /><a
-          href="/post/shanghai-bund-trip/"
-          aria-label="前一篇:上海出差小记 —— 工行数据中心 &amp; 外滩夜游"
-          title="前一篇:上海出差小记 —— 工行数据中心 &amp; 外滩夜游"
+          href="/post/raspberry-pi-kismet-bluetooth-wifi-fix/"
+          aria-label="前一篇:树莓派 Kali 折腾记：修复 Kismet 蓝牙扫描与 Wi-Fi 热点"
+          title="前一篇:树莓派 Kali 折腾记：修复 Kismet 蓝牙扫描与 Wi-Fi 热点"
         ></a>
         <div class="article-nav-caption">前一篇</div>
-        <h3 class="article-nav-title">上海出差小记 —— 工行数据中心 &amp; 外滩夜游</h3>
-      </div><div class="article-nav-link-wrap right"><img
-              data-src="https://d-sketon.top/img/_backwebp/bg1.webp"
-              data-sizes="auto"
-              alt="OpenClash 订阅更新故障排查与本地订阅转换器搭建"
-              class="lazyload"
-            /><a
-          href="/post/openclash-subconverter-fix/"
-          aria-label="后一篇:OpenClash 订阅更新故障排查与本地订阅转换器搭建"
-          title="后一篇:OpenClash 订阅更新故障排查与本地订阅转换器搭建"
-        ></a>
-        <div class="article-nav-caption">后一篇</div>
-        <h3 class="article-nav-title">OpenClash 订阅更新故障排查与本地订阅转换器搭建</h3>
+        <h3 class="article-nav-title">树莓派 Kali 折腾记：修复 Kismet 蓝牙扫描与 Wi-Fi 热点</h3>
       </div></nav></article></section>
         </div><footer id="footer" aria-label="Site footer">
   <div style="width: 100%; overflow: hidden">
@@ -509,22 +556,27 @@ DHCPACK(wlan1) 192.168.10.88 iPhone
   <nav id="TableOfContents">
   <ul>
     <li><a href="#环境">环境</a></li>
-    <li><a href="#问题一kismet-蓝牙扫描失效">问题一：Kismet 蓝牙扫描失效</a>
+    <li><a href="#现象">现象</a></li>
+    <li><a href="#排查过程apidlerio-到底怎么了">排查过程：api.dler.io 到底怎么了</a>
       <ul>
-        <li><a href="#现象">现象</a></li>
-        <li><a href="#排查">排查</a></li>
-        <li><a href="#根因">根因</a></li>
-        <li><a href="#修复">修复</a></li>
+        <li><a href="#第一步dns-解析">第一步：DNS 解析</a></li>
+        <li><a href="#第二步http-请求">第二步：HTTP 请求</a></li>
+        <li><a href="#第三步找到第一个元凶--noss1-参数">第三步：找到第一个元凶 —— <code>noss=1</code> 参数</a></li>
+        <li><a href="#第四步第二个元凶--转换器不认识-vless-reality">第四步：第二个元凶 —— 转换器不认识 vless reality</a></li>
+        <li><a href="#第五步顺带发现-http2-响应截断">第五步：顺带发现 HTTP/2 响应截断</a></li>
       </ul>
     </li>
-    <li><a href="#问题二wi-fi-热点手机无法连接">问题二：Wi-Fi 热点手机无法连接</a>
+    <li><a href="#解决方案本地搭建轻量订阅转换器">解决方案：本地搭建轻量订阅转换器</a>
       <ul>
-        <li><a href="#现象-1">现象</a></li>
-        <li><a href="#排查-1">排查</a></li>
-        <li><a href="#修复-1">修复</a></li>
+        <li><a href="#架构">架构</a></li>
+        <li><a href="#核心逻辑">核心逻辑</a></li>
+        <li><a href="#关键配置修改">关键配置修改</a></li>
+        <li><a href="#开机自启systemd-用户服务">开机自启（systemd 用户服务）</a></li>
+        <li><a href="#规则自动更新">规则自动更新</a></li>
       </ul>
     </li>
-    <li><a href="#总结">总结</a></li>
+    <li><a href="#最终效果">最终效果</a></li>
+    <li><a href="#经验总结">经验总结</a></li>
   </ul>
 </nav>
 </div></div>
@@ -630,9 +682,9 @@ DHCPACK(wlan1) 192.168.10.88 iPhone
   <div><script data-pjax>
         window.REIMU_POST = {
           author: "D-Sketon",
-          title: "树莓派 Kali 折腾记：修复 Kismet 蓝牙扫描与 Wi-Fi 热点",
-          url: "https:\/\/boniufamily.top\/post\/raspberry-pi-kismet-bluetooth-wifi-fix\/",
-          description: "记录树莓派 3B 上 Kali Linux 运行 Kismet 时蓝牙扫描失效和 Wi-Fi 热点无法连接的排查与修复过程。",
+          title: "OpenClash 订阅更新故障排查与本地订阅转换器搭建",
+          url: "https:\/\/boniufamily.top\/post\/openclash-subconverter-fix\/",
+          description: "记录 OpenWrt 上 OpenClash 订阅更新持续失败的排查过程：从 DNS 逐层定位到订阅转换器无法解析 vless reality 节点，最终在本机搭建轻量转换器彻底解决，并实现了规则自动更新与开机自启。",
           cover: "https:\/\/boniufamily.top\/images\/banner.webp",
         };
       </script><script src="/js/insert_highlight.js" integrity="" crossorigin="anonymous" data-pjax ></script><script src="/js/tabs.js" integrity="" crossorigin="anonymous" data-pjax defer></script><script type="module" data-pjax>const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;const initPswp = (gallery, children) => {
