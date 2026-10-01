@@ -1,0 +1,762 @@
+<!doctype html>
+<html
+  lang="zh-cn" 
+  data-theme-mode="auto"
+  >
+  <head><meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/><title>
+  涌现：从蚁群到大模型，一张关于“复杂从何而来”的知识地图 | D-Sketon
+</title>
+<meta name="description" content="整理一次关于涌现理论的对话：从局部规则到宏观秩序，从复杂系统、自组织、元胞自动机到大模型是否真的在“涌现”。包含一套可操作的判据，以及做涌现式玩法原型的起点。"/>
+    <meta name="keywords" content="涌现,emergence,复杂系统,自组织,元胞自动机,大模型,emergent, abilities,Scaling, Laws,涌现式玩法" /><script>
+  window.siteConfig = JSON.parse("{\"anchor\":{\"auto\":{\"enable\":false,\"length\":60},\"explicit\":{\"enable\":false,\"marker\":\"{#anchor-\",\"prefix\":\"anchor-\"}},\"anchor_icon\":null,\"base\":\"https://boniufamily.top/\",\"clipboard\":{\"copyright\":{\"count\":50,\"enable\":false,\"license_type\":\"by-nc-sa\"},\"fail\":{\"en\":\"Copy failed (ﾟ⊿ﾟ)ﾂ\",\"ja\":\"コピー失敗 (ﾟ⊿ﾟ)ﾂ\",\"pt-br\":\"Falha ao copiar (ﾟ⊿ﾟ)ﾂ\",\"zh-cn\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"zh-tw\":\"複製失敗 (ﾟ⊿ﾟ)ﾂ\"},\"success\":{\"en\":\"Copy successfully (*^▽^*)\",\"ja\":\"コピー成功 (*^▽^*)\",\"pt-br\":\"Copiado com sucesso (*^▽^*)\",\"zh-cn\":\"复制成功 (*^▽^*)\",\"zh-tw\":\"複製成功 (*^▽^*)\"}},\"code_block\":{\"expand\":true},\"icon_font\":\"4552607_ex15nbittbh\",\"outdate\":{\"daysago\":180,\"enable\":false,\"message\":{\"en\":\"This article was last updated on {time}. Please note that the content may no longer be applicable.\",\"ja\":\"この記事は最終更新日：{time}。記載内容が現在有効でない可能性がありますのでご注意ください。\",\"pt-br\":\"Este artigo foi atualizado pela última vez em {time}. Observe que o conteúdo pode não ser mais aplicável.\",\"zh-cn\":\"本文最后更新于 {time}，请注意文中内容可能已不适用。\",\"zh-tw\":\"本文最後更新於 {time}，請注意文中內容可能已不適用。\"}}}");
+  
+</script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="preload"
+  as="style"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+/>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+  media="print"
+  onload="this.media='all'"
+/>
+<link
+    rel="preload"
+    href="//at.alicdn.com/t/c/font_4552607_ex15nbittbh.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous"
+  /><link rel="stylesheet" href="/css/loader.min.ac746e154f756f8220326eeb52a719f142ab038be5a8ddf30ea5ef15ef2356ea.css" /><meta property="og:type" content="website" />
+  <meta property="og:title" content="涌现：从蚁群到大模型，一张关于“复杂从何而来”的知识地图 | D-Sketon" />
+  <meta
+    property="og:description"
+    content="整理一次关于涌现理论的对话：从局部规则到宏观秩序，从复杂系统、自组织、元胞自动机到大模型是否真的在“涌现”。包含一套可操作的判据，以及做涌现式玩法原型的起点。"
+  />
+  <meta property="og:url" content="https://boniufamily.top/post/emergence-theory-notes/" />
+  <meta
+    property="og:site_name"
+    content="gamerurara"
+  />
+  <meta property="og:image" content="https://boniufamily.top/images/banner.webp" />
+  <meta property="article:author" content="D-Sketon" />
+  <meta property="article:published_time" content="2026-10-02T00:07:34&#43;08:00" />
+  <meta property="article:modified_time" content="2026-10-02T00:07:34&#43;08:00" /><meta property="article:tag" content="涌现, 复杂系统, 自组织, 元胞自动机, 大模型, 游戏开发" /><meta name="twitter:card" content="summary" /><meta name="twitter:image" content="https://boniufamily.top/images/banner.webp" />
+<link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/main.min.5a0a43eb14b8f925af7fd8d543b60f5f2fe844f4d718b141cb8b28f2f5e127fa.css" /><link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css"
+    integrity="sha384-IfxC36XL/toUyJ939C73PcgMuRzAZuIzZxE38drsmO5p6jD7ei&#43;Zx/1oA/0l8ysE" crossorigin="anonymous"
+    onload="this.onload=null;this.rel='stylesheet'"
+  /><link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/katex@0.16.24/dist/katex.min.css"
+    integrity="sha384-tTgKLjMYmJr94v8qu2PE5MUGSMbyN2xiH266JUB3gpm8vnnJywd1dWSOEfrFz&#43;YI" crossorigin="anonymous"
+    onload="this.onload=null;this.rel='stylesheet'"
+  /><script
+    src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"
+    
+    
+    
+    
+    integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"></script><link
+    rel="stylesheet"
+    href="https://npm.webcache.cn/@reimujs/aos@0.1.2/dist/aos.css"
+    integrity="sha384-GMRP93c6Hkz9JVKGAuRR3nTS7M07RwPgTFenXiosjq2VbVgvdDNcz1g6Mkj8AONa" crossorigin="anonymous"/></head>
+  <body><div id='loader'>
+    <div class="loading-left-bg loading-bg"></div>
+    <div class="loading-right-bg loading-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi rotate"><svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="https://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+            <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="var(--red-1, #ff5252)" />
+            <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z 
+          M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95z" fill="var(--red-1, #ff5252)" />
+          </svg></div><div class="loading-word">少女祈祷中...</div>
+    </div>
+  </div>
+  </div>
+  <script>
+    var time = null;
+    var loaderEl = document.getElementById('loader');
+    var startLoading = () => {
+      time = Date.now();
+      loaderEl.classList.remove("loading");
+    }
+    var hideLoader = () => {
+      document.body.style.overflow = 'auto';
+      loader.classList.add('loading');
+    };
+
+    var endLoading = () => {
+      if (!time) {
+        hideLoader();
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          hideLoader();
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('DOMContentLoaded', endLoading);
+    loaderEl.addEventListener('click', endLoading);
+  </script><div id="copy-tooltip"></div>
+<div id="lang-tooltip">
+本文章没有找到对应的语言版本
+</div>
+<div id="heatmap-tooltip"></div><div id="container">
+      <div id="wrap"><div id="header-nav">
+  <nav id="main-nav" aria-label="Primary navigation"><a class="main-nav-link-wrap" href="/"><div class='main-nav-icon icon rotate'>&#xe62b;</div><span class="main-nav-link">首页</span>
+      </a><a class="main-nav-link-wrap" href="/archives"><div class='main-nav-icon icon rotate'>&#xe62b;</div><span class="main-nav-link">归档</span>
+      </a><a class="main-nav-link-wrap" href="/about"><div class='main-nav-icon icon rotate'>&#xe62b;</div><span class="main-nav-link">关于</span>
+      </a><a class="main-nav-link-wrap" href="/friend"><div class='main-nav-icon icon rotate'>&#xe62b;</div><span class="main-nav-link">友链</span>
+      </a><a id="main-nav-toggle" class="nav-icon" aria-label="Toggle navigation" role="button"></a>
+  </nav>
+  <nav id="sub-nav" aria-label="Secondary navigation"></nav></div>
+<header id="header" aria-label="Site header"><picture></picture><img  fetchpriority="high" src="/images/banner.webp" alt="涌现：从蚁群到大模型，一张关于“复杂从何而来”的知识地图"><div id="header-outer">
+    <div id="header-title"><span id="logo">
+            <h1 data-aos="slide-up">涌现：从蚁群到大模型，一张关于“复杂从何而来”的知识地图</h1>
+          </span><h2 id="subtitle-wrap" data-aos="slide-down"></h2></div>
+  </div>
+</header><div id="content"
+          aria-label="Page content"
+          
+          class="sidebar-right"  ><aside id="sidebar" aria-label="Sidebar"><div class="sidebar-wrapper-container sticky"><div class="sidebar-wrapper">
+    <div
+      class="sidebar-wrap"
+      data-aos="fade-up"
+    ><div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class">
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一一句话涌现是什么">一、一句话：涌现是什么</a></li>
+    <li><a href="#二层次为什么高层规律不能从底层直接看出来">二、层次：为什么高层规律不能从底层直接看出来</a></li>
+    <li><a href="#三弱涌现-vs-强涌现一场还没结束的争论">三、弱涌现 vs 强涌现：一场还没结束的争论</a></li>
+    <li><a href="#四三个支撑概念以及它们的关系">四、三个支撑概念，以及它们的关系</a>
+      <ul>
+        <li><a href="#1-复杂系统complex-systems">1. 复杂系统（Complex Systems）</a></li>
+        <li><a href="#2-自组织self-organization">2. 自组织（Self-organization）</a></li>
+        <li><a href="#3-元胞自动机cellular-automata">3. 元胞自动机（Cellular Automata）</a></li>
+        <li><a href="#四个概念串起来">四个概念串起来</a></li>
+      </ul>
+    </li>
+    <li><a href="#五判据复杂--涌现">五、判据：复杂 ≠ 涌现</a></li>
+    <li><a href="#六大模型算不算涌现">六、大模型算不算涌现？</a>
+      <ul>
+        <li><a href="#底层目标一直很朴素">底层目标一直很朴素</a></li>
+        <li><a href="#为什么规模大了能力会变强">为什么规模大了能力会变强？</a></li>
+        <li><a href="#那个突然会了的争议">那个“突然会了”的争议</a></li>
+        <li><a href="#更扎实的那个现象叫-scaling-laws">更扎实的那个现象叫 Scaling Laws</a></li>
+        <li><a href="#像素类比不是第-9999999999-个参数的魔法">像素类比：不是第 9999999999 个参数的魔法</a></li>
+        <li><a href="#结构上确实很像复杂系统">结构上确实很像复杂系统</a></li>
+      </ul>
+    </li>
+    <li><a href="#七落到手上要做涌现式玩法从哪开始">七、落到手上：要做涌现式玩法，从哪开始</a></li>
+    <li><a href="#八我整理出来的结论">八、我整理出来的结论</a></li>
+  </ul>
+</nav>
+</div></div>
+          <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img
+    data-src="/avatar/avatar.webp"
+    data-sizes="auto"
+    alt="D-Sketon"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">D-Sketon</div>
+  <div class="sidebar-description">少女祈祷中...</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div><div class="sidebar-state-number">5</div>
+  </div>
+  <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      3
+    </div>
+  </a>
+  <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
+    <div>标签</div>
+    <div class="sidebar-state-number">22</div>
+  </a>
+</div>
+<div class="sidebar-social" ></div><div class="sidebar-menu"><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">首页</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">归档</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">关于</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">友链</div>
+    </div></div></div><div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div></div>
+  </div><div class="sidebar-widget"></div></div></aside>
+<section id="main" aria-label="Main content"><article
+  class="h-entry article"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div
+    class="article-inner"
+    data-aos="fade-up"
+  >
+    <div class="article-meta"><div class="article-date">
+  <span
+    class="article-date-link icon-calendar"
+    data-aos="zoom-in"
+  >
+    <time datetime="2026-10-02 00:07:34 &#43;0800 CST" itemprop="datePublished"
+      >2026-10-02</time
+    >
+    <time style="display: none;" id="post-update-time"
+      >2026-10-02</time
+    >
+  </span></div>
+</div><div class="hr-line"></div><div class="e-content article-entry" itemprop="articleBody"><p>最近和一个模型聊了一整轮“涌现”，问到最后我自己都被绕进去了——尤其是“为什么参数大到一定程度，模型突然就会了”那部分。这里把整轮对话里真正有价值的部分重新梳一遍，加上自己的整理：定义、判据、三个支撑概念、大模型算不算涌现，以及如果要在游戏里做涌现该怎么起步。</p>
+<h2 id="一一句话涌现是什么">
+<a class="header-anchor" href="#%e4%b8%80%e4%b8%80%e5%8f%a5%e8%af%9d%e6%b6%8c%e7%8e%b0%e6%98%af%e4%bb%80%e4%b9%88"></a>
+一、一句话：涌现是什么
+</h2><blockquote>
+<p>很多简单个体按简单规则互动，整体却表现出单个个体身上根本不存在的复杂性质。</p>
+</blockquote>
+<p>蚂蚁是最直观的例子：一只蚂蚁很“笨”，只会根据气味和附近环境行动；但一整个蚁群能找到食物、修蚁穴、分工协作。“蚁群级别的组织能力”就是典型的涌现（emergence）。</p>
+<p>更准确地说，涌现理论研究的是<strong>高层次现象如何从低层次组成部分及其相互作用中产生</strong>。关键在于后半句——不是“东西多”，而是“相互作用形成了新的结构和规律”。</p>
+<p>写成公式就是：</p>
+<pre tabindex="0"><code>局部简单规则 + 大量个体 + 相互作用 + 反馈
+        → 宏观复杂行为
+</code></pre><p>几个经典例子：鸟群飞行、幽灵堵车（没有司机决定“在这里制造一场堵车”）、雪花的六角结构、市场价格、以及大脑的意识。意识能不能完全用涌现解释，至今仍是开放问题——这点后面还会回到。</p>
+<h2 id="二层次为什么高层规律不能从底层直接看出来">
+<a class="header-anchor" href="#%e4%ba%8c%e5%b1%82%e6%ac%a1%e4%b8%ba%e4%bb%80%e4%b9%88%e9%ab%98%e5%b1%82%e8%a7%84%e5%be%8b%e4%b8%8d%e8%83%bd%e4%bb%8e%e5%ba%95%e5%b1%82%e7%9b%b4%e6%8e%a5%e7%9c%8b%e5%87%ba%e6%9d%a5"></a>
+二、层次：为什么高层规律不能从底层直接看出来
+</h2><p>涌现里最重要的概念是<strong>层次</strong>：</p>
+<pre tabindex="0"><code>神经元 → 神经网络 → 脑区功能 → 认知 → 意识
+</code></pre><p>每升高一个层次，我们描述系统所用的概念也随之改变。你不会用“钠离子怎么移动”去解释“一个人为什么会下棋”——虽然底层确实离不开离子运动。</p>
+<p>温度是最好的例子。单独一个气体分子并没有我们日常意义上的“温度”，温度描述的是<strong>大量分子的统计运动状态</strong>，是一个宏观性质。类似的还有“压强”、“市场价格”。</p>
+<p>真正值得记住的是这一句：<strong>高层规律可能无法方便地从底层规律直接推出来。</strong></p>
+<h2 id="三弱涌现-vs-强涌现一场还没结束的争论">
+<a class="header-anchor" href="#%e4%b8%89%e5%bc%b1%e6%b6%8c%e7%8e%b0-vs-%e5%bc%ba%e6%b6%8c%e7%8e%b0%e4%b8%80%e5%9c%ba%e8%bf%98%e6%b2%a1%e7%bb%93%e6%9d%9f%e7%9a%84%e4%ba%89%e8%ae%ba"></a>
+三、弱涌现 vs 强涌现：一场还没结束的争论
+</h2><p><strong>弱涌现</strong>（科学界普遍接受）：宏观现象原则上完全由底层规律决定，只是系统太复杂、我们很难直接推导，只能靠模拟看到结果。</p>
+<p>元胞自动机就是最好的弱涌现样本。Conway&rsquo;s Game of Life 只有几条规则：邻居太少→死亡，邻居太多→死亡，数量合适→存活，某些空格→产生新生命。但运行起来会出现：</p>
+<pre tabindex="0"><code>简单规则 → 局部变化 → 稳定结构 → 移动结构 → 复杂信息处理
+</code></pre><p>甚至有人证明生命游戏可以实现通用计算。规则里没写“制造一个会移动的结构”，可它自己出现了。</p>
+<p><strong>强涌现</strong>（有争议的哲学立场）：高层性质不仅难以从底层推导，甚至可能拥有无法完全还原为底层物理规律的新因果性质。意识常被拿来做例子——有人认为意识来自神经元但不能还原成神经元活动；还原主义者则认为意识“最终仍然等于极其复杂的神经活动”，只是我们还不会完整解释。</p>
+<p>于是就有了两种世界观的对撞：</p>
+<ul>
+<li><strong>还原论</strong>：理解所有零件，就能理解整体。</li>
+<li><strong>涌现论</strong>：理解所有零件还不够，你还必须理解零件之间形成的组织结构。</li>
+</ul>
+<h2 id="四三个支撑概念以及它们的关系">
+<a class="header-anchor" href="#%e5%9b%9b%e4%b8%89%e4%b8%aa%e6%94%af%e6%92%91%e6%a6%82%e5%bf%b5%e4%bb%a5%e5%8f%8a%e5%ae%83%e4%bb%ac%e7%9a%84%e5%85%b3%e7%b3%bb"></a>
+四、三个支撑概念，以及它们的关系
+</h2><pre tabindex="0"><code>元胞自动机 —— 是一种可执行模型
+   ↓
+局部规则 + 邻居交互
+   ↓
+自组织 —— 结构自己长出来
+   ↓
+复杂系统中的涌现现象
+</code></pre><h3 id="1-复杂系统complex-systems">
+<a class="header-anchor" href="#1-%e5%a4%8d%e6%9d%82%e7%b3%bb%e7%bb%9fcomplex-systems"></a>
+1. 复杂系统（Complex Systems）
+</h3><p>复杂系统不是“东西很多”，而是：<strong>系统由很多部分组成，且这些部分相互影响，导致整体行为无法由单个部分直接推出。</strong> 典型例子：蚁群、城市交通、经济市场、生态系统、大脑、社交网络、多智能体游戏世界。</p>
+<p>三个特点：</p>
+<ul>
+<li><strong>大量个体</strong>（草、兔子、狼、水、天气、疾病……但“数量多”本身远远不够）</li>
+<li><strong>相互作用</strong>：草→兔子→狼→兔子数量→草，形成闭环反馈。<strong>反馈循环才是核心。</strong></li>
+<li><strong>非线性</strong>：原因增加 2 倍，结果不一定增加 2 倍。100 只兔子加到 110 只没事，190 加到 200 只就可能刚好越过食物承载能力，引发整个生态的连锁反应——这就是<strong>临界点</strong>。</li>
+</ul>
+<p>游戏里到处都是这种结构。敌人数量、弹药、资源刷新速度、玩家移速、AI 攻击欲望，单独看都很简单，但彼此影响后会形成：</p>
+<pre tabindex="0"><code>敌人多 → 弹药消耗快 → 资源不足 → 玩家被迫移动 → 引来更多敌人 → 战斗升级
+</code></pre><p>一个很小的参数变化，就能把体验从“轻松”突然推成“雪崩”。这是复杂系统设计的魅力，也是麻烦。</p>
+<h3 id="2-自组织self-organization">
+<a class="header-anchor" href="#2-%e8%87%aa%e7%bb%84%e7%bb%87self-organization"></a>
+2. 自组织（Self-organization）
+</h3><blockquote>
+<p>没有中央控制者，但个体通过局部规则和相互作用，自发形成有秩序的整体结构。</p>
+</blockquote>
+<p>鸟群里没有鸟在喊“注意，A 组左转，B 组排成 V 字”。每只鸟只遵守三条规则，结果就出现了漂亮的队形、整体转向和避障。计算机图形学里的经典算法 <strong>Boids</strong> 就是这样：</p>
+<pre tabindex="0"><code>Separation  远离太近的邻居
+Alignment   和邻居保持类似方向
+Cohesion    向邻居平均位置靠近
+</code></pre><p>三条规则，几十个单位，就能表现成鸟群或鱼群。做游戏同样实用：史莱姆群体只要“太近就分开、太远就靠近、看到玩家就追、血低就退”，你没有写 <code>form_tactical_formation()</code>，却可能自发出现包围、群体追击、聚集、分散、逃跑。</p>
+<p>这里有个必须记住的区分：<strong>自组织不等于随机。</strong></p>
+<pre tabindex="0"><code>随机：不知道下一步是什么
+自组织：每个个体规则很明确，但整体结果难预测
+</code></pre><h3 id="3-元胞自动机cellular-automata">
+<a class="header-anchor" href="#3-%e5%85%83%e8%83%9e%e8%87%aa%e5%8a%a8%e6%9c%bacellular-automata"></a>
+3. 元胞自动机（Cellular Automata）
+</h3><blockquote>
+<p>把世界切成很多格子，每个格子拥有一个状态；下一时刻的状态只由自己和附近格子的状态决定。</p>
+</blockquote>
+<p>Game of Life 里一个经典的移动结构叫 <strong>Glider</strong>：</p>
+<pre tabindex="0"><code>. # .
+. . #
+# # #
+</code></pre><p>它会在几轮更新后朝某个方向平移。没有任何规则写着“这个形状向右下移动”——移动是规则迭代自然产生的，这是非常纯粹的涌现。</p>
+<p>对游戏开发最实用的用途是<strong>地图生成</strong>。随机填充噪声，然后迭代一条规则“周围墙多就变墙，周围墙少就变空地”：</p>
+<pre tabindex="0"><code>随机初始化 + 局部规则 + 多次迭代 = 有结构的地图
+</code></pre><p>几个世代之后，随机噪声就“长”成了自然洞穴。在 Godot 里用 TileMapLayer 做这个非常顺手。</p>
+<h3 id="四个概念串起来">
+<a class="header-anchor" href="#%e5%9b%9b%e4%b8%aa%e6%a6%82%e5%bf%b5%e4%b8%b2%e8%b5%b7%e6%9d%a5"></a>
+四个概念串起来
+</h3><p>假设做一个生态游戏：</p>
+<ul>
+<li>底层的 Tile（草/水/泥土/火）用<strong>元胞自动机</strong>：火旁有草→草着火，烧几轮→变灰，灰过段时间→长草。于是出现火灾传播、熄灭、植被恢复。</li>
+<li>再加入动物（饿→找草，渴→找水，怕火→逃，喜欢同伴→聚集），群体开始迁徙、聚集、争夺资源——这是<strong>自组织</strong>。</li>
+<li>整个世界表现出资源周期、种群变化、火灾、迁徙、生态平衡与崩溃——整体是一个<strong>复杂系统</strong>。</li>
+<li>而“某一群动物因为森林火灾迁移到了河流附近”这种你没专门写过的行为，就是<strong>涌现</strong>。</li>
+</ul>
+<pre tabindex="0"><code>元胞自动机 → 提供局部规则
+自组织     → 局部规则形成结构
+复杂系统   → 大量结构彼此影响
+涌现       → 出现设计者没有直接编码的宏观行为
+</code></pre><h2 id="五判据复杂--涌现">
+<a class="header-anchor" href="#%e4%ba%94%e5%88%a4%e6%8d%ae%e5%a4%8d%e6%9d%82--%e6%b6%8c%e7%8e%b0"></a>
+五、判据：复杂 ≠ 涌现
+</h2><p>这是我认为整轮对话里最有用的一条。</p>
+<p><strong>写了 10 万行的 <code>if/elif</code> 让行为非常复杂，那不算涌现</strong>——它是程序员明确编码出来的。反过来：</p>
+<pre tabindex="0"><code>10 条简单规则 + 1000 个对象互动 → 出现非常复杂的行为
+</code></pre><p>这才更符合涌现。所以涌现可以更技术化地概括为：</p>
+<blockquote>
+<p>系统在宏观层面出现新的、由微观组成部分相互作用产生的组织结构、行为模式或性质。</p>
+</blockquote>
+<p>它背后通常伴随几个关键词：<strong>非线性、反馈、局部规则、自组织、复杂适应系统、层次结构。</strong></p>
+<p>如果你也做类似的东西，有一个非常好用的自检方式：加一个 debug 面板，把每个个体的内部状态打印出来（饥饿值、目标、当前动作）。当某个行为出现时，你的第一反应是——</p>
+<blockquote>
+<p>等等，这个我没写啊。</p>
+</blockquote>
+<p>那通常就是一个很好的信号。</p>
+<h2 id="六大模型算不算涌现">
+<a class="header-anchor" href="#%e5%85%ad%e5%a4%a7%e6%a8%a1%e5%9e%8b%e7%ae%97%e4%b8%8d%e7%ae%97%e6%b6%8c%e7%8e%b0"></a>
+六、大模型算不算涌现？
+</h2><p>这大概是这轮里最值得细看的部分。结论先放这里：<strong>AI 里的“涌现”既有真实现象，也有一部分是评价方式造成的视觉效果。</strong> 这两层必须分开。</p>
+<h3 id="底层目标一直很朴素">
+<a class="header-anchor" href="#%e5%ba%95%e5%b1%82%e7%9b%ae%e6%a0%87%e4%b8%80%e7%9b%b4%e5%be%88%e6%9c%b4%e7%b4%a0"></a>
+底层目标一直很朴素
+</h3><p>一个语言模型，无论多大，底层做的都是同一件事：根据前面的 token 预测下一个 token。参数变大时，它的目标并没有突然变成“现在开始学逻辑”“现在开始学翻译”，但能力确实出现了变化——翻译、代码生成、类比、上下文学习、多步推理。早期论文把这种“小模型没有、大模型突然有”的现象称为 <strong>emergent abilities</strong>。</p>
+<h3 id="为什么规模大了能力会变强">
+<a class="header-anchor" href="#%e4%b8%ba%e4%bb%80%e4%b9%88%e8%a7%84%e6%a8%a1%e5%a4%a7%e4%ba%86%e8%83%bd%e5%8a%9b%e4%bc%9a%e5%8f%98%e5%bc%ba"></a>
+为什么规模大了能力会变强？
+</h3><p>三个原因：</p>
+<p><strong>1）容量 / 表示空间。</strong> 极小模型可能只能表示“猫→动物”“北京→城市”“1+1→2”；容量变大后，语法、词义、人物关系、事实关系、代码结构、常见推理模式可以同时共存；再大，这些表示之间还能组合：</p>
+<pre tabindex="0"><code>语言模式 + 世界知识 + 上下文 + 问题结构
+        → 解决一个训练时没有原样见过的问题
+</code></pre><p>参数规模不只是“多存一点知识”，更重要的是提供了更大的函数表达能力和内部表示空间。</p>
+<p><strong>2）语言本身包含大量世界结构。</strong> 要准确预测“小明把玻璃杯从桌子边缘推了下去”的后续文本，模型几乎必须学到：玻璃易碎、重力存在、物体会掉落、杯子可能摔碎。一个看起来只是“预测下一个 token”的任务，为了做得更好，被迫学习越来越多潜在结构。</p>
+<p><strong>3）组合性。</strong> 小模型可能分别学到 A→B 和 B→C，但不一定能可靠完成 A→B→C。容量和训练充分度上去之后，局部模式开始组合：知识 + 语法 + 上下文理解 + 模式匹配 + 搜索式推断，共同产生一种宏观能力——“推理”。</p>
+<h3 id="那个突然会了的争议">
+<a class="header-anchor" href="#%e9%82%a3%e4%b8%aa%e7%aa%81%e7%84%b6%e4%bc%9a%e4%ba%86%e7%9a%84%e4%ba%89%e8%ae%ae"></a>
+那个“突然会了”的争议
+</h3><p>早期实验给人的印象是相变：</p>
+<pre tabindex="0"><code>1B → 几乎不会
+5B → 几乎不会
+20B → 几乎不会
+60B → 突然会了
+100B → 很强
+</code></pre><p>看起来像水在 0°C 结冰一样，是“相变”。但后来发现，<strong>部分“突然出现”可能只是评分指标造成的。</strong> 一道答案是 137 的数学题，模型的输出其实是连续改善的：</p>
+<pre tabindex="0"><code>小模型：483 → 中模型：177 → 更大：139 → 更大：137
+</code></pre><p>可如果评价指标只有“完全正确=1，否则=0”，测出来就变成 <code>0, 0, 0, 1</code>——看起来像“什么都不会、什么都不会、突然学会”。2023 年有一项研究专门指出：不少所谓 emergent abilities 在换成连续评价指标后会呈现更平滑的增长，某些“突变”可能是测量方式制造的。</p>
+<p>所以目前比较稳妥的说法是：<strong>规模扩大确实持续改善模型能力，但“能力是否真的在某个参数规模突然诞生”，不能一概而论。</strong></p>
+<h3 id="更扎实的那个现象叫-scaling-laws">
+<a class="header-anchor" href="#%e6%9b%b4%e6%89%8e%e5%ae%9e%e7%9a%84%e9%82%a3%e4%b8%aa%e7%8e%b0%e8%b1%a1%e5%8f%ab-scaling-laws"></a>
+更扎实的那个现象叫 Scaling Laws
+</h3><p>研究发现，当模型规模、数据量、训练计算量合理增加时，训练损失往往呈相当规律的<strong>幂律下降</strong>——很多底层能力的改善其实是平滑、可预测的。</p>
+<p>Chinchilla 的工作进一步说明：<strong>不是参数越大越好</strong>，模型大小、数据量和计算预算必须匹配。一个极大的模型如果训练数据不足，可能反而不如参数更小但训练更充分的模型。所以更准确的关系是：</p>
+<pre tabindex="0"><code>模型能力 ≈ 模型容量 × 数据规模与质量 × 训练计算
+          × 模型架构 × 训练目标 × 推理时计算
+</code></pre><h3 id="像素类比不是第-9999999999-个参数的魔法">
+<a class="header-anchor" href="#%e5%83%8f%e7%b4%a0%e7%b1%bb%e6%af%94%e4%b8%8d%e6%98%af%e7%ac%ac-9999999999-%e4%b8%aa%e5%8f%82%e6%95%b0%e7%9a%84%e9%ad%94%e6%b3%95"></a>
+像素类比：不是第 9999999999 个参数的魔法
+</h3><p>一幅 4×4 的图（16 个像素）不可能画出“一只坐在草地上的仓鼠”；32×32 勉强能看出“这是个动物”；512×512 才突然能表现眼睛、耳朵、毛发、光影、表情、空间关系。</p>
+<p>不是第 100,000 个像素拥有了魔法，而是<strong>系统的表示空间终于足以容纳这种复杂结构</strong>。神经网络也是同理：</p>
+<pre tabindex="0"><code>不是：第 9,999,999,999 个参数 → ✨ 智能开关打开
+而是：容量变大 → 表示更丰富 → 更多模式共存 → 模式之间组合
+      → 某些任务跨过可用阈值 → 在人类看来&#34;突然会了&#34;
+</code></pre><h3 id="结构上确实很像复杂系统">
+<a class="header-anchor" href="#%e7%bb%93%e6%9e%84%e4%b8%8a%e7%a1%ae%e5%ae%9e%e5%be%88%e5%83%8f%e5%a4%8d%e6%9d%82%e7%b3%bb%e7%bb%9f"></a>
+结构上确实很像复杂系统
+</h3><pre tabindex="0"><code>矩阵乘法 → 特征表示 → 概念/关系 → 语言、代码、推理
+</code></pre><p>和这些是同一副骨架：</p>
+<pre tabindex="0"><code>神经元 → 神经网络 → 认知
+蚂蚁   → 蚁群     → 群体行为
+</code></pre><p>但<strong>最后一步要非常小心</strong>：表现出“智能行为”，不等于我们已经证明模型拥有和人类相同机制的智能、理解或意识。这些概念目前仍有很大的科学与哲学争议，把模型直接人格化，容易混淆“它表现出了什么能力”和“它内部究竟发生了什么”。</p>
+<p>所以比起“参数多了就产生魔法”，更准确的概括是：</p>
+<blockquote>
+<p>大模型最令人惊讶的地方，是一个极其简单的训练目标——预测下一个 token——在足够大的表示能力、数据和计算支持下，竟然逼出了大量我们通常与“智能”联系在一起的行为。</p>
+</blockquote>
+<h2 id="七落到手上要做涌现式玩法从哪开始">
+<a class="header-anchor" href="#%e4%b8%83%e8%90%bd%e5%88%b0%e6%89%8b%e4%b8%8a%e8%a6%81%e5%81%9a%e6%b6%8c%e7%8e%b0%e5%bc%8f%e7%8e%a9%e6%b3%95%e4%bb%8e%e5%93%aa%e5%bc%80%e5%a7%8b"></a>
+七、落到手上：要做涌现式玩法，从哪开始
+</h2><p>这部分是对话里最实操的一段，直接抄作业：</p>
+<p><strong>起点不是先想剧情，而是先设计一组能彼此碰撞的简单系统。</strong> 用 Godot 做一个很小的 2D 原型，控制在 <strong>1 个场景、3<del>5 种对象、每种 2</del>3 条规则</strong>，重点观察“规则组合后会不会出现我没硬编码的行为”。</p>
+<p>最小题目：<strong>小动物生存沙盒</strong>。</p>
+<pre tabindex="0"><code>地图
+├─ FoodSpawner
+├─ Water
+├─ Hazard
+└─ 20 只 Agent
+</code></pre><p>每只小动物只有几条规则：饿了找最近的食物、渴了找最近的水、看到危险逃跑、同伴太多就远离一点、同伴太少就靠近一点。<strong>不要一开始就写“结群”“迁徙”“形成聚落”这些高级行为</strong>，只写局部规则，然后看它们会不会自己出现。</p>
+<p>决策上先用需求评分法就够了，行为树、AnimationTree 都别上：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-gdscript" data-lang="gdscript"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">choose_action</span>():
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> scores <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;eat&#34;</span>: hunger,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;drink&#34;</span>: thirst,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;flee&#34;</span>: fear,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;rest&#34;</span>: <span style="color:#ae81ff">100.0</span> <span style="color:#f92672">-</span> energy
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> scores<span style="color:#f92672">.</span><span style="color:#a6e22e">keys</span>()<span style="color:#f92672">.</span><span style="color:#a6e22e">max_by</span>(<span style="color:#a6e22e">func</span>(k): <span style="color:#66d9ef">return</span> scores[k])
+</span></span></code></pre></div><p>然后是关键：<strong>让系统之间互相影响。</strong></p>
+<pre tabindex="0"><code>动物吃掉食物 → 食物减少 → 动物走得更远 → 进入危险区概率增加
+→ 死亡增加 → 局部动物减少 → 剩下的动物获得更多食物
+</code></pre><p>这条链里你没写一行“生态平衡”的代码，但可能出现类似生态平衡的现象。</p>
+<p>设计原则上最有用的一条：</p>
+<blockquote>
+<p><strong>不要设计“事件”，设计“规则之间的关系”。</strong></p>
+</blockquote>
+<p>不要写“第 3 分钟发生饥荒”，而要写“食物生成速度 &lt; 动物消耗速度”，饥荒会自然出现；不要写“动物开始迁徙”，而要写“附近资源稀少时搜索半径变大”，迁徙会自然出现。</p>
+<p>再加一层玩家干预会更像游戏：玩家只能放食物、放障碍、放危险，改变的是<strong>系统条件</strong>而不是直接指挥动物。于是会出现“左边大量放食物 → 动物聚集 → 资源消耗变快 → 竞争增加 → 部分动物向外迁移”。</p>
+<p>还有一条经验规则：<strong>规则数量少、交互密度高</strong> 远胜于系统多但互不相关——“5 个系统 × 每个 3 条规则”通常比“30 个互不相关的系统”更容易产生有趣的涌现。</p>
+<p>第一个 milestone：<strong>20 只小动物 + 食物 + 水 + 危险，跑 10 分钟后，系统里会出现明显不同的群体行为。</strong> 做到这一步，你基本就有一个真正的涌现玩法原型了。</p>
+<p>学习路径上，建议顺序是：<strong>元胞自动机 → Boids/自组织 → Utility AI → 多系统交互 → 涌现玩法</strong>。前两个都能在 Godot 里用 100~300 行做出“看得见”的结果，比直接啃复杂系统理论更快建立直觉。</p>
+<h2 id="八我整理出来的结论">
+<a class="header-anchor" href="#%e5%85%ab%e6%88%91%e6%95%b4%e7%90%86%e5%87%ba%e6%9d%a5%e7%9a%84%e7%bb%93%e8%ae%ba"></a>
+八、我整理出来的结论
+</h2><ol>
+<li>涌现的核心不是“多”，而是<strong>相互作用 + 反馈</strong>；没有交互的堆量只是混乱。</li>
+<li>判据一句话：<strong>复杂 ≠ 涌现</strong>。写死的复杂不算，规则互动长出来的才算。</li>
+<li>涌现天然带<strong>层次</strong>：高层规律通常无法从底层规律直接推出来（温度、意识）。</li>
+<li><strong>弱涌现</strong>（可还原、只是难推导）是科学主流的可用版本；<strong>强涌现</strong>仍是哲学争论。</li>
+<li>复杂系统的三个特征是大量个体、相互作用、非线性，<strong>临界点</strong>是它的标志性现象。</li>
+<li>自组织 = 局部规则长出全局秩序，且<strong>不等于随机</strong>；Boids 三条规则就是最小样本。</li>
+<li>元胞自动机是“可执行的涌现模型”，也是游戏里最实用的地图生成手段。</li>
+<li>大模型的能力提升大部分是<strong>平滑连续</strong>的；“突然涌现”有一部分是离散评价指标制造的视觉效应，不能一概而论。</li>
+<li>参数不是唯一变量，<strong>数据量与计算预算必须匹配</strong>（Chinchilla）；像素类比比“参数开关”更接近真相。</li>
+<li>结构相似 ≠ 机制相同：<strong>表现出智能行为，不等于拥有同等机制的理解或意识。</strong></li>
+</ol>
+<hr>
+<p>本文整理自一次关于涌现理论的对话（ChatGPT 分享链接：<a href="https://chatgpt.com/share/6abe837b-61a0-83e8-81be-650ab668fb49">https://chatgpt.com/share/6abe837b-61a0-83e8-81be-650ab668fb49</a>），结构、判据归纳和结论部分由我重新组织。</p></div>
+    <footer class="article-footer"><ul class="article-category-list"><li class="article-tag-list-item" data-aos="zoom-in">
+    <a
+      class="article-category-link"
+      href="/categories/%e6%80%9d%e8%80%83"
+      data-aos="zoom-in"
+      >思考</a
+    >
+    </li></ul>
+<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e6%b6%8c%e7%8e%b0"
+        rel="tag"
+        >涌现</a
+      >
+    </li><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e5%a4%8d%e6%9d%82%e7%b3%bb%e7%bb%9f"
+        rel="tag"
+        >复杂系统</a
+      >
+    </li><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e8%87%aa%e7%bb%84%e7%bb%87"
+        rel="tag"
+        >自组织</a
+      >
+    </li><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e5%85%83%e8%83%9e%e8%87%aa%e5%8a%a8%e6%9c%ba"
+        rel="tag"
+        >元胞自动机</a
+      >
+    </li><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e5%a4%a7%e6%a8%a1%e5%9e%8b"
+        rel="tag"
+        >大模型</a
+      >
+    </li><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e6%b8%b8%e6%88%8f%e5%bc%80%e5%8f%91"
+        rel="tag"
+        >游戏开发</a
+      >
+    </li></ul>
+</footer>
+  </div><nav
+    id="article-nav"
+    aria-label="Article navigation"
+    data-aos="fade-up"
+  ><div class="article-nav-link-wrap left"><img
+              data-src="https://d-sketon.top/img/_backwebp/bg1.webp"
+              data-sizes="auto"
+              alt="OpenClash 订阅更新故障排查与本地订阅转换器搭建"
+              class="lazyload"
+            /><a
+          href="/post/openclash-subconverter-fix/"
+          aria-label="前一篇:OpenClash 订阅更新故障排查与本地订阅转换器搭建"
+          title="前一篇:OpenClash 订阅更新故障排查与本地订阅转换器搭建"
+        ></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">OpenClash 订阅更新故障排查与本地订阅转换器搭建</h3>
+      </div></nav></article></section>
+        </div><footer id="footer" aria-label="Site footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info"><div>
+      <span class="icon-copyright"></span>2020-2026<span class="footer-info-sep rotate"></span>D-Sketon
+    </div><div>
+        基于&nbsp;<a
+          href="https://gohugo.io/"
+          target="_blank"
+          rel="noopener nofollow noreferrer"
+          >Hugo</a
+        >&nbsp;Theme.<a
+          href="https://github.com/D-Sketon/hugo-theme-reimu"
+          target="_blank"
+          rel="noopener nofollow noreferrer"
+          >Reimu</a
+        >
+      </div><div>
+        <span class="icon-brush"
+          >&nbsp;1.3k</span
+        >
+        &nbsp;|&nbsp;
+        <span class="icon-coffee">&nbsp;00:09</span>
+      </div><div>
+        <span class="icon-eye"></span>
+        <span id="busuanzi_container_site_pv"
+          >总访问量&nbsp;<span
+            id="busuanzi_value_site_pv"
+          ></span
+        ></span>
+        &nbsp;|&nbsp;
+        <span class="icon-user"></span>
+        <span id="busuanzi_container_site_uv"
+          >总访客量&nbsp;<span
+            id="busuanzi_value_site_uv"
+          ></span
+        ></span>
+      </div></div>
+</footer>
+<div class="sidebar-top">
+            <div class="sidebar-top-taichi rotate"></div>
+            <div class="arrow-up"></div>
+          </div><div id="mask" class="hide"></div>
+      </div><nav id="mobile-nav" aria-label="Mobile navigation">
+  <div class="sidebar-wrap"><div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class">
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一一句话涌现是什么">一、一句话：涌现是什么</a></li>
+    <li><a href="#二层次为什么高层规律不能从底层直接看出来">二、层次：为什么高层规律不能从底层直接看出来</a></li>
+    <li><a href="#三弱涌现-vs-强涌现一场还没结束的争论">三、弱涌现 vs 强涌现：一场还没结束的争论</a></li>
+    <li><a href="#四三个支撑概念以及它们的关系">四、三个支撑概念，以及它们的关系</a>
+      <ul>
+        <li><a href="#1-复杂系统complex-systems">1. 复杂系统（Complex Systems）</a></li>
+        <li><a href="#2-自组织self-organization">2. 自组织（Self-organization）</a></li>
+        <li><a href="#3-元胞自动机cellular-automata">3. 元胞自动机（Cellular Automata）</a></li>
+        <li><a href="#四个概念串起来">四个概念串起来</a></li>
+      </ul>
+    </li>
+    <li><a href="#五判据复杂--涌现">五、判据：复杂 ≠ 涌现</a></li>
+    <li><a href="#六大模型算不算涌现">六、大模型算不算涌现？</a>
+      <ul>
+        <li><a href="#底层目标一直很朴素">底层目标一直很朴素</a></li>
+        <li><a href="#为什么规模大了能力会变强">为什么规模大了能力会变强？</a></li>
+        <li><a href="#那个突然会了的争议">那个“突然会了”的争议</a></li>
+        <li><a href="#更扎实的那个现象叫-scaling-laws">更扎实的那个现象叫 Scaling Laws</a></li>
+        <li><a href="#像素类比不是第-9999999999-个参数的魔法">像素类比：不是第 9999999999 个参数的魔法</a></li>
+        <li><a href="#结构上确实很像复杂系统">结构上确实很像复杂系统</a></li>
+      </ul>
+    </li>
+    <li><a href="#七落到手上要做涌现式玩法从哪开始">七、落到手上：要做涌现式玩法，从哪开始</a></li>
+    <li><a href="#八我整理出来的结论">八、我整理出来的结论</a></li>
+  </ul>
+</nav>
+</div></div>
+        <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img
+    data-src="/avatar/avatar.webp"
+    data-sizes="auto"
+    alt="D-Sketon"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">D-Sketon</div>
+  <div class="sidebar-description">少女祈祷中...</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div><div class="sidebar-state-number">5</div>
+  </div>
+  <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      3
+    </div>
+  </a>
+  <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
+    <div>标签</div>
+    <div class="sidebar-state-number">22</div>
+  </a>
+</div>
+<div class="sidebar-social" ></div><div class="sidebar-menu"><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">首页</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">归档</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">关于</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">友链</div>
+    </div></div></div></div><div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div></nav>
+</div><script
+    src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"
+    
+    
+    
+    
+    integrity="sha384-3gT/vsepWkfz/ff7PpWNUeMzeWoH3cDhm/A8jM7ouoAK0/fP/9bcHHR5kHq2nf&#43;e" crossorigin="anonymous"></script><script
+    src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"
+    
+    
+    
+    
+    integrity="sha384-J08i8An/QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"></script><script src="/js/main.js" integrity="" crossorigin="anonymous"  ></script><script src="/js/aos.js" integrity="" crossorigin="anonymous"  ></script><script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", aosInit);
+    } else {
+      aosInit();
+    }
+  </script><script src="/js/pjax_main.js" integrity="" crossorigin="anonymous" data-pjax ></script><script>
+  var setupFirework = () => {
+    if (! false  || !window.matchMedia('(max-width: 768px)').matches) {
+      if (window.firework) {
+        const options = JSON.parse("{\"excludeelements\":[\"a\",\"button\"],\"particles\":[{\"colors\":[\"var(--red-1)\",\"var(--red-2)\",\"var(--red-3)\",\"var(--red-4)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"emit\"],\"number\":20,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.3,0.5],\"radius\":[16,32]}},{\"colors\":[\"var(--red-0)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"diffuse\"],\"number\":1,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.2,0.5],\"lineWidth\":6,\"radius\":20}}]}");
+        options.excludeElements = options.excludeelements;
+        delete options.excludeelements;
+        window.firework(options);
+      }
+    }
+  }
+</script><script
+    src="https://npm.webcache.cn/mouse-firework@0.2.0/dist/index.umd.js"
+    defer
+    
+    
+    onload="setupFirework()"
+    integrity="sha384-qi9WggRt19tv8Vc7pCHW3ulMNLwrn515zaLEWZjl1px07vz8&#43;pUoWX8n1rgq282T" crossorigin="anonymous"></script>
+
+<div id="lazy-script">
+  <div><script data-pjax>
+        window.REIMU_POST = {
+          author: "D-Sketon",
+          title: "涌现：从蚁群到大模型，一张关于“复杂从何而来”的知识地图",
+          url: "https:\/\/boniufamily.top\/post\/emergence-theory-notes\/",
+          description: "整理一次关于涌现理论的对话：从局部规则到宏观秩序，从复杂系统、自组织、元胞自动机到大模型是否真的在“涌现”。包含一套可操作的判据，以及做涌现式玩法原型的起点。",
+          cover: "https:\/\/boniufamily.top\/images\/banner.webp",
+        };
+      </script><script src="/js/insert_highlight.js" integrity="" crossorigin="anonymous" data-pjax ></script><script src="/js/tabs.js" integrity="" crossorigin="anonymous" data-pjax defer></script><script type="module" data-pjax>const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;const initPswp = (gallery, children) => {
+          if (_$$(`${gallery} ${children}`).length > 0) {
+            new PhotoSwipeLightbox({
+              gallery,
+              children,pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")}).init();
+          }
+        }
+        const pswp = () => {
+          initPswp('.article-entry', 'a.article-gallery-item');
+          initPswp('.article-gallery', 'a.article-gallery-item');
+        }
+        pswp()
+      </script></div>
+</div><script
+    src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js"
+    
+    async
+    
+    
+    integrity="sha384-0M75wtSkhjIInv4coYlaJU83&#43;OypaRCIq2SukQVQX04eGTCBXJDuWAbJet56id&#43;S" crossorigin="anonymous"></script><script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
+  </script><script>
+  const reimuCopyright = String.raw`
+   ______     ______     __     __    __     __  __    
+  /\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+  \ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+   \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+    \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                    
+  `;
+  console.log(String.raw`%c ${reimuCopyright}`, "color: #ff5252;");
+  console.log(
+    "%c Theme.Reimu" + " %c https://github.com/D-Sketon/hugo-theme-reimu ",
+    "color: white; background: #ff5252; padding:5px 0;",
+    "padding:4px;border:1px solid #ff5252;",
+  );
+</script></body>
+</html>
