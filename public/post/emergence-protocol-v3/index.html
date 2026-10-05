@@ -1,0 +1,1349 @@
+<!doctype html>
+<html
+  lang="zh-cn" 
+  data-theme-mode="auto"
+  >
+  <head><meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/><title>
+  《创世协议：轨道边缘》v3.0：把“涌现”做成一座会自己长出来的湖湾 | D-Sketon
+</title>
+<meta name="description" content="一份单人 &#43; AI 辅助的 2D 原型开发记录：三层涌现如何落进同一个游戏，帆翼群聚与“湖湾星潮”怎么靠局部规则长出来，两个正式关卡、七个物种的数值与卡牌语法，以及最后一轮改造的实测数据——和还没做到的部分。"/>
+    <meta name="keywords" content="创世协议,轨道边缘,游戏开发,涌现,生态模拟,Boids,帆翼,湖湾星潮,独立游戏,Lua,NanoVG,AI辅助" /><script>
+  window.siteConfig = JSON.parse("{\"anchor\":{\"auto\":{\"enable\":false,\"length\":60},\"explicit\":{\"enable\":false,\"marker\":\"{#anchor-\",\"prefix\":\"anchor-\"}},\"anchor_icon\":null,\"base\":\"https://boniufamily.top/\",\"clipboard\":{\"copyright\":{\"count\":50,\"enable\":false,\"license_type\":\"by-nc-sa\"},\"fail\":{\"en\":\"Copy failed (ﾟ⊿ﾟ)ﾂ\",\"ja\":\"コピー失敗 (ﾟ⊿ﾟ)ﾂ\",\"pt-br\":\"Falha ao copiar (ﾟ⊿ﾟ)ﾂ\",\"zh-cn\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"zh-tw\":\"複製失敗 (ﾟ⊿ﾟ)ﾂ\"},\"success\":{\"en\":\"Copy successfully (*^▽^*)\",\"ja\":\"コピー成功 (*^▽^*)\",\"pt-br\":\"Copiado com sucesso (*^▽^*)\",\"zh-cn\":\"复制成功 (*^▽^*)\",\"zh-tw\":\"複製成功 (*^▽^*)\"}},\"code_block\":{\"expand\":true},\"icon_font\":\"4552607_ex15nbittbh\",\"outdate\":{\"daysago\":180,\"enable\":false,\"message\":{\"en\":\"This article was last updated on {time}. Please note that the content may no longer be applicable.\",\"ja\":\"この記事は最終更新日：{time}。記載内容が現在有効でない可能性がありますのでご注意ください。\",\"pt-br\":\"Este artigo foi atualizado pela última vez em {time}. Observe que o conteúdo pode não ser mais aplicável.\",\"zh-cn\":\"本文最后更新于 {time}，请注意文中内容可能已不适用。\",\"zh-tw\":\"本文最後更新於 {time}，請注意文中內容可能已不適用。\"}}}");
+  
+</script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="preload"
+  as="style"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+/>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+  media="print"
+  onload="this.media='all'"
+/>
+<link
+    rel="preload"
+    href="//at.alicdn.com/t/c/font_4552607_ex15nbittbh.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous"
+  /><link rel="stylesheet" href="/css/loader.min.ac746e154f756f8220326eeb52a719f142ab038be5a8ddf30ea5ef15ef2356ea.css" /><meta property="og:type" content="website" />
+  <meta property="og:title" content="《创世协议：轨道边缘》v3.0：把“涌现”做成一座会自己长出来的湖湾 | D-Sketon" />
+  <meta
+    property="og:description"
+    content="一份单人 &#43; AI 辅助的 2D 原型开发记录：三层涌现如何落进同一个游戏，帆翼群聚与“湖湾星潮”怎么靠局部规则长出来，两个正式关卡、七个物种的数值与卡牌语法，以及最后一轮改造的实测数据——和还没做到的部分。"
+  />
+  <meta property="og:url" content="https://boniufamily.top/post/emergence-protocol-v3/" />
+  <meta
+    property="og:site_name"
+    content="gamerurara"
+  />
+  <meta property="og:image" content="https://boniufamily.top/images/banner.webp" />
+  <meta property="article:author" content="D-Sketon" />
+  <meta property="article:published_time" content="2026-10-05T12:15:00&#43;08:00" />
+  <meta property="article:modified_time" content="2026-10-05T12:15:00&#43;08:00" /><meta property="article:tag" content="游戏开发, 涌现, 生态模拟, Boids, 游戏设计, 独立游戏, Lua" /><meta name="twitter:card" content="summary" /><meta name="twitter:image" content="https://boniufamily.top/images/banner.webp" />
+<link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/main.min.5a0a43eb14b8f925af7fd8d543b60f5f2fe844f4d718b141cb8b28f2f5e127fa.css" /><link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css"
+    integrity="sha384-IfxC36XL/toUyJ939C73PcgMuRzAZuIzZxE38drsmO5p6jD7ei&#43;Zx/1oA/0l8ysE" crossorigin="anonymous"
+    onload="this.onload=null;this.rel='stylesheet'"
+  /><link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/katex@0.16.24/dist/katex.min.css"
+    integrity="sha384-tTgKLjMYmJr94v8qu2PE5MUGSMbyN2xiH266JUB3gpm8vnnJywd1dWSOEfrFz&#43;YI" crossorigin="anonymous"
+    onload="this.onload=null;this.rel='stylesheet'"
+  /><script
+    src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"
+    
+    
+    
+    
+    integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"></script><link
+    rel="stylesheet"
+    href="https://npm.webcache.cn/@reimujs/aos@0.1.2/dist/aos.css"
+    integrity="sha384-GMRP93c6Hkz9JVKGAuRR3nTS7M07RwPgTFenXiosjq2VbVgvdDNcz1g6Mkj8AONa" crossorigin="anonymous"/></head>
+  <body><div id='loader'>
+    <div class="loading-left-bg loading-bg"></div>
+    <div class="loading-right-bg loading-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi rotate"><svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="https://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+            <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="var(--red-1, #ff5252)" />
+            <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z 
+          M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95z" fill="var(--red-1, #ff5252)" />
+          </svg></div><div class="loading-word">少女祈祷中...</div>
+    </div>
+  </div>
+  </div>
+  <script>
+    var time = null;
+    var loaderEl = document.getElementById('loader');
+    var startLoading = () => {
+      time = Date.now();
+      loaderEl.classList.remove("loading");
+    }
+    var hideLoader = () => {
+      document.body.style.overflow = 'auto';
+      loader.classList.add('loading');
+    };
+
+    var endLoading = () => {
+      if (!time) {
+        hideLoader();
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          hideLoader();
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('DOMContentLoaded', endLoading);
+    loaderEl.addEventListener('click', endLoading);
+  </script><div id="copy-tooltip"></div>
+<div id="lang-tooltip">
+本文章没有找到对应的语言版本
+</div>
+<div id="heatmap-tooltip"></div><div id="container">
+      <div id="wrap"><div id="header-nav">
+  <nav id="main-nav" aria-label="Primary navigation"><a class="main-nav-link-wrap" href="/"><div class='main-nav-icon icon rotate'>&#xe62b;</div><span class="main-nav-link">首页</span>
+      </a><a class="main-nav-link-wrap" href="/archives"><div class='main-nav-icon icon rotate'>&#xe62b;</div><span class="main-nav-link">归档</span>
+      </a><a class="main-nav-link-wrap" href="/about"><div class='main-nav-icon icon rotate'>&#xe62b;</div><span class="main-nav-link">关于</span>
+      </a><a class="main-nav-link-wrap" href="/friend"><div class='main-nav-icon icon rotate'>&#xe62b;</div><span class="main-nav-link">友链</span>
+      </a><a id="main-nav-toggle" class="nav-icon" aria-label="Toggle navigation" role="button"></a>
+  </nav>
+  <nav id="sub-nav" aria-label="Secondary navigation"></nav></div>
+<header id="header" aria-label="Site header"><picture></picture><img  fetchpriority="high" src="/images/banner.webp" alt="《创世协议：轨道边缘》v3.0：把“涌现”做成一座会自己长出来的湖湾"><div id="header-outer">
+    <div id="header-title"><span id="logo">
+            <h1 data-aos="slide-up">《创世协议：轨道边缘》v3.0：把“涌现”做成一座会自己长出来的湖湾</h1>
+          </span><h2 id="subtitle-wrap" data-aos="slide-down"></h2></div>
+  </div>
+</header><div id="content"
+          aria-label="Page content"
+          
+          class="sidebar-right"  ><aside id="sidebar" aria-label="Sidebar"><div class="sidebar-wrapper-container sticky"><div class="sidebar-wrapper">
+    <div
+      class="sidebar-wrap"
+      data-aos="fade-up"
+    ><div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class">
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一这次不做造物主模拟器">一、这次不做“造物主模拟器”</a></li>
+    <li><a href="#二三层涌现同一个游戏">二、三层“涌现”，同一个游戏</a></li>
+    <li><a href="#三世界观一个疲惫但仍然专业的人">三、世界观：一个疲惫但仍然专业的人</a></li>
+    <li><a href="#四四段流程与三种时间">四、四段流程与三种时间</a></li>
+    <li><a href="#五教程例行唤醒先听到再看见再理解">五、教程《例行唤醒》：先听到，再看见，再理解</a></li>
+    <li><a href="#六核心奇观湖湾星潮">六、核心奇观“湖湾星潮”</a></li>
+    <li><a href="#七第一关再试一次">七、第一关《再试一次》</a></li>
+    <li><a href="#八第二关另一种答案">八、第二关《另一种答案》</a></li>
+    <li><a href="#九卡牌语法与生态底层">九、卡牌语法与生态底层</a></li>
+    <li><a href="#十实现从策划案到-lua">十、实现：从策划案到 Lua</a></li>
+    <li><a href="#十一验证哪些是实测哪些还没做">十一、验证：哪些是实测，哪些还没做</a></li>
+    <li><a href="#十二范围排期与检查点">十二、范围、排期与检查点</a></li>
+    <li><a href="#十三验收主题有没有真的进入体验">十三、验收：主题有没有真的进入体验</a></li>
+    <li><a href="#十四尾声">十四、尾声</a></li>
+  </ul>
+</nav>
+</div></div>
+          <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img
+    data-src="/avatar/avatar.webp"
+    data-sizes="auto"
+    alt="D-Sketon"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">D-Sketon</div>
+  <div class="sidebar-description">少女祈祷中...</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div><div class="sidebar-state-number">6</div>
+  </div>
+  <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      4
+    </div>
+  </a>
+  <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
+    <div>标签</div>
+    <div class="sidebar-state-number">27</div>
+  </a>
+</div>
+<div class="sidebar-social" ></div><div class="sidebar-menu"><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">首页</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">归档</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">关于</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">友链</div>
+    </div></div></div><div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div></div>
+  </div><div class="sidebar-widget"></div></div></aside>
+<section id="main" aria-label="Main content"><article
+  class="h-entry article"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div
+    class="article-inner"
+    data-aos="fade-up"
+  >
+    <div class="article-meta"><div class="article-date">
+  <span
+    class="article-date-link icon-calendar"
+    data-aos="zoom-in"
+  >
+    <time datetime="2026-10-05 12:15:00 &#43;0800 CST" itemprop="datePublished"
+      >2026-10-05</time
+    >
+    <time style="display: none;" id="post-update-time"
+      >2026-10-05</time
+    >
+  </span></div>
+</div><div class="hr-line"></div><div class="article-gallery">
+    <div class="article-gallery-photos"><a class="article-gallery-img article-gallery-item" href="/images/emergence-game/lakebay.jpg" target="_blank">
+          <img src="/images/emergence-game/lakebay.jpg" itemprop="image" alt="gallery" onload="this.parentNode.dataset.pswpWidth = this.naturalWidth;this.parentNode.dataset.pswpHeight = this.naturalHeight;" >
+        </a><a class="article-gallery-img article-gallery-item" href="/images/emergence-game/plants.jpg" target="_blank">
+          <img src="/images/emergence-game/plants.jpg" itemprop="image" alt="gallery" onload="this.parentNode.dataset.pswpWidth = this.naturalWidth;this.parentNode.dataset.pswpHeight = this.naturalHeight;" >
+        </a></div>
+  </div><div class="e-content article-entry" itemprop="articleBody"><blockquote>
+<p>在漫长的宇宙航行中，你早已习惯实验失败。直到一次例行干预后，星球上的生命长出了你未曾设计的秩序——现在，你想再试一次。</p>
+</blockquote>
+<p><a href="/post/emergence-theory-notes/">上一篇</a>整理涌现理论时，我在结尾留了一句“这套判据能不能拿来做个玩法原型”。现在它有了一个具体的东西：《创世协议：轨道边缘》。</p>
+<p>这是一个单人 + AI 辅助、2D 的生态改造原型，当前用 Maker / Lua / NanoVG 跑。下面这份记录来自项目里的两份文件——设计主稿 <code>GDD_v3.0</code>，和实现侧的《v3.0 改造记录》。我尽量把它们并成一条线：设计想要什么、代码里长成了什么、哪些数字是实测出来的、哪些还只是纸面。有一点先说清楚：<strong>模型验证和实机验收是两回事</strong>，下文凡是写“通过”的，都标明跑的是哪一套用例。</p>
+<h2 id="一这次不做造物主模拟器">
+<a class="header-anchor" href="#%e4%b8%80%e8%bf%99%e6%ac%a1%e4%b8%8d%e5%81%9a%e9%80%a0%e7%89%a9%e4%b8%bb%e6%a8%a1%e6%8b%9f%e5%99%a8"></a>
+一、这次不做“造物主模拟器”
+</h2><p>游戏的中心不是让你当上帝，而是：</p>
+<p><strong>一个厌倦了不断失败的深空科研人员，在亲手留下的几条规则中，看见生命长出意料之外的秩序，也重新想起自己为什么走向宇宙。</strong></p>
+<p>玩家始终身处飞船内部，通过科研终端、轨道设备和地表探针观察与影响星球。主要操作发生在终端显示的地表上，飞船承担人物、时间流逝与情绪的空间。</p>
+<p>保留“有限预算、卡牌干预、自动生态、可解释后果”这套玩法核心之后，v3.0 定下五条不能破的规矩：</p>
+<ol>
+<li>玩家安排的是条件，生命自己选择路径。卡牌不直接召唤“生态奇观”。</li>
+<li>奇观先让玩家看见，再允许解释；人物台词不能抢先宣布玩家应该感动。</li>
+<li>正式关卡必须有资源冲突与可见代价，不能在序章惊艳之后重新变成等数值上涨。</li>
+<li>主角可以倦怠、嘴硬、自言自语，但不能持续嘲讽玩家正在认真完成的操作。</li>
+<li>每种新增表现尽量复用已有规则。优先完成一场可重复观察、会随布局改变的奇观。</li>
+</ol>
+<p>流程也从原来一局“创世七日”的八日结构，换成四段：</p>
+<p><strong>序章／教程《例行唤醒》→ 第一关《再试一次》→ 第二关《另一种答案》→ 尾声《再看一会儿》</strong></p>
+<p>它们发生在同一颗已有生命的星球、同一片逐步开放的样区上。教程修复的湖湾在正式关卡中保留，玩家可以一直认出“这是我第一次看见翼群的地方”。三章不各做一套地表系统。</p>
+<p>改版之前的原型长这样（UI 还是旧的“创世点／神力”那一套，和现在的飞船视角、铅笔风不是同一批画面，这里只作为演变留档）：</p>
+<p><img src="/images/emergence-game/prototype-v1.jpg" alt="早期原型《创世七日》截图，仍是旧的八日流程与创世点界面"></p>
+<h2 id="二三层涌现同一个游戏">
+<a class="header-anchor" href="#%e4%ba%8c%e4%b8%89%e5%b1%82%e6%b6%8c%e7%8e%b0%e5%90%8c%e4%b8%80%e4%b8%aa%e6%b8%b8%e6%88%8f"></a>
+二、三层“涌现”，同一个游戏
+</h2><p>“涌现”这个词很容易被讲成一团雾，所以它被拆成了三条同时跑的线，并且共用一套结构：给定条件 → 相互作用 → 未被直接指定的结果。</p>
+<table>
+  <thead>
+      <tr>
+          <th>层次</th>
+          <th>给定条件</th>
+          <th>相互作用</th>
+          <th>未被直接指定的结果</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>生态</td>
+          <td>地形、物种、规则卡</td>
+          <td>觅食、传播、群聚、竞争</td>
+          <td>群体形态与生态布局</td>
+      </tr>
+      <tr>
+          <td>人物</td>
+          <td>疲惫、失败记忆、职业技能</td>
+          <td>观察、困惑、尝试、承担后果</td>
+          <td>重新愿意提问与投入</td>
+      </tr>
+      <tr>
+          <td>作品</td>
+          <td>机制、美术、声音、文本</td>
+          <td>玩家的行动和理解</td>
+          <td>属于这一局的体验与情感</td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>明线是生态形式的涌现。</strong> 玩家用卡牌改变局部地形、种源、湿度、酸碱和行为偏好，动植物遵守少量固定规则，通过竞争、扩散、群聚、觅食与捕食形成玩家没有逐一安排的分布和运动。这里的“意想不到”是<strong>结果的具体形态超出预料，但回头能找到原因</strong>——同样的湿地修复，可能产生双股迁飞、绕岛汇聚或沿岸长带，不靠隐藏规则突然让物种变异成另一种怪物。玩家应该能说出一句：“我只把这两处水岸连起来，它们居然开始绕着中间的岩岛飞。”</p>
+<p><strong>暗线是好奇心的重新涌现。</strong> 长期航行、休眠、失败与重复汇报，使主角学会压低期待。童年对宇宙的好奇没消失，只是不再出现在他的日常言语里。角色变化靠具体行为呈现，而不是靠台词宣称：</p>
+<table>
+  <thead>
+      <tr>
+          <th>初期</th>
+          <th>中期</th>
+          <th>后期</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>看剩余工时、关提示、只问是否必须处理</td>
+          <td>主动放大画面，追踪一个群体，问系统“为什么”</td>
+          <td>愿意多留一个观察周期，保存异常现象，允许结果超出原计划</td>
+      </tr>
+      <tr>
+          <td>“按流程来吧。”</td>
+          <td>“刚才那一群，回放一下。”</td>
+          <td>“先别给它下结论。”</td>
+      </tr>
+  </tbody>
+</table>
+<p>序章只点燃一次惊喜；第一关通过亲自试验与失败维持这份兴趣；第二关则考验他能否对陌生、甚至带来损失的生命也保持好奇。结局只表达愿意继续研究，不宣称一次奇观治愈了所有疲惫。</p>
+<p><strong>Meta 线是玩家的参与。</strong> 制作人布置机制、资源、画面、声音与人物处境，玩家通过自己的行动把这些材料连成一次具体体验。主角发现生命的意外，玩家发现自己愿意停下来看，这两件事可以在同一时刻发生。它属于作品的组织方式，不作为科学意义上“游戏必然涌现”的证明，也不需要主角打破第四面墙来解释制作过程。</p>
+<p>落点用一个意象串起来：<strong>起初玩家点击“继续休眠”是为了尽快进入游戏，结尾玩家主动点击“再观察一会儿”，是因为已经想留下。</strong></p>
+<h2 id="三世界观一个疲惫但仍然专业的人">
+<a class="header-anchor" href="#%e4%b8%89%e4%b8%96%e7%95%8c%e8%a7%82%e4%b8%80%e4%b8%aa%e7%96%b2%e6%83%ab%e4%bd%86%e4%bb%8d%e7%84%b6%e4%b8%93%e4%b8%9a%e7%9a%84%e4%ba%ba"></a>
+三、世界观：一个疲惫但仍然专业的人
+</h2><p>飞船“方舟-IV”是长期宇宙航行科研飞船，搭载种质库、休眠舱、轨道探测器与小型生态工程载荷。玩家是本航段唯一被唤醒的生态科研人员；其他船员是否存在不展开，避免新增角色制作。飞船长期自动航行，只有出现值得调查的天体或异常时才唤醒值班人员——主角的清醒记忆由一段段检查、实验、报告、失败组成，生活连续性被漫长休眠切碎。此前几颗星球的实验样区先后失败，档案只留下简短记录：水循环中断、引入物种失衡、短暂繁荣后崩溃。这些失败原因后来成了玩家理解系统的伏笔，但不做三段回忆过场。</p>
+<p>这次发现的是一颗<strong>已经存在原生生命</strong>的星球。主角不是从零创造生命，他的工作是调查、建立有限试验区，试着让船载生态与当地环境共存。“地球化”从覆盖整颗星球的单一目标收紧为“建立能够自维持的混合生态样区”——人类可用生产区与原生栖息地必须同时存在。星球以编号“候选星 K-452”呈现。</p>
+<p>主角姓名暂不确定，界面称“值班研究员”。不制作独立行走角色，通过第一人称视角、文字独白和少量动作音表现。他说话的对象常常并不明确：有时对电脑，有时像在给自己解释，有时只是在填补安静。吐槽主要针对程序、漫长工时和自己过去的乐观，而不是贬低生命或玩家。</p>
+<p>童年线索只用一个可复用道具：终端边缘贴着一张孩子画的旋涡状“星空”，背面写着“以后我要去看”。序章不解释作者；第一次翼群绕岛时，构图让人想起那张画，但动物不会真的排成画中的固定形状。结尾可以轻轻补一句“小时候我以为，星星里全是这样的事。”</p>
+<p>船载电脑负责唤醒、说明操作、提供证据和提醒风险，语气准确、平稳。它不评价某种生态“美不美”，也不充当不断讲笑话的搭档。序章的一段对白大致定了这个关系的调子：</p>
+<blockquote>
+<p>电脑：“值班研究员，候选星 K-452 检测到持续生物活动。需要你确认。”</p>
+<p>主角：“上次也是持续的。持续到第三份报告。”</p>
+<p>电脑：“本次存在完整的原生群体。”</p>
+<p>主角：“好。把终端打开。”</p>
+</blockquote>
+<p>后面还有一段我很喜欢的：主角问“异常就一定要叫醒我？”，电脑回答“你保留了‘无法分类的生命行为’唤醒条件。”主角：“……我还留着这个？”——这条旧设置连接过去与现在，但电脑不借此说教；唤醒依据是观测到的群体活动异常，不是凭空知道主角此刻需要被感动。</p>
+<h2 id="四四段流程与三种时间">
+<a class="header-anchor" href="#%e5%9b%9b%e5%9b%9b%e6%ae%b5%e6%b5%81%e7%a8%8b%e4%b8%8e%e4%b8%89%e7%a7%8d%e6%97%b6%e9%97%b4"></a>
+四、四段流程与三种时间
+</h2><table>
+  <thead>
+      <tr>
+          <th>章节</th>
+          <th style="text-align: right">目标时长</th>
+          <th>外在目标</th>
+          <th>内在变化</th>
+          <th>主要压力</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>教程《例行唤醒》</td>
+          <td style="text-align: right">3～4 分钟</td>
+          <td>修复两处相连湿地，设置观测，进入休眠</td>
+          <td>从敷衍到第一次主动看</td>
+          <td>低失败风险，保留落点选择</td>
+      </tr>
+      <tr>
+          <td>第一关《再试一次》</td>
+          <td style="text-align: right">5～8 分钟</td>
+          <td>用船载动植物建立混合生态样区，渡过一次干旱</td>
+          <td>从被动惊喜到主动实验</td>
+          <td>生产、保育与有限电力的冲突</td>
+      </tr>
+      <tr>
+          <td>第二关《另一种答案》</td>
+          <td style="text-align: right">7～10 分钟</td>
+          <td>面对外星飞船的竞争性改造，保护样区或利用其物种</td>
+          <td>从保护自己的答案到理解另一种答案</td>
+          <td>可预告的敌方改造、污染、开荒需求</td>
+      </tr>
+      <tr>
+          <td>尾声《再看一会儿》</td>
+          <td style="text-align: right">30～60 秒，可停留</td>
+          <td>留下真实运行中的样区档案</td>
+          <td>愿意继续观察</td>
+          <td>无新增战斗与考核</td>
+      </tr>
+  </tbody>
+</table>
+<p>完整首次流程目标约 16～23 分钟（时长是测试目标）。重试从本章起点或当日快照开始，不重复唤醒对白与第一次奇观。</p>
+<p>时间被分成三种，各自职责清楚：<strong>航行历</strong>只用于叙事，表达长期航行和主观生活被打断；<strong>生态模拟周期</strong>是玩法时间，一个周期 60 模拟秒，包含白昼与夜晚，不是现实一天的科学缩放；<strong>玩家观看时间</strong>可暂停、1×／2×，教程休眠用后台快进，不要求玩家真实等候数小时。休眠提示写“经历三个观测周期”，避免用“几十年”包装几轮模拟却无法解释物种寿命和设备持续时间。</p>
+<h2 id="五教程例行唤醒先听到再看见再理解">
+<a class="header-anchor" href="#%e4%ba%94%e6%95%99%e7%a8%8b%e4%be%8b%e8%a1%8c%e5%94%a4%e9%86%92%e5%85%88%e5%90%ac%e5%88%b0%e5%86%8d%e7%9c%8b%e8%a7%81%e5%86%8d%e7%90%86%e8%a7%a3"></a>
+五、教程《例行唤醒》：先听到，再看见，再理解
+</h2><p>黑屏里先听见通风与一声很轻的提示。界面缓慢亮起，停在休眠舱检测信息。镜头只需舱室背景与终端推近，不做第一人称行走。玩家在 30 秒内拿到第一次可操作界面。</p>
+<p>教程开放完整地图中的一个 8×8 湖湾，其余区域只看得到轮廓。当地已经有海绵藓、少量帆翼和休眠种源；近期干旱造成两片湿润地断开，动物只能在孤立的小片区活动。这里投放的原生种质来自先遣探针已采集的当地样本，开场一句终端状态就说明，不追加采集小游戏，也不暗示飞船提前携带了尚未发现的物种。</p>
+<p>电脑建议的是常规低扰动操作，<strong>不承诺会创造奇观</strong>：</p>
+<table>
+  <thead>
+      <tr>
+          <th>步骤</th>
+          <th>玩家操作</th>
+          <th>教会的概念</th>
+          <th>必须立即看见的结果</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>1</td>
+          <td>点选一片失水海绵藓</td>
+          <td>观察当前限制</td>
+          <td>“水分不足，停止生长”，地块高亮</td>
+      </tr>
+      <tr>
+          <td>2</td>
+          <td>使用【局部降雨】，在两个推荐落点中任选一处</td>
+          <td>卡牌改变条件，不直接生成生物</td>
+          <td>覆盖预览、水分上升、植株恢复迹象</td>
+      </tr>
+      <tr>
+          <td>3</td>
+          <td>使用【原生种质舱】，沿所选岸线补足三格海绵藓</td>
+          <td>种源与空间布局</td>
+          <td>三个实际落点、之后可扩散的相邻空间</td>
+      </tr>
+      <tr>
+          <td>4</td>
+          <td>设置一座免费的教程观测标记</td>
+          <td>观察是玩法动作</td>
+          <td>标记记录该区域状态与后续变化</td>
+      </tr>
+      <tr>
+          <td>5</td>
+          <td>确认【进入休眠】</td>
+          <td>放手让系统运行</td>
+          <td>干预前快照被保存，电力工具收起</td>
+      </tr>
+  </tbody>
+</table>
+<p>两套推荐落点形成不同的湿地连接：北侧偏窄，南侧偏宽。它们都必须在测试中产生可读的群聚，但具体路线、密度、汇合位置不同。教程使用专用的两次免费干预，不污染正式关卡电力经济；只在合法区允许投放，错误预览不扣次数；玩家可以在确认休眠前撤销布局，确认后不倒放生态。</p>
+<p><strong>休眠期间究竟发生什么？</strong> 不是载入一张固定的漂亮地图，而是保存玩家操作后的状态，按正常生态规则快进 180 模拟秒（三个观测周期）：湿度恢复、原生植被扩散、可用花源增加、附近帆翼向连通栖息地迁入。玩家只看见约 8～15 秒的时间流逝表现；目标设备算不完时用简短观测进度承接，不把未计算的未来冒充完成，也不靠加大模拟步长跳过生态过程。新加入的翼群来自地图边缘已记录的栖息区，迁入有容量与每周期数量上限，日志明确写“迁入”，不演成少量个体凭空繁殖出数千只。</p>
+<p><strong>第二次唤醒的演出，是整段的情绪落点。</strong> 电脑说“目前没有指标掉。建议你看一下。”接下来推荐 25～35 秒，玩家可随时取消镜头辅助：</p>
+<table>
+  <thead>
+      <tr>
+          <th>时间</th>
+          <th>画面</th>
+          <th>声音与台词</th>
+          <th>作用</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>0～4 秒</td>
+          <td>终端还没完全点亮，先出现一只掠过画面边缘的翼影</td>
+          <td>通风声变轻，出现远处薄翼的沙沙声</td>
+          <td>从熟悉的空寂里露出不同</td>
+      </tr>
+      <tr>
+          <td>4～10 秒</td>
+          <td>镜头停在玩家刚才修复的岸线，十几只帆翼沿水岸聚集</td>
+          <td>无解释对白</td>
+          <td>先让玩家认出自己的落点</td>
+      </tr>
+      <tr>
+          <td>10～20 秒</td>
+          <td>缓慢拉远，多个群体沿湿地连接汇合，绕岩岛分流，再在另一侧合拢</td>
+          <td>音乐渐入；至少留 3～5 秒纯观看</td>
+          <td>从局部因果进入整体尺度</td>
+      </tr>
+      <tr>
+          <td>20～27 秒</td>
+          <td>恢复自由缩放与点选，保留观测标记</td>
+          <td>主角：“……等一下。它们一直这样飞？”</td>
+          <td>人物与玩家一起提出问题</td>
+      </tr>
+      <tr>
+          <td>27～35 秒</td>
+          <td>可点开干预前快照，简单对照水岸</td>
+          <td>电脑：“迁飞路线已连续维持两个观测窗口。”主角：“把下一次休眠往后推。”</td>
+          <td>好奇转化为主动行为</td>
+      </tr>
+  </tbody>
+</table>
+<p>如果当前群体没有绕岛，就不播描述绕岛的台词，改用通用的“那边还有一群”“别切掉画面”——<strong>条件台词必须有对应的事件数据</strong>。展示成功后保留 15～30 秒自由观看，不立刻弹出评分或“新功能解锁”，玩家点【继续研究】才进入第一关。</p>
+<p>唤醒条件也要能被代码验证，而不是靠感觉：以“适湿、有效海绵藓格”为节点按四邻接检查两片标记区是否连通；记录帆翼的上一个访花斑块，统计最近 5 秒从一侧进入另一侧的个体数。起点是“至少 200 只可见帆翼 + 持续 5 秒以上的跨斑块运动”，但 200 只必须和性能档位一起校准——<strong>不能一边选了 128 只的测试上限，一边要求 200 只才唤醒</strong>。未达条件时系统先提示“活动仍在汇聚”，允许延长一个观测周期或请玩家补一处连接，此时不播惊叹台词、不偷偷补满动物；补救流程是异常恢复，不是让新玩家常态化多等一轮。</p>
+<h2 id="六核心奇观湖湾星潮">
+<a class="header-anchor" href="#%e5%85%ad%e6%a0%b8%e5%bf%83%e5%a5%87%e8%a7%82%e6%b9%96%e6%b9%be%e6%98%9f%e6%bd%ae"></a>
+六、核心奇观“湖湾星潮”
+</h2><p>选翼群当主角奇观，是因为它便宜且会变。原生小型生物“帆翼”身体细长、两片半透明薄翼，掠过湿地，黄昏翼面有微弱光泽；它像鸟群一样汇聚，也能像鱼群一样分流，适合 2D 俯视。形态用一个清晰剪影加两帧翼动就够，微光只服务可读性。镜头里的“星河”来自大量独立运动方向与疏密变化，<strong>不是预先绘制的星河轨迹</strong>。</p>
+<p>整条因果链是：<strong>玩家修复湿地 → 海绵藓恢复并形成多个花源斑块 → 帆翼沿可觅食区域迁入 → 每只遵守局部群聚与避障 → 整体形成不断改变的迁飞结构 → 访花进一步影响植物扩散。</strong></p>
+<p>局部行为用 Boids 的分离、对齐、聚合三类打底，再加觅食和避障（基础原则参考 Craig Reynolds 的原始说明，生态耦合与权重是本作自己的设计）：</p>
+<table>
+  <thead>
+      <tr>
+          <th>规则</th>
+          <th>个体行为</th>
+          <th>整体可能出现的结果</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>分离</td>
+          <td>避开过近邻居</td>
+          <td>群体有厚度，不挤成一个像素点</td>
+      </tr>
+      <tr>
+          <td>对齐</td>
+          <td>朝附近同类的平均运动方向调整</td>
+          <td>局部方向传播，出现整体转向</td>
+      </tr>
+      <tr>
+          <td>聚合</td>
+          <td>轻微靠近附近同类的位置中心</td>
+          <td>小群汇聚，但不锁定全图唯一中心</td>
+      </tr>
+      <tr>
+          <td>觅食</td>
+          <td>对附近可感知的花源评分，食物少时离开</td>
+          <td>沿湿地迁飞、耗尽一处后转移</td>
+      </tr>
+      <tr>
+          <td>避障</td>
+          <td>预判岩脊与缺乏落脚条件的区域，限制进入</td>
+          <td>分流、绕行、狭口汇聚</td>
+      </tr>
+      <tr>
+          <td>饱食离场</td>
+          <td>进食后暂时降低觅食欲，向附近休息地滑行</td>
+          <td>避免所有个体永远围着一个食物点旋转</td>
+      </tr>
+  </tbody>
+</table>
+<p>合成方式写得很朴素：<code>加速度 = 分离 + 对齐 + 聚合 + 觅食 + 避障</code>，各项按归一化方向与可调权重计算，最大速度、转向速度与加速度封顶，紧急避障优先。<strong>不存在“第 20 秒让所有鸟向右转”的导演指令</strong>；食物目标只短时锁定，个体感知半径与转向略有差异，噪声幅度小且带种子——不能靠随机抖动伪装生命感。群体也不会自动拼爱心、汉字或预设螺旋。</p>
+<p>与生态模拟之间是双向的，这一点决定了它不只是特效：</p>
+<ul>
+<li>每个可见帆翼对应一个轻量个体，有位置、速度、饥饿、目标与行为状态。</li>
+<li>地块花源真实消耗，多个个体同一步不能重复吃到同一份食物。</li>
+<li>帆翼真实访花时，可从生物量达到 70% 的海绵藓或金草取得一份种源，当场消耗母株 10 生物量；每只最多携带一份，18 飞行秒后失效，不退款。</li>
+<li>同一母株每 10 飞行秒最多提供一份。帆翼实际经过距母株至少 2 格的合法空格时，每次进入有 65% 概率落种，初始生物量 10；水域、未开放地块、根系、热束作用中的地块和不适宜的水分／酸度／土质都不能定植。携种只使用翼群随机流，不额外调用陆生随机流。</li>
+<li>飞行连接可以跨越水面与空隙。点选携种萌发的植株能追踪母株坐标；母株之后死亡也不抹去这段来源记录。</li>
+<li>首版帆翼不逐只求偶繁殖，以有上限的迁入、迁出维持局部数量；这个省略在观察说明里明确写出，不宣称已模拟完整飞行食物链。</li>
+<li>帆翼不被潜伏者捕食，首版不加飞行捕食者，地表兽群承担食草—捕食关系。</li>
+<li>长期缺少花源时，帆翼向边缘栖息区迁出；只有没有可达食物且饥饿超限时才死亡。<strong>奇观可以衰退，也能随栖息地恢复再出现。</strong></li>
+</ul>
+<p>壮观感是有预算的。先测 128、256、512 个轻量个体，目标镜头以约 256～512 只建立规模；不先承诺几千只，更不要求数百只个体都挂载完整陆地动物的寻路、战斗与繁殖组件。邻居查询用空间分桶，桶过密时限制单个体参与群聚计算的邻居数量并稳定顺序采样；生态低频更新、飞行运动固定较高频率更新、画面插值。降低画质优先关辉光、缩轨迹、简化阴影；若必须减少可见个体，采用明确的“代表显示”模式，逻辑数量与食物消耗保持不变——<strong>不偷偷把每只鸟变成多个有生态收益的单位</strong>。</p>
+<p>镜头可以在真实发生的“斑块汇合”“绕障分流”“聚集密度上升”附近选择观察位置，首次可自动推拉，拖动或缩放立即取消，之后以可点击纪事定位为主。远景显示轮廓与群流，近景突出少量个体，文字最多一行，不用完整数据面板盖住高潮；跳过演出仍进入相同的生态状态。</p>
+<p><img src="/images/emergence-game/lakebay.jpg" alt="铅笔风的月牙湖湾地图：教程修复的就是这片样区"></p>
+<h2 id="七第一关再试一次">
+<a class="header-anchor" href="#%e4%b8%83%e7%ac%ac%e4%b8%80%e5%85%b3%e5%86%8d%e8%af%95%e4%b8%80%e6%ac%a1"></a>
+七、第一关《再试一次》
+</h2><p>主角不再只等电脑派任务，主动打开种质库：“船上还剩几种能用的？”——“金苜蓿、净水芦苇，两类封存兽群。”——“先小一点。我想看看它们会怎么相处。”</p>
+<p>这一关开放整张 16×16 地图、船载种质和电力预算，教程湖湾及实际生态状态保留，其余区域按预先设计的初始状态初始化。章节切换暂停生态、显示开工简报，不额外推进几十年；两关各自以 6 电开始，上一章余电不结转，活体、地块、年龄和残骸连续保留，临时协议按剩余模拟时长继续。</p>
+<p>每周期 60 模拟秒：白昼 35 秒、黄昏 5 秒、夜晚 20 秒。清晨自动暂停，获得 6 电，最多存 8 电。四个周期各自引入一个问题：</p>
+<table>
+  <thead>
+      <tr>
+          <th>周期</th>
+          <th>引入的问题</th>
+          <th>主要选择</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>1</td>
+          <td>金苜蓿产量高，但需要好土地，且会吸引帆翼集中</td>
+          <td>替换部分海绵藓换产量，还是保留蓄水与分散花源</td>
+      </tr>
+      <tr>
+          <td>2</td>
+          <td>船载食草兽开始增长，吃掉高产区</td>
+          <td>保护集中农田，还是分散食物、引入捕食者</td>
+      </tr>
+      <tr>
+          <td>3</td>
+          <td>北部 8×8 样区经历 45 秒离岸干风，紧邻湖水处安全</td>
+          <td>保留邻株储水、预留 2 电降雨，或选择安全湖岸种植；干风过后可主动启动 30 秒自主验收</td>
+      </tr>
+      <tr>
+          <td>4</td>
+          <td>需要进一步调整时继续经营</td>
+          <td>最后一轮干预后，最后 30 秒自动封存并验收</td>
+      </tr>
+  </tbody>
+</table>
+<p>第一关不会出现外星飞船、强酸扩张或敌对投送——先学会理解自己的生态，再理解另一套生态，避免同时教授所有变量。默认提示只说明当前缺项和环境限制；“思路提示”解释生态关系，再展开“需要具体建议”才给出卡牌和落点，定位不代替玩家投放或付费。选卡或打开观测面板时，橙框显示干风覆盖的离岸地块。</p>
+<p><strong>这一关的失败也被当作情绪素材。</strong> 如果高产种植使翼群全聚向一处，主角不说“操作错误”，而是说：“我把最容易吃的东西，全堆在一个地方了。”当玩家调整位置、群体重新分散，可以触发：“它们不是不配合。是我给的选择太少。”——这些台词需要对应食物分布、访花目标和实际变化记录，缺乏证据就换成中性的“我再试个位置”，系统不能捏造原因来配合人物成长。</p>
+<p>过关判定刻意比第二关简单，最终连续 15 秒满足即可：</p>
+<ul>
+<li>船载金苜蓿生物量 ≥20 的格数不少于 12 格。</li>
+<li>原生海绵藓生物量 ≥20 的格数不少于 28 格。</li>
+<li>至少 2 只存活大角兽，本章至少发生 3 次真实进食；第一关不要求猎兽、捕食或出生。</li>
+<li>最后 30 秒无主动改变世界的操作；观察、暂停、缩放均允许。</li>
+</ul>
+<p>第三周期干风结束、条件齐备且无排队指令时，玩家可以主动启动 30 秒自主验收：期间工具封存，跨过清晨不会打断验收或补发预算，满足末段条件即可进入第二关。也可以继续调整，沿用第四周期最后 30 秒的自动封存。提前验收失败恢复本周期清晨，常规验收失败恢复第四周期清晨，剧情“已看过”标记保留。</p>
+<h2 id="八第二关另一种答案">
+<a class="header-anchor" href="#%e5%85%ab%e7%ac%ac%e4%ba%8c%e5%85%b3%e5%8f%a6%e4%b8%80%e7%a7%8d%e7%ad%94%e6%a1%88"></a>
+八、第二关《另一种答案》
+</h2><p>第一关通过后，系统发现第二艘飞船进入近地轨道。对方没有开火，而是向东部岩脉投下陌生载荷，开始执行与人类不同的生态改造。沿用“蚀星者”作为主角最初给的临时代号——它是一艘有自主改造行为的外星飞船，船员或控制者不在本作展开，不需要外星人物立绘、对话树或轨道战斗。主角的第一句反应是：“好不容易活下来，你倒挑了个好时候。”对方偏好酸性、菌类和岩质生态，确实会伤害玩家正在维护的生境；<strong>理解对方用途并不会消除利益冲突。</strong></p>
+<p>第二关共 6 个周期：前 4 个可干预，后 2 个自主运行。每个周期的天气与投送类型都提前预告，最后一次投送在封存前可见。对手的行为是有限但真实的：</p>
+<ul>
+<li>第 1、3、5 夜各投送一次；第 5 夜投送提前在第 4 周期清晨确认。</li>
+<li>对手在预告当次投送的清晨扫描当前地图，在合法岩格中按“邻近基岩多、邻近现有菌源、远离净化带”评分选目标；并列用独立固定随机流打破，第 5 夜使用第 4 周期清晨的扫描结果，之后不重选。</li>
+<li>评分只使用对方扫描时已有状态；预告后锁定，不因玩家应对偷偷改落点。</li>
+<li>若落点被玩家改变，按公开规则在原预告区域寻找合法格；全部无效则此次投送失败，不跨图强行命中。</li>
+<li>不读取玩家未提交的卡牌、不临时提高资源、不在胜利前召唤隐藏大怪。</li>
+</ul>
+<p>默认投送表是第 1 夜菌孢、第 3 夜猎兽、第 5 夜菌孢；猎兽用原预告区内的可通行陆地作为合法落点，不适用菌孢的基岩评分。预告分别标明种类、范围和落地时间，落地不直接造成伤害，这样玩家可以针对投送做准备，外星飞船也会对早先的生态布局作出有限反应。</p>
+<p>对抗和利用都应该是成立的解法，而不是只有一条“正确路线”：</p>
+<table>
+  <thead>
+      <tr>
+          <th>方式</th>
+          <th>玩家主要行动</th>
+          <th>获得什么</th>
+          <th>支付什么</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>对抗</td>
+          <td>维持净化边界，热束清理关键菌源，声波探针自行开荒</td>
+          <td>稳定、可预测的生产区与保育区</td>
+          <td>较多电力、扩张慢，需要放弃部分拓荒</td>
+      </tr>
+      <tr>
+          <td>利用</td>
+          <td>允许菌源沿岩脉扩张，等开荒后接入海绵藓，借捕食者缓解放牧</td>
+          <td>更快的空间转化，节省部分主动工程</td>
+          <td>酸化、苗区受损、控制窗口更紧</td>
+      </tr>
+      <tr>
+          <td>混合</td>
+          <td>保住教程湖湾，在远处保留菌区与捕食活动</td>
+          <td>空间上不同功能并存</td>
+          <td>必须理解边界和迁移，不能只堆一种植物</td>
+      </tr>
+  </tbody>
+</table>
+<p>不设置“点击结盟”立刻变友军的按钮，也不强迫所有玩家选共生才算好结局；是否值得保留某个菌源，由位置、生态后果与当前预算决定。角色的第二次理解也分两条路线：观察到菌源真实完成破岩后，“等等，那片岩石……已经能扎根了？”；成功接种后，“它不是替我们准备的。可我们用得上。”选择对抗的玩家则听到：“边界留住了。里面的生命，不用跟着外面一起变。”两种都表达对具体生命条件的理解。</p>
+<p>胜负判定从“地球化指数”改成“样区验收”——既然星球已有生命，最终目标就不能鼓励把原生全部换成地球草。界面显示四个具体项目，最后 30 秒持续满足以下起始门槛（分母均为固定陆地总数 L）：</p>
+<table>
+  <thead>
+      <tr>
+          <th>指标</th>
+          <th style="text-align: right">起始门槛</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>非菌毯有效植被覆盖，生物量 ≥20</td>
+          <td style="text-align: right">≥40%</td>
+      </tr>
+      <tr>
+          <td>金苜蓿有效覆盖</td>
+          <td style="text-align: right">≥15%</td>
+      </tr>
+      <tr>
+          <td>原生海绵藓有效覆盖</td>
+          <td style="text-align: right">≥15%</td>
+      </tr>
+      <tr>
+          <td>强酸污染，A&lt;-2</td>
+          <td style="text-align: right">≤15%</td>
+      </tr>
+  </tbody>
+</table>
+<p>最后两个周期共 120 秒封存干预，期间食草兽与猎兽不归零，有真实进食、捕食、出生、分解事件；最后 30 秒的非菌毯植物总量与两类地表动物均值，不低于前 30 秒均值的 70%。这是短时验收，不证明永久稳定。帆翼<strong>不以“至少 512 只”的奇观数量作为通关门槛</strong>——原生栖息地覆盖已经约束了保育目标，迁移可能在观察窗口造成数量波动，不能用表演效果冒充生态健康。</p>
+<p>失败与恢复也有明确规则：经营期单一物种灭绝可用船载保育重建，不立即判负；污染超过 60% 持续 15 秒进入紧急撤离，越线时立即预警并显示倒计时；自主运行期地表必需动物归零或期末未通过验收，明确显示原因。第二关失败恢复第四经营周期清晨，保留最后调整机会，也可以重开——重开恢复第一关通关快照，不把玩家最初的湖湾换成统一预制场景。主角失败时保留已经建立的兴趣：“这次至少知道该看哪里了。”不每次重新陷回完整绝望，也不无视世界损失轻快庆祝。</p>
+<h2 id="九卡牌语法与生态底层">
+<a class="header-anchor" href="#%e4%b9%9d%e5%8d%a1%e7%89%8c%e8%af%ad%e6%b3%95%e4%b8%8e%e7%94%9f%e6%80%81%e5%ba%95%e5%b1%82"></a>
+九、卡牌语法与生态底层
+</h2><p>每张卡都必须写明：<strong>改变哪个条件／在哪里／持续多久／花费多少／可能伤害什么。</strong> 固定基础工具保证问题有解，不把必需救场能力交给抽卡运气。卡牌分三类：工程改动、物种投送、局部协议；前两类修改状态，第三类通过灯光、气味等设备改变局部行为权重，不任意改写自然法则。</p>
+<table>
+  <thead>
+      <tr>
+          <th>卡牌</th>
+          <th style="text-align: right">电力</th>
+          <th>直接规则</th>
+          <th>开放阶段</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>局部降雨</td>
+          <td style="text-align: right">2</td>
+          <td>曼哈顿半径 2 内陆地持续 15 秒加湿并缓慢中和酸碱，同区不叠加强度</td>
+          <td>教程</td>
+      </tr>
+      <tr>
+          <td>原生种质舱</td>
+          <td style="text-align: right">2</td>
+          <td>在三个合法陆地投放海绵藓，不覆盖活体</td>
+          <td>教程</td>
+      </tr>
+      <tr>
+          <td>地球种质舱</td>
+          <td style="text-align: right">2</td>
+          <td>金苜蓿三格或净水芦苇两格；金草可替换已改土海绵藓，失去其储水</td>
+          <td>第一关</td>
+      </tr>
+      <tr>
+          <td>兽群冷冻舱</td>
+          <td style="text-align: right">2</td>
+          <td>选择两只食草兽或一只捕食者，投放于可通行陆地</td>
+          <td>第一关</td>
+      </tr>
+      <tr>
+          <td>信息素信标</td>
+          <td style="text-align: right">1</td>
+          <td>半径 3 内诱引或驱离食草兽，持续 1 周期，最多同时 2 个；威胁与饥饿仍优先</td>
+          <td>第一关</td>
+      </tr>
+      <tr>
+          <td>轨道热束</td>
+          <td style="text-align: right">2</td>
+          <td>1 格 2 秒清除植物及根系、A 增加 2、M 降低 15，附近动物逃离；水面不可用</td>
+          <td>第二关</td>
+      </tr>
+      <tr>
+          <td>地脉声波探针</td>
+          <td style="text-align: right">3</td>
+          <td>一格基岩变为碎石土，不产生水源或直接生成熟土</td>
+          <td>第二关</td>
+      </tr>
+      <tr>
+          <td>截获菌种</td>
+          <td style="text-align: right">2</td>
+          <td>已观察一次敌方投送后，可在合法岩格投放菌毯种源</td>
+          <td>第二关</td>
+      </tr>
+  </tbody>
+</table>
+<p>多格种植选中心后，在距离 ≤2 内按固定顺序寻找合法位置，显示实际落点再提交；不足一整舱不扣费并说明原因。观察免费，不占工具电力——教程观测标记在正式关卡变成查看与追踪工具，不是必须反复支付的税。两个“规则协议”（夜间反射镜、碱性气溶胶）属于完整版候选，Jam 阶段最多做两个，没时间就整体删去，不影响八张基础工具形成完整玩法。</p>
+<p>地块模型是正方形网格、四邻接，固定水陆；陆地土质分基岩、碎石土、熟土，状态包含水分 M（0～100）、酸碱偏移 A（-5～+5）、一种植物及生物量、残骸量，光照由日夜决定。土质降低不会产生湖泊；界面称“酸碱偏移”而不是实际 pH。首版没有全局温度、风、流体、疾病、遗传、独立肥力或地下水模拟——水域本身暂不模拟酸传播，剧情也准确地说“水岸生境酸化”，不声称已经污染整颗星球海洋。</p>
+<p>水域邻近陆地基础水分 75，距离 2～3 格为 50，更远为 25；平时水分每秒最多以 0.5 向基础值回归。酸碱在邻接陆地缓慢交换、汇总后同步结算，单格每秒净扩散变化不超过 0.1。</p>
+<p>物种从六个变成七个，但没有增加七套完整 AI：</p>
+<table>
+  <thead>
+      <tr>
+          <th>来源与物种</th>
+          <th>核心职责</th>
+          <th>代价与限制</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>原生：潮汐海绵藓</td>
+          <td>储水、碎石改土、为帆翼提供分散花源</td>
+          <td>占地、产量低、储水有限</td>
+      </tr>
+      <tr>
+          <td>原生：帆翼</td>
+          <td>群聚迁飞、访花传播、把空间关系变成可见奇观</td>
+          <td>消耗花源；高产单一斑块会吸走群体；只做轻量行为</td>
+      </tr>
+      <tr>
+          <td>船载：阳光金苜蓿</td>
+          <td>快速生产、供食草兽与帆翼利用</td>
+          <td>依赖熟土、中性与水分；集中种植有集中消耗风险</td>
+      </tr>
+      <tr>
+          <td>船载：净水芦苇</td>
+          <td>湿地净化、维护酸碱边界</td>
+          <td>仅适宜水岸周边，不能无成本保护整图</td>
+      </tr>
+      <tr>
+          <td>船载：大角兽</td>
+          <td>食草、繁殖、排泄促进局部酸碱回归</td>
+          <td>吃幼苗、过度放牧</td>
+      </tr>
+      <tr>
+          <td>船载／敌方同生态位：暮行猎兽</td>
+          <td>夜间捕食大角兽，间接留出植物恢复区</td>
+          <td>会消耗珍贵个体，猎物少时饥饿</td>
+      </tr>
+      <tr>
+          <td>敌方：酸腐菌毯</td>
+          <td>破岩开荒、形成酸性前沿</td>
+          <td>伤害地球植物，占用种植位置</td>
+      </tr>
+  </tbody>
+</table>
+<p>大角兽在 v3 改为船载保育物种，支撑第一关“用飞船动植物改造生态”；暮行猎兽是从此前航行样区收存的外源物种，敌方可投送同一生态位的变体，共用行为与参数，只标记来源——不增加一个独立物种系统。分解仍为环境过程，不加翻土蜥和甲虫 AI；护卫犬、基因杂交、蓄热荆棘、树木层全部后置。</p>
+<p>数值起点（完整表在 GDD 里，这里挑最影响手感的）：</p>
+<table>
+  <thead>
+      <tr>
+          <th>属性</th>
+          <th style="text-align: right">海绵藓</th>
+          <th style="text-align: right">金苜蓿</th>
+          <th style="text-align: right">芦苇</th>
+          <th style="text-align: right">菌毯</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>生物量上限</td>
+          <td style="text-align: right">80</td>
+          <td style="text-align: right">100</td>
+          <td style="text-align: right">60</td>
+          <td style="text-align: right">80</td>
+      </tr>
+      <tr>
+          <td>满条件生长</td>
+          <td style="text-align: right">0.8/s</td>
+          <td style="text-align: right">白昼 2/s，夜间 0</td>
+          <td style="text-align: right">0.6/s</td>
+          <td style="text-align: right">夜间 1.2/s，白昼 0</td>
+      </tr>
+      <tr>
+          <td>适宜 M</td>
+          <td style="text-align: right">20～85</td>
+          <td style="text-align: right">35～80</td>
+          <td style="text-align: right">50～100</td>
+          <td style="text-align: right">10～80</td>
+      </tr>
+      <tr>
+          <td>生存 A</td>
+          <td style="text-align: right">-3～+3</td>
+          <td style="text-align: right">-1.5～+1.5</td>
+          <td style="text-align: right">-4～+4</td>
+          <td style="text-align: right">-5～+1</td>
+      </tr>
+      <tr>
+          <td>定植土质</td>
+          <td style="text-align: right">碎石土、熟土</td>
+          <td style="text-align: right">熟土</td>
+          <td style="text-align: right">水岸或距水岸 1 格的可种土</td>
+          <td style="text-align: right">基岩、碎石土</td>
+      </tr>
+      <tr>
+          <td>初始生物量</td>
+          <td style="text-align: right">25</td>
+          <td style="text-align: right">25</td>
+          <td style="text-align: right">20</td>
+          <td style="text-align: right">20</td>
+      </tr>
+  </tbody>
+</table>
+<table>
+  <thead>
+      <tr>
+          <th>动物参数</th>
+          <th style="text-align: right">大角兽</th>
+          <th style="text-align: right">暮行猎兽</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>初始／最高能量</td>
+          <td style="text-align: right">65／120</td>
+          <td style="text-align: right">65／100</td>
+      </tr>
+      <tr>
+          <td>基础能耗</td>
+          <td style="text-align: right">0.45/s</td>
+          <td style="text-align: right">0.30/s</td>
+      </tr>
+      <tr>
+          <td>移速</td>
+          <td style="text-align: right">1.0 格/s</td>
+          <td style="text-align: right">夜间 1.6 格/s</td>
+      </tr>
+      <tr>
+          <td>进食</td>
+          <td style="text-align: right">每 5 秒最多吃 10 植物，实际每点获得 2 能量</td>
+          <td style="text-align: right">每 12 秒最多捕食一次，得 40 能量</td>
+      </tr>
+      <tr>
+          <td>繁殖门槛／消耗</td>
+          <td style="text-align: right">95／45</td>
+          <td style="text-align: right">90／45</td>
+      </tr>
+      <tr>
+          <td>成熟／繁殖冷却</td>
+          <td style="text-align: right">75／100 秒</td>
+          <td style="text-align: right">45／60 秒</td>
+      </tr>
+      <tr>
+          <td>寿命</td>
+          <td style="text-align: right">240 秒</td>
+          <td style="text-align: right">300 秒</td>
+      </tr>
+  </tbody>
+</table>
+<p>几条关键交互值得单独拎出来，因为它们是“布局比数量重要”这句话的机制来源：海绵藓储水上限 30，每秒最多分享 1 点给自身与四邻植物，按各格缺水量分配，目标水分取 35 与“接收植物生长下限 +3”的较大值——<strong>邻株缺水时，即使自身湿润也会供水</strong>；没有供水需求且本格水分大于 60 时才从本格吸水，不凭空造水。各株按同一时刻的水分计算，再同步结算，避免遍历方向偏差。菌毯累计 10 个夜间秒把本格基岩变为碎石土，活跃时本格 A 每秒降低 0.25（最低 -4），自身及邻格无基岩后停止生长并每秒损失 1，不能无限自给。芦苇使自身及四邻格 A 每秒向零回归 0.10，同格叠加最多 0.15，净化时自身生长减半。</p>
+<p><img src="/images/emergence-game/plants.jpg" alt="七物种的植物图鉴：海绵藓、金苜蓿、净水芦苇与菌毯的生长与失水状态"></p>
+<h2 id="十实现从策划案到-lua">
+<a class="header-anchor" href="#%e5%8d%81%e5%ae%9e%e7%8e%b0%e4%bb%8e%e7%ad%96%e5%88%92%e6%a1%88%e5%88%b0-lua"></a>
+十、实现：从策划案到 Lua
+</h2><p>模块分工是硬性的，主要为了堵住“为了让演出好看而偷改生态”这条路：</p>
+<table>
+  <thead>
+      <tr>
+          <th>模块</th>
+          <th>负责什么</th>
+          <th>禁止耦合</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>生态模拟</td>
+          <td>地块、植物、陆地动物、资源、事件</td>
+          <td>不因镜头进入高潮而偷偷加生物</td>
+      </tr>
+      <tr>
+          <td>翼群模拟</td>
+          <td>局部飞行、访花、迁移，与地块交换资源</td>
+          <td>不依赖渲染帧数推进饥饿</td>
+      </tr>
+      <tr>
+          <td>关卡流程</td>
+          <td>教程开放、周期、预算、对手预告、验收</td>
+          <td>不硬编码“此时森林必须繁荣”</td>
+      </tr>
+      <tr>
+          <td>叙事</td>
+          <td>已见事件、人物阶段、台词队列</td>
+          <td>不改变生态胜负来满足台词</td>
+      </tr>
+      <tr>
+          <td>表现</td>
+          <td>镜头、声音、动画、界面</td>
+          <td>不通过表演位置决定真实进食</td>
+      </tr>
+  </tbody>
+</table>
+<p>地表生态固定步长建议 0.2 秒；翼群运动可用 1/30 秒固定步长，资源交换在共同的 0.2 秒边界结算，访花事件按稳定 ID 排序。暂停同步暂停两者；快进多执行步骤，不放大 dt。核心新增模块是 <code>scripts/campaign.lua</code>（流程与验收）和 <code>scripts/flock.lua</code>（轻量翼群），生态规则留在 <code>scripts/ecosystem.lua</code>，表现与输入分别在 <code>renderer.lua</code> / <code>main.lua</code>。同时修掉了原先一堆悄悄出错的地方：幼体重复入队、幼体不会成熟、海绵藓凭空蓄水、环境死亡错误保留根系、芦苇净化无限叠加、快照丢失年龄与冷却。</p>
+<p>美术走的是“铅笔风素材接入”路线：运行时用 <code>assets/image/pencil-v2/</code> 的十张图集（研究舱、地形、植物生长阶段、两类动物四向行走、帆翼八向动画、卡牌图标、生态特效、第二章飞船和按钮组件），由 <code>scripts/art.lua</code> 负责加载、延迟重试、图集裁切与资源释放，原始 PNG 不修改；图片缺失时回退到原程序绘制。酸碱局部染色、夜间声纳、储水提示、指令范围及交互都由游戏状态驱动。</p>
+<p>画面做了四步优化，原则是<strong>一切视觉都由真实格子状态决定</strong>：</p>
+<ol>
+<li><strong>连续生境</strong>：岸线按真实水陆邻接连接，岩脉连接相邻基岩；同种植被形成地表斑块，每格绘制 2～4 簇植株，坐标哈希提供稳定位置与尺寸。生物量连续影响密度、高度与生长帧混合，自然萌芽从真实母株方向进入。普通观察隐藏格线，选牌显示放置网格，检查地块只显示附近九格。</li>
+<li><strong>生态演替与形状</strong>：原生、船载与菌毯使用各自贴图和底层颜色；菌毯增加紫铜细丝，只有真实相邻的菌格之间才跨界连接。裂纹随真实熔蚀进度加深，破岩后的碎屑持久保留。菌毯失去附近基岩后按原规则衰退，后续绿化仍要求空位、适宜水分／酸度与真实种源，不自动换成绿色。</li>
+<li><strong>运动与近景事件</strong>：帆翼高光随实际朝向、拍翼及昼夜变化，转向时产生亮暗变化；真实取食位置记录最多三处缺口，随生物量恢复或时间推移淡出。夜色渐变，土质过渡和菌丝运动使用可见时间，暂停时停下。</li>
+<li><strong>观察权与夜间连接</strong>：教程镜头在观测标记处停留 2 秒，再用 8 秒展开到湖湾，10 秒后停止引导；拖动、缩放或跳过立即接管。海绵藓的低亮度光波只由真实访花或大角兽跨格触发，仅沿四邻健康原生植被传播，空地、基岩、干燥、强酸及死亡都会阻断；每格发光 0.9 秒、恢复 5 秒，同连通斑块触发间隔 9 秒，避免翼群反复访花点亮整片地图。光波不修改生物量、水分、营养或动物决策，休眠的 18 倍生态加速也不乘到光波播放速度上。</li>
+</ol>
+<p>顺带记一笔踩过的坑：中键与右键的编号对调过，最后改成优先使用运行时的 <code>MOUSEB_MIDDLE</code> / <code>MOUSEB_RIGHT</code>，回退值分别是 2 / 4，释放其他按钮也不再中断中键拖动。</p>
+<h2 id="十一验证哪些是实测哪些还没做">
+<a class="header-anchor" href="#%e5%8d%81%e4%b8%80%e9%aa%8c%e8%af%81%e5%93%aa%e4%ba%9b%e6%98%af%e5%ae%9e%e6%b5%8b%e5%93%aa%e4%ba%9b%e8%bf%98%e6%b2%a1%e5%81%9a"></a>
+十一、验证：哪些是实测，哪些还没做
+</h2><p>这一节是这份记录里最想写清楚的部分。项目里跑的是 Lua 5.4 的两套脚本：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>lua5.4 tests/regression.lua
+</span></span><span style="display:flex;"><span>lua5.4 tests/emergence.lua
+</span></span></code></pre></div><p>在 2026-10-05 这一轮“生态关系与首关决策”改造里，落地了四件事，每一件都配了实验：</p>
+<ul>
+<li><strong>真实携种</strong>：访花消耗母株 10 生物量取得一份种源，同一母株 10 飞行秒冷却；种源携带 18 飞行秒，实际飞到距母株至少 2 格的合法空地才尝试萌发，每次进入 65% 概率，只用翼群随机流。原先“落脚处增加一次四邻扩散”的写法已替换。快照保留携带物、冷却、来源与发现记录。</li>
+<li><strong>相邻供水</strong>：海绵藓按自身与四邻植物的缺水程度分配实际储水，每株合计最多 1 水分/秒；自身湿润也能支持邻株；缺水目标留有 3 点生长缓冲，最低目标 35。先按同一时刻的水分计算，再同步结算，避免遍历方向偏差。</li>
+<li><strong>局部干风</strong>：第 3 周期前 45 秒，北部 8×8 样区中不紧邻湖水的陆地，基础水分目标降低 26（最低 5）、回归速率 1/秒；湖岸和区外保持原条件，结束后按正常 0.5/秒恢复。选卡／观测时橙框预告风险地块，玩家可以保留邻株储水、用 2 电降雨，或选择安全湖岸。</li>
+<li><strong>分层帮助与证据</strong>：默认只说明当前问题；“思路提示”解释关系，再展开才给具体卡牌／坐标，具体建议会识别正在缺水的金草并提供合法降雨落点。底部展示真实携种、供水记录，“查看变化”可定位地块，携种植株可“追踪帆翼种源”。这些操作都不代替玩家投放或收费。</li>
+</ul>
+<p>验证结果分两半。<strong>跑通的</strong>：45 项回归 + 9 项生态实验通过，新增实验覆盖真实取食携种、非法落点与过期、种源资源消耗、独立随机流、快照重演、供水守恒／方向对称、同资源不同布局、真实群飞跨水定植，以及提前验收的成功／失败／恢复；界面替身验证了分层提示和来源定位。</p>
+<p>几个能说明问题的对照实验：</p>
+<ul>
+<li><strong>隔水的 5 格空岛</strong>：60 秒自由群飞下有 5 格获得携种植株；相同初始状态仅靠植物自身扩散为 0 格。</li>
+<li><strong>45 秒干风对照</strong>：同样一株金草和一株满储水海绵藓，分开摆放时金草生物量 14.2，相邻摆放 95.0；额外付 2 电降雨为 79.8，安全湖岸 95.0。相邻供水实际消耗 30 储水，金草最低水分 35.2；分开摆放最低 24.0。这是控制变量的样区实验，<strong>不代表任意布局都保证成功</strong>。</li>
+<li><strong>完整教程衔接</strong>：用真实 <code>HandleUpdate</code> 的 30 帧计时入口（省略绘制），北／南两条教程路线都投放 5 次、在第 165 模拟秒启动验收、第 195 秒通关，分别保有 12／13 格金草、165／164 格海绵藓、4 只大角兽。安全策略仍然可行，第一关不强迫玩家使用每种工具。</li>
+</ul>
+<p><strong>还没做的</strong>也说清楚：以上是模型和输入／绘制接口的验证，尚未完成实际引擎画面、目标设备性能或第二关完整平衡试玩。本地 Maker Runtime 仍是 <code>missing / stopped</code>，图形验证用的是 NanoVG 接口替身；实机中键事件、鸟群视觉效果与目标设备性能需要通过远程预览继续检查，第二关的完整通关策略不在本轮平衡范围内。P1 的两种局部协议、轨迹片段回放和完整声音层也还没加入，叙事目前仍是文字。</p>
+<p>从项目根目录跑回归即可复现前半部分：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>lua5.4 tests/regression.lua
+</span></span></code></pre></div><p>等有了 Maker Runtime，还需要实测的清单是：北岸和南岸各完成一次教程；第一关生产与保育的取舍；第二关对抗／利用两条路线；封存期失败后恢复第四周期；不同窗口大小的卡牌命中；高潮跳过与前后快照；尾声写入失败提示。<strong>模拟用例通过也不代表这些视觉与平衡验收已经完成。</strong></p>
+<h2 id="十二范围排期与检查点">
+<a class="header-anchor" href="#%e5%8d%81%e4%ba%8c%e8%8c%83%e5%9b%b4%e6%8e%92%e6%9c%9f%e4%b8%8e%e6%a3%80%e6%9f%a5%e7%82%b9"></a>
+十二、范围、排期与检查点
+</h2><table>
+  <thead>
+      <tr>
+          <th>优先级</th>
+          <th>内容</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>P0</td>
+          <td>一艘可复用飞船内景、一张逐步开放地图、教程真实奇观、七物种的简化规则、两个正式关卡、基础卡牌、预告敌方、短对白、观察与快照</td>
+      </tr>
+      <tr>
+          <td>P1</td>
+          <td>两个局部协议、干预前后快照对照、片段回放、更丰富声音层、额外结局取景</td>
+      </tr>
+      <tr>
+          <td>暂不做</td>
+          <td>飞船内部漫游、宇宙航行操作、完整文明外交、战舰射击、三套地图美术、配音全覆盖、杂交遗传、温度风场、多飞行物种</td>
+      </tr>
+  </tbody>
+</table>
+<p>新增翼群与演出之后，研究抽卡、更多地图和复杂夜间迷雾降级——<strong>不要在原 v2.1 的所有功能上直接叠加本次故事</strong>。从现在起规划约 18 个制作日：</p>
+<table>
+  <thead>
+      <tr>
+          <th>时段</th>
+          <th>交付</th>
+          <th>进入下一阶段的门槛</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>第 1～2 日</td>
+          <td>8×8 灰盒湖湾、基础翼群、湿地与食物耦合、两套可选落点</td>
+          <td>改变落点确实改变群体路线；128～512 个体量级有可读效果</td>
+      </tr>
+      <tr>
+          <td>第 3～4 日</td>
+          <td>完整“醒来—两次操作—休眠—再醒来”切片，临时对白与声音</td>
+          <td>陌生试玩者能认出自己的影响，且愿意再观察</td>
+      </tr>
+      <tr>
+          <td>第 5～7 日</td>
+          <td>第一关：种植、地表兽群、干旱、预算、观察原因、快照</td>
+          <td>有压力的选择成立，不只点完等通关</td>
+      </tr>
+      <tr>
+          <td>第 8～10 日</td>
+          <td>第二关：菌源、破岩、酸碱、外星投送政策、验收</td>
+          <td>对抗与利用各能走通一次完整流程</td>
+      </tr>
+      <tr>
+          <td>第 11～13 日</td>
+          <td>正式飞船背景、植物与单位轮廓、关键音效、剧情衔接</td>
+          <td>可提交版本从头到尾完整；素材来源有记录</td>
+      </tr>
+      <tr>
+          <td>第 14～16 日</td>
+          <td>外部试玩、数值、性能、目标平台导出</td>
+          <td>两条路线可靠；教程两种布局均产生真实可读奇观</td>
+      </tr>
+      <tr>
+          <td>第 17～18 日</td>
+          <td>修阻断、录制与说明、上传缓冲</td>
+          <td>提交包和宣传与实际功能一致</td>
+      </tr>
+  </tbody>
+</table>
+<p>三个检查点已经提前想好了“万一没做到就砍什么”：</p>
+<ul>
+<li><strong>第 2 日</strong>：若只有乱飞的点，先修群体疏密、食物牵引和绕障，不要增加数量或辉光掩盖行为问题。</li>
+<li><strong>第 4 日</strong>：若看起来像播放视频，先让玩家改一个落点后明显改变结果，补前后对照；玩家尚未感到惊喜之前，不急着加完整故事台词。</li>
+<li><strong>第 10 日</strong>：若不能走完整流程，删协议、回放、复杂黑夜与可选台词，保留教程、第一关、第二关；第二关可以缩小投送种类和数值维度，不以删除对手关作为默认削减方案。</li>
+<li><strong>第 13 日后冻结系统</strong>，余下时间专注理解成本、反馈、性能和提交。</li>
+</ul>
+<h2 id="十三验收主题有没有真的进入体验">
+<a class="header-anchor" href="#%e5%8d%81%e4%b8%89%e9%aa%8c%e6%94%b6%e4%b8%bb%e9%a2%98%e6%9c%89%e6%b2%a1%e6%9c%89%e7%9c%9f%e7%9a%84%e8%bf%9b%e5%85%a5%e4%bd%93%e9%aa%8c"></a>
+十三、验收：主题有没有真的进入体验
+</h2><p>这一条我打算当作项目的准入门槛来用：邀请 3～5 位没读过策划的人，只给可玩切片，记录这些问题，<strong>不提前告诉他们要感动</strong>：</p>
+<ul>
+<li>第二次醒来时，是否看得出这就是自己刚才操作的地方？</li>
+<li>能否说出一个自己改变的条件，以及一个没预料到的结果？</li>
+<li>是否主动停留、缩放、跟随某一小群，还是立刻找“跳过”？</li>
+<li>修改落点后，是否发现运动形式不同，而不是所有玩家看同一段动画？</li>
+<li>主角说话是否太早、太多，是否比玩家更激动得突兀？</li>
+</ul>
+<p>惊喜不是强制人人说“震撼”。只要玩家自发产生“为什么会这样”“我换个位置会怎样”，核心就有成立的迹象。</p>
+<p>正式关卡的压力也列成可检查的项：第一关至少出现一次“换高产会损失蓄水／分散栖息地”的可见选择；第二关至少出现一次“清掉菌源最安全，但会损失开荒收益”的选择；同种子改变操作时机或落点，至少有两种可解释的有效方案；警报有预告有应对，玩家不会因为关键卡随机没抽到而无解；失败后能指出一个下一次要改的动作，而不是只认为自己少等了一会儿。</p>
+<p>技术与叙事的一致性同样纳入验收：群体数量、资源消耗、迁入来源与日志一致，镜头不能生成生态实体；相同种子和输入，1× 与 2× 关键状态一致，休眠快进不跳过规则；低画质不改变食物链和验收，跳过演出不改变地图；前后快照为真实保存数据，回放带标识，不能当成正在发生的实时世界；不满足具体现象时不播描述该现象的台词；重试不重复制造“第一次觉醒”，也不丢失玩家原来的湖湾布局。</p>
+<h2 id="十四尾声">
+<a class="header-anchor" href="#%e5%8d%81%e5%9b%9b%e5%b0%be%e5%a3%b0"></a>
+十四、尾声
+</h2><p>验收完成，电脑例行询问是否保存、是否恢复休眠。终端仍显示真实生态，不立刻切成庆功插画。主角看向桌角那张旧画，又看回终端，说：“先等等。”</p>
+<p>两个普通按钮：【再观察一会儿】／【保存并休眠】。两者都完成故事，不用一个选择去判断玩家是否理解主题。如果玩家留下，镜头不再主动移动，主角也不再替他评价，世界继续发生细小变化，把最后的注意力交还玩家。</p>
+<p>制作名单可以让真实生态继续运行，旁边留一句可选的创作后记：<strong>“我们写下规则，把第一次惊讶留给你。”</strong></p>
+<hr>
+<p>回头看，v3.0 这一段做的最重要的事，其实不是加了翼群或者改了关卡结构，而是把“涌现”从一个形容词拆成了可验证的机制：局部规则、真实资源消耗、能重演的随机流、以及一份允许写“还不确定”的验证清单。上个月那篇笔记里说涌现的判据是“结果超出预料，但回头能找到原因”——现在这句话在代码里有了对应的东西：65% 的落种概率、四邻供水的同步结算、45 秒干风的 26 点水分差。它们都足够简单，简单到玩家改一个落点，湖湾的形状就会变。</p>
+<p><em>“你留下规则，生命给出意外。”</em></p></div>
+    <footer class="article-footer"><ul class="article-category-list"><li class="article-tag-list-item" data-aos="zoom-in">
+    <a
+      class="article-category-link"
+      href="/categories/%e6%b8%b8%e6%88%8f%e5%bc%80%e5%8f%91"
+      data-aos="zoom-in"
+      >游戏开发</a
+    >
+    </li></ul>
+<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e6%b8%b8%e6%88%8f%e5%bc%80%e5%8f%91"
+        rel="tag"
+        >游戏开发</a
+      >
+    </li><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e6%b6%8c%e7%8e%b0"
+        rel="tag"
+        >涌现</a
+      >
+    </li><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e7%94%9f%e6%80%81%e6%a8%a1%e6%8b%9f"
+        rel="tag"
+        >生态模拟</a
+      >
+    </li><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/boids"
+        rel="tag"
+        >Boids</a
+      >
+    </li><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e6%b8%b8%e6%88%8f%e8%ae%be%e8%ae%a1"
+        rel="tag"
+        >游戏设计</a
+      >
+    </li><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e7%8b%ac%e7%ab%8b%e6%b8%b8%e6%88%8f"
+        rel="tag"
+        >独立游戏</a
+      >
+    </li><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/lua"
+        rel="tag"
+        >Lua</a
+      >
+    </li></ul>
+</footer>
+  </div><nav
+    id="article-nav"
+    aria-label="Article navigation"
+    data-aos="fade-up"
+  ><div class="article-nav-link-wrap left"><img
+              data-src="https://d-sketon.top/img/_backwebp/bg1.webp"
+              data-sizes="auto"
+              alt="涌现：从蚁群到大模型，一张关于“复杂从何而来”的知识地图"
+              class="lazyload"
+            /><a
+          href="/post/emergence-theory-notes/"
+          aria-label="前一篇:涌现：从蚁群到大模型，一张关于“复杂从何而来”的知识地图"
+          title="前一篇:涌现：从蚁群到大模型，一张关于“复杂从何而来”的知识地图"
+        ></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">涌现：从蚁群到大模型，一张关于“复杂从何而来”的知识地图</h3>
+      </div></nav></article></section>
+        </div><footer id="footer" aria-label="Site footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info"><div>
+      <span class="icon-copyright"></span>2020-2026<span class="footer-info-sep rotate"></span>D-Sketon
+    </div><div>
+        基于&nbsp;<a
+          href="https://gohugo.io/"
+          target="_blank"
+          rel="noopener nofollow noreferrer"
+          >Hugo</a
+        >&nbsp;Theme.<a
+          href="https://github.com/D-Sketon/hugo-theme-reimu"
+          target="_blank"
+          rel="noopener nofollow noreferrer"
+          >Reimu</a
+        >
+      </div><div>
+        <span class="icon-brush"
+          >&nbsp;2.3k</span
+        >
+        &nbsp;|&nbsp;
+        <span class="icon-coffee">&nbsp;00:14</span>
+      </div><div>
+        <span class="icon-eye"></span>
+        <span id="busuanzi_container_site_pv"
+          >总访问量&nbsp;<span
+            id="busuanzi_value_site_pv"
+          ></span
+        ></span>
+        &nbsp;|&nbsp;
+        <span class="icon-user"></span>
+        <span id="busuanzi_container_site_uv"
+          >总访客量&nbsp;<span
+            id="busuanzi_value_site_uv"
+          ></span
+        ></span>
+      </div></div>
+</footer>
+<div class="sidebar-top">
+            <div class="sidebar-top-taichi rotate"></div>
+            <div class="arrow-up"></div>
+          </div><div id="mask" class="hide"></div>
+      </div><nav id="mobile-nav" aria-label="Mobile navigation">
+  <div class="sidebar-wrap"><div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class">
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一这次不做造物主模拟器">一、这次不做“造物主模拟器”</a></li>
+    <li><a href="#二三层涌现同一个游戏">二、三层“涌现”，同一个游戏</a></li>
+    <li><a href="#三世界观一个疲惫但仍然专业的人">三、世界观：一个疲惫但仍然专业的人</a></li>
+    <li><a href="#四四段流程与三种时间">四、四段流程与三种时间</a></li>
+    <li><a href="#五教程例行唤醒先听到再看见再理解">五、教程《例行唤醒》：先听到，再看见，再理解</a></li>
+    <li><a href="#六核心奇观湖湾星潮">六、核心奇观“湖湾星潮”</a></li>
+    <li><a href="#七第一关再试一次">七、第一关《再试一次》</a></li>
+    <li><a href="#八第二关另一种答案">八、第二关《另一种答案》</a></li>
+    <li><a href="#九卡牌语法与生态底层">九、卡牌语法与生态底层</a></li>
+    <li><a href="#十实现从策划案到-lua">十、实现：从策划案到 Lua</a></li>
+    <li><a href="#十一验证哪些是实测哪些还没做">十一、验证：哪些是实测，哪些还没做</a></li>
+    <li><a href="#十二范围排期与检查点">十二、范围、排期与检查点</a></li>
+    <li><a href="#十三验收主题有没有真的进入体验">十三、验收：主题有没有真的进入体验</a></li>
+    <li><a href="#十四尾声">十四、尾声</a></li>
+  </ul>
+</nav>
+</div></div>
+        <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img
+    data-src="/avatar/avatar.webp"
+    data-sizes="auto"
+    alt="D-Sketon"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">D-Sketon</div>
+  <div class="sidebar-description">少女祈祷中...</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div><div class="sidebar-state-number">6</div>
+  </div>
+  <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      4
+    </div>
+  </a>
+  <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
+    <div>标签</div>
+    <div class="sidebar-state-number">27</div>
+  </a>
+</div>
+<div class="sidebar-social" ></div><div class="sidebar-menu"><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">首页</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">归档</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">关于</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">友链</div>
+    </div></div></div></div><div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div></nav>
+</div><script
+    src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"
+    
+    
+    
+    
+    integrity="sha384-3gT/vsepWkfz/ff7PpWNUeMzeWoH3cDhm/A8jM7ouoAK0/fP/9bcHHR5kHq2nf&#43;e" crossorigin="anonymous"></script><script
+    src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"
+    
+    
+    
+    
+    integrity="sha384-J08i8An/QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"></script><script src="/js/main.js" integrity="" crossorigin="anonymous"  ></script><script src="/js/aos.js" integrity="" crossorigin="anonymous"  ></script><script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", aosInit);
+    } else {
+      aosInit();
+    }
+  </script><script src="/js/pjax_main.js" integrity="" crossorigin="anonymous" data-pjax ></script><script>
+  var setupFirework = () => {
+    if (! false  || !window.matchMedia('(max-width: 768px)').matches) {
+      if (window.firework) {
+        const options = JSON.parse("{\"excludeelements\":[\"a\",\"button\"],\"particles\":[{\"colors\":[\"var(--red-1)\",\"var(--red-2)\",\"var(--red-3)\",\"var(--red-4)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"emit\"],\"number\":20,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.3,0.5],\"radius\":[16,32]}},{\"colors\":[\"var(--red-0)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"diffuse\"],\"number\":1,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.2,0.5],\"lineWidth\":6,\"radius\":20}}]}");
+        options.excludeElements = options.excludeelements;
+        delete options.excludeelements;
+        window.firework(options);
+      }
+    }
+  }
+</script><script
+    src="https://npm.webcache.cn/mouse-firework@0.2.0/dist/index.umd.js"
+    defer
+    
+    
+    onload="setupFirework()"
+    integrity="sha384-qi9WggRt19tv8Vc7pCHW3ulMNLwrn515zaLEWZjl1px07vz8&#43;pUoWX8n1rgq282T" crossorigin="anonymous"></script>
+
+<div id="lazy-script">
+  <div><script data-pjax>
+        window.REIMU_POST = {
+          author: "D-Sketon",
+          title: "《创世协议：轨道边缘》v3.0：把“涌现”做成一座会自己长出来的湖湾",
+          url: "https:\/\/boniufamily.top\/post\/emergence-protocol-v3\/",
+          description: "一份单人 \u002b AI 辅助的 2D 原型开发记录：三层涌现如何落进同一个游戏，帆翼群聚与“湖湾星潮”怎么靠局部规则长出来，两个正式关卡、七个物种的数值与卡牌语法，以及最后一轮改造的实测数据——和还没做到的部分。",
+          cover: "https:\/\/boniufamily.top\/images\/banner.webp",
+        };
+      </script><script src="/js/insert_highlight.js" integrity="" crossorigin="anonymous" data-pjax ></script><script src="/js/tabs.js" integrity="" crossorigin="anonymous" data-pjax defer></script><script type="module" data-pjax>const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;const initPswp = (gallery, children) => {
+          if (_$$(`${gallery} ${children}`).length > 0) {
+            new PhotoSwipeLightbox({
+              gallery,
+              children,pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")}).init();
+          }
+        }
+        const pswp = () => {
+          initPswp('.article-entry', 'a.article-gallery-item');
+          initPswp('.article-gallery', 'a.article-gallery-item');
+        }
+        pswp()
+      </script></div>
+</div><script
+    src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js"
+    
+    async
+    
+    
+    integrity="sha384-0M75wtSkhjIInv4coYlaJU83&#43;OypaRCIq2SukQVQX04eGTCBXJDuWAbJet56id&#43;S" crossorigin="anonymous"></script><script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
+  </script><script>
+  const reimuCopyright = String.raw`
+   ______     ______     __     __    __     __  __    
+  /\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+  \ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+   \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+    \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                    
+  `;
+  console.log(String.raw`%c ${reimuCopyright}`, "color: #ff5252;");
+  console.log(
+    "%c Theme.Reimu" + " %c https://github.com/D-Sketon/hugo-theme-reimu ",
+    "color: white; background: #ff5252; padding:5px 0;",
+    "padding:4px;border:1px solid #ff5252;",
+  );
+</script></body>
+</html>

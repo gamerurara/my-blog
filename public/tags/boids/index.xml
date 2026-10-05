@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Boids on gamerurara</title>
+    <link>https://boniufamily.top/tags/boids/</link>
+    <description>Recent content from gamerurara</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    
+    <managingEditor>xxx@example.com (D-Sketon)</managingEditor>
+    <webMaster>xxx@example.com (D-Sketon)</webMaster>
+    
+    <copyright>本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！</copyright>
+    
+    <lastBuildDate>Mon, 05 Oct 2026 12:15:00 +0800</lastBuildDate>
+    
+    
+    <atom:link href="https://boniufamily.top/tags/boids/index.xml" rel="self" type="application/rss&#43;xml" />
+    
+
+    
+    
+
+    <item>
+      <title>《创世协议：轨道边缘》v3.0：把“涌现”做成一座会自己长出来的湖湾</title>
+      <link>https://boniufamily.top/post/emergence-protocol-v3/</link>
+      <pubDate>Mon, 05 Oct 2026 12:15:00 &#43;0800</pubDate>
+      <author>xxx@example.com (D-Sketon)</author>
+      <guid>https://boniufamily.top/post/emergence-protocol-v3/</guid>
+      <description>
+        <![CDATA[<h1>《创世协议：轨道边缘》v3.0：把“涌现”做成一座会自己长出来的湖湾</h1><p>作者：D-Sketon（xxx@example.com）</p>
+        
+          <blockquote>
+<p>在漫长的宇宙航行中，你早已习惯实验失败。直到一次例行干预后，星球上的生命长出了你未曾设计的秩序——现在，你想再试一次。</p>
+</blockquote>
+        
+        <hr><p>本文2026-10-05首发于<a href='https://boniufamily.top/'>gamerurara</a>，最后修改于2026-10-05</p>]]>
+      </description>
+      
+        <category>游戏开发</category>
+      
+    </item>
+    
+  </channel>
+</rss>
