@@ -12,12 +12,33 @@
     
     <copyright>本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！</copyright>
     
-    <lastBuildDate>Mon, 05 Oct 2026 12:15:00 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 19 Oct 2026 01:03:25 +0800</lastBuildDate>
     
     
     <atom:link href="https://boniufamily.top/tags/%E7%94%9F%E6%80%81%E6%A8%A1%E6%8B%9F/index.xml" rel="self" type="application/rss&#43;xml" />
     
 
+    
+    
+
+    <item>
+      <title>《涌现：远航播种者》游戏策划案 V0.3：让鸟群替你种满一颗星球</title>
+      <link>https://boniufamily.top/post/emergence-seeders-design/</link>
+      <pubDate>Mon, 19 Oct 2026 01:03:25 &#43;0800</pubDate>
+      <author>xxx@example.com (D-Sketon)</author>
+      <guid>https://boniufamily.top/post/emergence-seeders-design/</guid>
+      <description>
+        <![CDATA[<h1>《涌现：远航播种者》游戏策划案 V0.3：让鸟群替你种满一颗星球</h1><p>作者：D-Sketon（xxx@example.com）</p>
+        
+          <p>《涌现：远航播种者》是一款回合制生态策略 / 星球改造解谜游戏。你是远航科研飞船上的生态研究员，不能直接控制生态，只能决定在哪里投放植物、要不要动用卫星改变局部天气——至于种子最后落在哪一格，由鸟群决定。</p>
+<p>这份策划案把世界观与核心规则、回合流程、生态行为、竞争机制、关卡与界面设计整理成了一个可以直接开工的框架。文中把内容分成三类：<strong>已确认规则</strong>来自前期讨论确定的设定，<strong>建议规则</strong>是为玩法完整而补充、可在原型测试后调整，<strong>测试数值</strong>仅用于第一版验证，尚未经过平衡测试。</p>
+        
+        <hr><p>本文2026-10-19首发于<a href='https://boniufamily.top/'>gamerurara</a>，最后修改于2026-10-19</p>]]>
+      </description>
+      
+        <category>游戏开发</category>
+      
+    </item>
     
     
 

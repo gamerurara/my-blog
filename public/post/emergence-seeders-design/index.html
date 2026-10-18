@@ -1,0 +1,2194 @@
+<!doctype html>
+<html
+  lang="zh-cn" 
+  data-theme-mode="auto"
+  >
+  <head><meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/><title>
+  《涌现：远航播种者》游戏策划案 V0.3：让鸟群替你种满一颗星球 | D-Sketon
+</title>
+<meta name="description" content="一份回合制生态策略 / 星球改造解谜的完整设计稿：植物四项属性与生命周期、鸟群觅食与种子传播、风与天气卫星、菌毯竞争与火灾转化，以及教学关与两个正式关的规则、首轮测试数值和原型验证清单。"/>
+    <meta name="keywords" content="涌现,远航播种者,游戏策划,游戏设计,生态模拟,回合制策略,星球改造,独立游戏,鸟类传播,数值设计" /><script>
+  window.siteConfig = JSON.parse("{\"anchor\":{\"auto\":{\"enable\":false,\"length\":60},\"explicit\":{\"enable\":false,\"marker\":\"{#anchor-\",\"prefix\":\"anchor-\"}},\"anchor_icon\":null,\"base\":\"https://boniufamily.top/\",\"clipboard\":{\"copyright\":{\"count\":50,\"enable\":false,\"license_type\":\"by-nc-sa\"},\"fail\":{\"en\":\"Copy failed (ﾟ⊿ﾟ)ﾂ\",\"ja\":\"コピー失敗 (ﾟ⊿ﾟ)ﾂ\",\"pt-br\":\"Falha ao copiar (ﾟ⊿ﾟ)ﾂ\",\"zh-cn\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"zh-tw\":\"複製失敗 (ﾟ⊿ﾟ)ﾂ\"},\"success\":{\"en\":\"Copy successfully (*^▽^*)\",\"ja\":\"コピー成功 (*^▽^*)\",\"pt-br\":\"Copiado com sucesso (*^▽^*)\",\"zh-cn\":\"复制成功 (*^▽^*)\",\"zh-tw\":\"複製成功 (*^▽^*)\"}},\"code_block\":{\"expand\":true},\"icon_font\":\"4552607_ex15nbittbh\",\"outdate\":{\"daysago\":180,\"enable\":false,\"message\":{\"en\":\"This article was last updated on {time}. Please note that the content may no longer be applicable.\",\"ja\":\"この記事は最終更新日：{time}。記載内容が現在有効でない可能性がありますのでご注意ください。\",\"pt-br\":\"Este artigo foi atualizado pela última vez em {time}. Observe que o conteúdo pode não ser mais aplicável.\",\"zh-cn\":\"本文最后更新于 {time}，请注意文中内容可能已不适用。\",\"zh-tw\":\"本文最後更新於 {time}，請注意文中內容可能已不適用。\"}}}");
+  
+</script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="preload"
+  as="style"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+/>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+  media="print"
+  onload="this.media='all'"
+/>
+<link
+    rel="preload"
+    href="//at.alicdn.com/t/c/font_4552607_ex15nbittbh.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous"
+  /><link rel="stylesheet" href="/css/loader.min.ac746e154f756f8220326eeb52a719f142ab038be5a8ddf30ea5ef15ef2356ea.css" /><meta property="og:type" content="website" />
+  <meta property="og:title" content="《涌现：远航播种者》游戏策划案 V0.3：让鸟群替你种满一颗星球 | D-Sketon" />
+  <meta
+    property="og:description"
+    content="一份回合制生态策略 / 星球改造解谜的完整设计稿：植物四项属性与生命周期、鸟群觅食与种子传播、风与天气卫星、菌毯竞争与火灾转化，以及教学关与两个正式关的规则、首轮测试数值和原型验证清单。"
+  />
+  <meta property="og:url" content="https://boniufamily.top/post/emergence-seeders-design/" />
+  <meta
+    property="og:site_name"
+    content="gamerurara"
+  />
+  <meta property="og:image" content="https://boniufamily.top/images/banner.webp" />
+  <meta property="article:author" content="D-Sketon" />
+  <meta property="article:published_time" content="2026-10-19T01:03:25&#43;08:00" />
+  <meta property="article:modified_time" content="2026-10-19T01:03:25&#43;08:00" /><meta property="article:tag" content="游戏开发, 游戏设计, 涌现, 生态模拟, 回合制策略, 独立游戏" /><meta name="twitter:card" content="summary" /><meta name="twitter:image" content="https://boniufamily.top/images/banner.webp" />
+<link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/main.min.5a0a43eb14b8f925af7fd8d543b60f5f2fe844f4d718b141cb8b28f2f5e127fa.css" /><link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css"
+    integrity="sha384-IfxC36XL/toUyJ939C73PcgMuRzAZuIzZxE38drsmO5p6jD7ei&#43;Zx/1oA/0l8ysE" crossorigin="anonymous"
+    onload="this.onload=null;this.rel='stylesheet'"
+  /><link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/katex@0.16.24/dist/katex.min.css"
+    integrity="sha384-tTgKLjMYmJr94v8qu2PE5MUGSMbyN2xiH266JUB3gpm8vnnJywd1dWSOEfrFz&#43;YI" crossorigin="anonymous"
+    onload="this.onload=null;this.rel='stylesheet'"
+  /><script
+    src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"
+    
+    
+    
+    
+    integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"></script><link
+    rel="stylesheet"
+    href="https://npm.webcache.cn/@reimujs/aos@0.1.2/dist/aos.css"
+    integrity="sha384-GMRP93c6Hkz9JVKGAuRR3nTS7M07RwPgTFenXiosjq2VbVgvdDNcz1g6Mkj8AONa" crossorigin="anonymous"/></head>
+  <body><div id='loader'>
+    <div class="loading-left-bg loading-bg"></div>
+    <div class="loading-right-bg loading-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi rotate"><svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="https://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+            <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="var(--red-1, #ff5252)" />
+            <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z 
+          M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95z" fill="var(--red-1, #ff5252)" />
+          </svg></div><div class="loading-word">少女祈祷中...</div>
+    </div>
+  </div>
+  </div>
+  <script>
+    var time = null;
+    var loaderEl = document.getElementById('loader');
+    var startLoading = () => {
+      time = Date.now();
+      loaderEl.classList.remove("loading");
+    }
+    var hideLoader = () => {
+      document.body.style.overflow = 'auto';
+      loader.classList.add('loading');
+    };
+
+    var endLoading = () => {
+      if (!time) {
+        hideLoader();
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          hideLoader();
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('DOMContentLoaded', endLoading);
+    loaderEl.addEventListener('click', endLoading);
+  </script><div id="copy-tooltip"></div>
+<div id="lang-tooltip">
+本文章没有找到对应的语言版本
+</div>
+<div id="heatmap-tooltip"></div><div id="container">
+      <div id="wrap"><div id="header-nav">
+  <nav id="main-nav" aria-label="Primary navigation"><a class="main-nav-link-wrap" href="/"><div class='main-nav-icon icon rotate'>&#xe62b;</div><span class="main-nav-link">首页</span>
+      </a><a class="main-nav-link-wrap" href="/archives"><div class='main-nav-icon icon rotate'>&#xe62b;</div><span class="main-nav-link">归档</span>
+      </a><a class="main-nav-link-wrap" href="/about"><div class='main-nav-icon icon rotate'>&#xe62b;</div><span class="main-nav-link">关于</span>
+      </a><a class="main-nav-link-wrap" href="/friend"><div class='main-nav-icon icon rotate'>&#xe62b;</div><span class="main-nav-link">友链</span>
+      </a><a id="main-nav-toggle" class="nav-icon" aria-label="Toggle navigation" role="button"></a>
+  </nav>
+  <nav id="sub-nav" aria-label="Secondary navigation"></nav></div>
+<header id="header" aria-label="Site header"><picture></picture><img  fetchpriority="high" src="/images/banner.webp" alt="《涌现：远航播种者》游戏策划案 V0.3：让鸟群替你种满一颗星球"><div id="header-outer">
+    <div id="header-title"><span id="logo">
+            <h1 data-aos="slide-up">《涌现：远航播种者》游戏策划案 V0.3：让鸟群替你种满一颗星球</h1>
+          </span><h2 id="subtitle-wrap" data-aos="slide-down"></h2></div>
+  </div>
+</header><div id="content"
+          aria-label="Page content"
+          
+          class="sidebar-right"  ><aside id="sidebar" aria-label="Sidebar"><div class="sidebar-wrapper-container sticky"><div class="sidebar-wrapper">
+    <div
+      class="sidebar-wrap"
+      data-aos="fade-up"
+    ><div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class">
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一游戏概述">一、游戏概述</a>
+      <ul>
+        <li><a href="#11-一句话介绍">1.1 一句话介绍</a></li>
+        <li><a href="#12-类型与定位">1.2 类型与定位</a></li>
+        <li><a href="#13-核心体验">1.3 核心体验</a></li>
+        <li><a href="#14-设计支柱">1.4 设计支柱</a></li>
+        <li><a href="#15-涌现主题的设计标准">1.5 “涌现”主题的设计标准</a></li>
+      </ul>
+    </li>
+    <li><a href="#二已确认的设计基础">二、已确认的设计基础</a></li>
+    <li><a href="#三世界观与叙事">三、世界观与叙事</a>
+      <ul>
+        <li><a href="#31-故事背景">3.1 故事背景</a></li>
+        <li><a href="#32-玩家身份">3.2 玩家身份</a></li>
+        <li><a href="#33-叙事基调">3.3 叙事基调</a></li>
+      </ul>
+    </li>
+    <li><a href="#四核心玩法循环">四、核心玩法循环</a>
+      <ul>
+        <li><a href="#41-生态扩张循环">4.1 生态扩张循环</a></li>
+        <li><a href="#42-生态竞争循环">4.2 生态竞争循环</a></li>
+        <li><a href="#43-每回合的三个问题">4.3 每回合的三个问题</a></li>
+      </ul>
+    </li>
+    <li><a href="#五地图与地表规则">五、地图与地表规则</a>
+      <ul>
+        <li><a href="#51-地图数据结构">5.1 地图数据结构</a></li>
+        <li><a href="#52-地形作用">5.2 地形作用</a></li>
+        <li><a href="#53-扩张方式差异">5.3 扩张方式差异</a></li>
+        <li><a href="#54-目标区域">5.4 目标区域</a></li>
+      </ul>
+    </li>
+    <li><a href="#六回合与时间规则">六、回合与时间规则</a>
+      <ul>
+        <li><a href="#61-时间单位">6.1 时间单位</a></li>
+        <li><a href="#62-回合流程">6.2 回合流程</a></li>
+        <li><a href="#63-同步结算原则">6.3 同步结算原则</a></li>
+      </ul>
+    </li>
+    <li><a href="#七植物投放系统">七、植物投放系统</a>
+      <ul>
+        <li><a href="#71-额度统计">7.1 额度统计</a></li>
+        <li><a href="#72-初始公式">7.2 初始公式</a></li>
+        <li><a href="#73-开局与应急储备">7.3 开局与应急储备</a></li>
+        <li><a href="#74-投放对象">7.4 投放对象</a></li>
+      </ul>
+    </li>
+    <li><a href="#八地球植物系统">八、地球植物系统</a>
+      <ul>
+        <li><a href="#81-四项属性">8.1 四项属性</a></li>
+        <li><a href="#82-生命周期">8.2 生命周期</a></li>
+        <li><a href="#83-植物分工">8.3 植物分工</a></li>
+        <li><a href="#84-首轮测试数值">8.4 首轮测试数值</a></li>
+        <li><a href="#85-防风效果">8.5 防风效果</a></li>
+      </ul>
+    </li>
+    <li><a href="#九鸟群系统">九、鸟群系统</a>
+      <ul>
+        <li><a href="#91-首版范围">9.1 首版范围</a></li>
+        <li><a href="#92-基础状态">9.2 基础状态</a></li>
+        <li><a href="#93-觅食选择">9.3 觅食选择</a></li>
+        <li><a href="#94-采食与再次起飞">9.4 采食与再次起飞</a></li>
+        <li><a href="#95-分散规则">9.5 分散规则</a></li>
+        <li><a href="#96-聚拢规则">9.6 聚拢规则</a></li>
+        <li><a href="#97-风与聚拢的冲突">9.7 风与聚拢的冲突</a></li>
+        <li><a href="#98-不逆风起飞">9.8 不逆风起飞</a></li>
+      </ul>
+    </li>
+    <li><a href="#十种子传播规则">十、种子传播规则</a>
+      <ul>
+        <li><a href="#101-传播流程">10.1 传播流程</a></li>
+        <li><a href="#102-落点结果">10.2 落点结果</a></li>
+        <li><a href="#103-萌发与降雨">10.3 萌发与降雨</a></li>
+      </ul>
+    </li>
+    <li><a href="#十一天气与卫星">十一、天气与卫星</a>
+      <ul>
+        <li><a href="#111-风力等级">11.1 风力等级</a></li>
+        <li><a href="#112-天气预报">11.2 天气预报</a></li>
+        <li><a href="#113-卫星资源">11.3 卫星资源</a></li>
+        <li><a href="#114-卫星能力">11.4 卫星能力</a></li>
+      </ul>
+    </li>
+    <li><a href="#十二菌毯竞争与火灾">十二、菌毯竞争与火灾</a>
+      <ul>
+        <li><a href="#121-菌毯扩张">12.1 菌毯扩张</a></li>
+        <li><a href="#122-植物侵占预警">12.2 植物侵占预警</a></li>
+        <li><a href="#123-外星飞船">12.3 外星飞船</a></li>
+        <li><a href="#124-火灾">12.4 火灾</a></li>
+        <li><a href="#125-点火条件">12.5 点火条件</a></li>
+        <li><a href="#126-烧后土壤">12.6 烧后土壤</a></li>
+      </ul>
+    </li>
+    <li><a href="#十三关卡设计">十三、关卡设计</a>
+      <ul>
+        <li><a href="#131-教学关第一片生态">13.1 教学关：第一片生态</a></li>
+        <li><a href="#132-第一关顺风航线">13.2 第一关：顺风航线</a></li>
+        <li><a href="#133-第二关另一种改造">13.3 第二关：另一种改造</a></li>
+      </ul>
+    </li>
+    <li><a href="#十四胜负与复盘">十四、胜负与复盘</a>
+      <ul>
+        <li><a href="#141-覆盖统计">14.1 覆盖统计</a></li>
+        <li><a href="#142-正式关失败">14.2 正式关失败</a></li>
+        <li><a href="#143-结算评价">14.3 结算评价</a></li>
+      </ul>
+    </li>
+    <li><a href="#十五界面与信息表达">十五、界面与信息表达</a>
+      <ul>
+        <li><a href="#151-主界面">15.1 主界面</a></li>
+        <li><a href="#152-信息图层">15.2 信息图层</a></li>
+        <li><a href="#153-行为解释">15.3 行为解释</a></li>
+      </ul>
+    </li>
+    <li><a href="#十六美术音效与叙事表现">十六、美术、音效与叙事表现</a>
+      <ul>
+        <li><a href="#161-美术方向">16.1 美术方向</a></li>
+        <li><a href="#162-鸟群表现">16.2 鸟群表现</a></li>
+        <li><a href="#163-音效">16.3 音效</a></li>
+        <li><a href="#164-叙事">16.4 叙事</a></li>
+      </ul>
+    </li>
+    <li><a href="#十七原型范围与验证标准">十七、原型范围与验证标准</a>
+      <ul>
+        <li><a href="#171-开发顺序">17.1 开发顺序</a></li>
+        <li><a href="#172-必须验证的问题">17.2 必须验证的问题</a></li>
+        <li><a href="#173-建议验收目标">17.3 建议验收目标</a></li>
+      </ul>
+    </li>
+    <li><a href="#十八主要风险与后续待定">十八、主要风险与后续待定</a></li>
+    <li><a href="#最终设计总结">最终设计总结</a></li>
+  </ul>
+</nav>
+</div></div>
+          <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img
+    data-src="/avatar/avatar.webp"
+    data-sizes="auto"
+    alt="D-Sketon"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">D-Sketon</div>
+  <div class="sidebar-description">少女祈祷中...</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div><div class="sidebar-state-number">7</div>
+  </div>
+  <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      4
+    </div>
+  </a>
+  <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
+    <div>标签</div>
+    <div class="sidebar-state-number">28</div>
+  </a>
+</div>
+<div class="sidebar-social" ></div><div class="sidebar-menu"><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">首页</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">归档</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">关于</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">友链</div>
+    </div></div></div><div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div></div>
+  </div><div class="sidebar-widget"></div></div></aside>
+<section id="main" aria-label="Main content"><article
+  class="h-entry article"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div
+    class="article-inner"
+    data-aos="fade-up"
+  >
+    <div class="article-meta"><div class="article-date">
+  <span
+    class="article-date-link icon-calendar"
+    data-aos="zoom-in"
+  >
+    <time datetime="2026-10-19 01:03:25 &#43;0800 CST" itemprop="datePublished"
+      >2026-10-19</time
+    >
+    <time style="display: none;" id="post-update-time"
+      >2026-10-19</time
+    >
+  </span></div>
+</div><div class="hr-line"></div><div class="e-content article-entry" itemprop="articleBody"><p>《涌现：远航播种者》是一款回合制生态策略 / 星球改造解谜游戏。你是远航科研飞船上的生态研究员，不能直接控制生态，只能决定在哪里投放植物、要不要动用卫星改变局部天气——至于种子最后落在哪一格，由鸟群决定。</p>
+<p>这份策划案把世界观与核心规则、回合流程、生态行为、竞争机制、关卡与界面设计整理成了一个可以直接开工的框架。文中把内容分成三类：<strong>已确认规则</strong>来自前期讨论确定的设定，<strong>建议规则</strong>是为玩法完整而补充、可在原型测试后调整，<strong>测试数值</strong>仅用于第一版验证，尚未经过平衡测试。</p>
+<blockquote>
+<p>版本：V0.3（讨论整合稿）　类型：回合制生态策略、星球改造、系统解谜　名称暂定</p>
+</blockquote>
+<h2 id="一游戏概述">
+<a class="header-anchor" href="#%e4%b8%80%e6%b8%b8%e6%88%8f%e6%a6%82%e8%bf%b0"></a>
+一、游戏概述
+</h2><h3 id="11-一句话介绍">
+<a class="header-anchor" href="#11-%e4%b8%80%e5%8f%a5%e8%af%9d%e4%bb%8b%e7%bb%8d"></a>
+1.1 一句话介绍
+</h3><p>玩家扮演远航科研飞船上的生态研究员，通过投放植物、利用鸟群传播种子、干预局部天气，在陌生星球建立地球生态，并与外星文明的菌毯争夺地表空间。</p>
+<h3 id="12-类型与定位">
+<a class="header-anchor" href="#12-%e7%b1%bb%e5%9e%8b%e4%b8%8e%e5%ae%9a%e4%bd%8d"></a>
+1.2 类型与定位
+</h3><p><strong>类型</strong>：回合制生态策略、星球改造、系统解谜。</p>
+<p><strong>视角建议</strong>：俯视或轻度倾斜的格子地图。</p>
+<p><strong>操作方式</strong>：每回合部署，之后观察生态自动运行。</p>
+<p><strong>节奏</strong>：教学偏观察，正式关卡偏策略。</p>
+<p><strong>核心主题</strong>：简单规则相互作用，产生未被玩家逐格安排的生态结果。</p>
+<h3 id="13-核心体验">
+<a class="header-anchor" href="#13-%e6%a0%b8%e5%bf%83%e4%bd%93%e9%aa%8c"></a>
+1.3 核心体验
+</h3><p>玩家不直接安排生态的每一步，而是改变生态发展的条件。</p>
+<p>玩家可以决定：</p>
+<ul>
+<li>投放哪一种植物。</li>
+<li>在哪些位置投放。</li>
+<li>是否干预天气。</li>
+<li>哪片区域需要保护、放弃或燃烧。</li>
+</ul>
+<p>玩家不能直接决定：</p>
+<ul>
+<li>每只鸟的目的地。</li>
+<li>每粒种子的落点。</li>
+<li>每个新植物据点出现的位置。</li>
+<li>鸟群最终形成怎样的传播路线。</li>
+</ul>
+<p>理想的体验是：</p>
+<blockquote>
+<p>“我投放了几个生态起点，随后鸟群、植物和天气共同把它变成了一个能够自行发展的系统。”</p>
+</blockquote>
+<h3 id="14-设计支柱">
+<a class="header-anchor" href="#14-%e8%ae%be%e8%ae%a1%e6%94%af%e6%9f%b1"></a>
+1.4 设计支柱
+</h3><table>
+  <thead>
+      <tr>
+          <th>支柱</th>
+          <th>设计要求</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>间接控制</td>
+          <td>植物和天气影响鸟的决策，但不替代鸟的自主行为</td>
+      </tr>
+      <tr>
+          <td>可理解的涌现</td>
+          <td>结果可以有变化，但原因能够被观察和解释</td>
+      </tr>
+      <tr>
+          <td>植物之间有取舍</td>
+          <td>不存在同时满足所有需求的最强植物</td>
+      </tr>
+      <tr>
+          <td>环境具有双面性</td>
+          <td>风、雨、热气流和火灾都有收益与代价</td>
+      </tr>
+      <tr>
+          <td>竞争可以转化</td>
+          <td>菌毯被燃烧后转化为可供地球植物生长的土壤</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="15-涌现主题的设计标准">
+<a class="header-anchor" href="#15-%e6%b6%8c%e7%8e%b0%e4%b8%bb%e9%a2%98%e7%9a%84%e8%ae%be%e8%ae%a1%e6%a0%87%e5%87%86"></a>
+1.5 “涌现”主题的设计标准
+</h3><p>复杂结果必须来自基础规则的组合，而不是单独编写大量特殊事件。</p>
+<p>例如：</p>
+<table>
+  <thead>
+      <tr>
+          <th>基础规则组合</th>
+          <th>自然产生的现象</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>食物容量有限＋鸟群觅食分散</td>
+          <td>多个相互连接的食物据点</td>
+      </tr>
+      <tr>
+          <td>晴天顺风＋鸟群加速分散</td>
+          <td>沿风向发展的传播带</td>
+      </tr>
+      <tr>
+          <td>跨海前集结＋海岸食物点</td>
+          <td>海岸迁徙港</td>
+      </tr>
+      <tr>
+          <td>防风树＋强风吹散</td>
+          <td>局部生态避难所</td>
+      </tr>
+      <tr>
+          <td>难消化种子＋长距离飞行</td>
+          <td>远方孤立植物群</td>
+      </tr>
+      <tr>
+          <td>菌毯覆盖岩石＋燃烧供土</td>
+          <td>地球生态的新扩张通道</td>
+      </tr>
+  </tbody>
+</table>
+<p>不是系统越多越好，而是系统之间的联系越清晰越好。</p>
+<h2 id="二已确认的设计基础">
+<a class="header-anchor" href="#%e4%ba%8c%e5%b7%b2%e7%a1%ae%e8%ae%a4%e7%9a%84%e8%ae%be%e8%ae%a1%e5%9f%ba%e7%a1%80"></a>
+二、已确认的设计基础
+</h2><table>
+  <thead>
+      <tr>
+          <th>项目</th>
+          <th>已确认内容</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>世界观</td>
+          <td>科研飞船发现适合改造的星球，投放地球动植物</td>
+      </tr>
+      <tr>
+          <td>地图</td>
+          <td>X × Y 个格子</td>
+      </tr>
+      <tr>
+          <td>玩家操作</td>
+          <td>每回合只能选择一种植物</td>
+      </tr>
+      <tr>
+          <td>投放数量</td>
+          <td>与地面种植数量成正比</td>
+      </tr>
+      <tr>
+          <td>植物属性</td>
+          <td>美味度、产量、消化度、生长速度</td>
+      </tr>
+      <tr>
+          <td>美味度</td>
+          <td>影响吸引距离和愿意前来采食的鸟的饱食度门槛</td>
+      </tr>
+      <tr>
+          <td>产量</td>
+          <td>影响食物供给与同时停留采食的鸟数量</td>
+      </tr>
+      <tr>
+          <td>消化度</td>
+          <td>越容易消化，越不利于种子传播，传播通常越近</td>
+      </tr>
+      <tr>
+          <td>生长速度</td>
+          <td>影响种子成长速度，以及采食后的食物恢复速度</td>
+      </tr>
+      <tr>
+          <td>植物 A</td>
+          <td>高美味、易消化</td>
+      </tr>
+      <tr>
+          <td>植物 B</td>
+          <td>中美味、普通消化</td>
+      </tr>
+      <tr>
+          <td>植物 C</td>
+          <td>低美味、难消化</td>
+      </tr>
+      <tr>
+          <td>树木</td>
+          <td>除植物属性外，具有衰减风力作用</td>
+      </tr>
+      <tr>
+          <td>鸟群分散</td>
+          <td>觅食分散、强风吹散、顺风且无雨时更分散并飞得更快</td>
+      </tr>
+      <tr>
+          <td>鸟群聚拢</td>
+          <td>夜晚休息、热气流盘旋、跨海前集结</td>
+      </tr>
+      <tr>
+          <td>起飞规则</td>
+          <td>停留后再次起飞，不逆风飞行</td>
+      </tr>
+      <tr>
+          <td>菌毯</td>
+          <td>能覆盖岩石、空地和地球植物；固定扩张；怕火；烧后提供土壤</td>
+      </tr>
+      <tr>
+          <td>关卡结构</td>
+          <td>教学关观察传播，第一关加入风，第二关加入菌毯</td>
+      </tr>
+      <tr>
+          <td>节奏</td>
+          <td>教学偏观察，正式关偏策略</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="三世界观与叙事">
+<a class="header-anchor" href="#%e4%b8%89%e4%b8%96%e7%95%8c%e8%a7%82%e4%b8%8e%e5%8f%99%e4%ba%8b"></a>
+三、世界观与叙事
+</h2><h3 id="31-故事背景">
+<a class="header-anchor" href="#31-%e6%95%85%e4%ba%8b%e8%83%8c%e6%99%af"></a>
+3.1 故事背景
+</h3><p>远航科研飞船抵达一颗陌生星球。</p>
+<p>扫描显示，这颗星球拥有部分适合地球植物生长的土壤，但地表仍被岩石、海洋和不稳定天气分割。飞船资源有限，无法直接完成全星球改造，只能通过少量生物投放启动生态过程。</p>
+<p>随着地面植被增加，科研团队获得更多可供繁育与投放的植物材料，扩大改造能力。</p>
+<p>后来，外星飞船抵达。它们使用能够在岩石上扩张的菌毯，将星球改造成适合自身文明的环境。</p>
+<p>地球生态与外星生态开始争夺同一片土地。</p>
+<h3 id="32-玩家身份">
+<a class="header-anchor" href="#32-%e7%8e%a9%e5%ae%b6%e8%ba%ab%e4%bb%bd"></a>
+3.2 玩家身份
+</h3><p>玩家是生态研究员，负责：</p>
+<ul>
+<li>观察地表与鸟群。</li>
+<li>制定植物投放方案。</li>
+<li>使用卫星干预局部天气。</li>
+<li>分析传播结果。</li>
+<li>应对外星生态竞争。</li>
+</ul>
+<h3 id="33-叙事基调">
+<a class="header-anchor" href="#33-%e5%8f%99%e4%ba%8b%e5%9f%ba%e8%b0%83"></a>
+3.3 叙事基调
+</h3><p>建议采用“科研探索＋策略竞争”，不将外星菌毯简单描述为邪恶污染。</p>
+<p>两种生态有不同能力：</p>
+<ul>
+<li>地球生态善于借助鸟群进行跳跃式传播。</li>
+<li>外星生态善于在连续地表稳定扩张。</li>
+<li>双方都在改变星球，也都受到自然条件约束。</li>
+<li>故事冲突来自不同文明对环境的不同需求。</li>
+</ul>
+<h2 id="四核心玩法循环">
+<a class="header-anchor" href="#%e5%9b%9b%e6%a0%b8%e5%bf%83%e7%8e%a9%e6%b3%95%e5%be%aa%e7%8e%af"></a>
+四、核心玩法循环
+</h2><h3 id="41-生态扩张循环">
+<a class="header-anchor" href="#41-%e7%94%9f%e6%80%81%e6%89%a9%e5%bc%a0%e5%be%aa%e7%8e%af"></a>
+4.1 生态扩张循环
+</h3><blockquote>
+<p>投放植物 → 植物成长并提供食物 → 鸟群采食 → 携带种子移动 → 种子落地并生长 → 地面植物数量增加 → 下一回合投放能力提高</p>
+</blockquote>
+<p>玩家投放的主要作用不是逐格填满地图，而是：</p>
+<ul>
+<li>建立初始生态据点。</li>
+<li>引导传播方向。</li>
+<li>补上断开的中继。</li>
+<li>在远处建立落脚点。</li>
+<li>修复灾害与侵占造成的缺口。</li>
+</ul>
+<h3 id="42-生态竞争循环">
+<a class="header-anchor" href="#42-%e7%94%9f%e6%80%81%e7%ab%9e%e4%ba%89%e5%be%aa%e7%8e%af"></a>
+4.2 生态竞争循环
+</h3><blockquote>
+<p>菌毯侵占植物 → 食物据点减少 → 鸟群路线改变 → 种子传播减少 → 投放能力下降</p>
+</blockquote>
+<p>玩家的反制链条：</p>
+<blockquote>
+<p>燃烧菌毯 → 获得土壤 → 投放快速植物 → 恢复食物据点 → 鸟群重新进入 → 继续扩张</p>
+</blockquote>
+<h3 id="43-每回合的三个问题">
+<a class="header-anchor" href="#43-%e6%af%8f%e5%9b%9e%e5%90%88%e7%9a%84%e4%b8%89%e4%b8%aa%e9%97%ae%e9%a2%98"></a>
+4.3 每回合的三个问题
+</h3><p><strong>扩张</strong>：哪里需要新的传播起点？</p>
+<p><strong>维持</strong>：哪个据点即将失去供给或被侵占？</p>
+<p><strong>时机</strong>：当前天气应该利用、等待，还是干预？</p>
+<h2 id="五地图与地表规则">
+<a class="header-anchor" href="#%e4%ba%94%e5%9c%b0%e5%9b%be%e4%b8%8e%e5%9c%b0%e8%a1%a8%e8%a7%84%e5%88%99"></a>
+五、地图与地表规则
+</h2><h3 id="51-地图数据结构">
+<a class="header-anchor" href="#51-%e5%9c%b0%e5%9b%be%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84"></a>
+5.1 地图数据结构
+</h3><p>每格包含三个层次：</p>
+<table>
+  <thead>
+      <tr>
+          <th>层次</th>
+          <th>内容</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>地形</td>
+          <td>土壤、岩石、海洋</td>
+      </tr>
+      <tr>
+          <td>占据</td>
+          <td>空地、地球幼苗、成熟地球植物、菌毯</td>
+      </tr>
+      <tr>
+          <td>环境</td>
+          <td>风向、风力、降雨、热气流、燃烧、烧后保护</td>
+      </tr>
+  </tbody>
+</table>
+<p>建议第一版每格最多存在一株地球植物或一片菌毯。</p>
+<p>防风树也占据一个植物格，不与普通植物叠加。</p>
+<h3 id="52-地形作用">
+<a class="header-anchor" href="#52-%e5%9c%b0%e5%bd%a2%e4%bd%9c%e7%94%a8"></a>
+5.2 地形作用
+</h3><table>
+  <thead>
+      <tr>
+          <th>地形</th>
+          <th>地球植物</th>
+          <th>菌毯</th>
+          <th>鸟群</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>土壤</td>
+          <td>可以生长</td>
+          <td>可以扩张</td>
+          <td>可以飞越并利用植物采食</td>
+      </tr>
+      <tr>
+          <td>岩石</td>
+          <td>默认不能生长</td>
+          <td>可以扩张</td>
+          <td>可以飞越，不能采食</td>
+      </tr>
+      <tr>
+          <td>海洋</td>
+          <td>不能生长</td>
+          <td>建议首版不能扩张</td>
+          <td>可以飞越，不能落地采食</td>
+      </tr>
+  </tbody>
+</table>
+<p>菌毯在岩石上燃烧后，形成可供种植的土壤层，不必表现为整块岩石消失。</p>
+<h3 id="53-扩张方式差异">
+<a class="header-anchor" href="#53-%e6%89%a9%e5%bc%a0%e6%96%b9%e5%bc%8f%e5%b7%ae%e5%bc%82"></a>
+5.3 扩张方式差异
+</h3><p>建议明确：</p>
+<ul>
+<li>地球植物不自行向邻格蔓延，依靠投放和鸟群传播。</li>
+<li>菌毯通过相邻格扩张，不依赖鸟群。</li>
+</ul>
+<p>因此：</p>
+<ul>
+<li>地球生态可以跨越不适生区域，建立孤立据点。</li>
+<li>菌毯擅长连续覆盖，但难以跨越海洋。</li>
+</ul>
+<h3 id="54-目标区域">
+<a class="header-anchor" href="#54-%e7%9b%ae%e6%a0%87%e5%8c%ba%e5%9f%9f"></a>
+5.4 目标区域
+</h3><p>教学关使用全土壤地图，实现“铺满地图”。</p>
+<p>正式关使用开局确定的目标区域：</p>
+<ul>
+<li>海洋不计入种植目标。</li>
+<li>岩石是否计入，由关卡任务决定。</li>
+<li>燃烧产生新土壤，不动态改变目标分母。</li>
+<li>这样玩家不会因为改造出更多土地，反而看到任务覆盖率下降。</li>
+</ul>
+<h2 id="六回合与时间规则">
+<a class="header-anchor" href="#%e5%85%ad%e5%9b%9e%e5%90%88%e4%b8%8e%e6%97%b6%e9%97%b4%e8%a7%84%e5%88%99"></a>
+六、回合与时间规则
+</h2><h3 id="61-时间单位">
+<a class="header-anchor" href="#61-%e6%97%b6%e9%97%b4%e5%8d%95%e4%bd%8d"></a>
+6.1 时间单位
+</h3><p>建议一回合代表一个昼夜。</p>
+<p>为了让移动、消化、恢复和生长形成连续过程，一个昼夜拆为多个“生态步”。</p>
+<p>首版建议：</p>
+<ul>
+<li><strong>白天</strong>：8 个生态步。</li>
+<li><strong>夜晚</strong>：2 个生态步。</li>
+<li>一个生态步是规则单位，不对应固定现实时间。</li>
+</ul>
+<h3 id="62-回合流程">
+<a class="header-anchor" href="#62-%e5%9b%9e%e5%90%88%e6%b5%81%e7%a8%8b"></a>
+6.2 回合流程
+</h3><h4 id="阶段一清晨观察">
+<a class="header-anchor" href="#%e9%98%b6%e6%ae%b5%e4%b8%80%e6%b8%85%e6%99%a8%e8%a7%82%e5%af%9f"></a>
+阶段一：清晨观察
+</h4><p>显示：</p>
+<ul>
+<li>当前成熟植物数量。</li>
+<li>本回合投放额度。</li>
+<li>当前天气和未来预报。</li>
+<li>鸟群状态。</li>
+<li>菌毯扩张与侵占预警。</li>
+<li>任务进度。</li>
+</ul>
+<h4 id="阶段二玩家部署">
+<a class="header-anchor" href="#%e9%98%b6%e6%ae%b5%e4%ba%8c%e7%8e%a9%e5%ae%b6%e9%83%a8%e7%bd%b2"></a>
+阶段二：玩家部署
+</h4><p>玩家：</p>
+<ul>
+<li>选择一种植物。</li>
+<li>安排投放位置。</li>
+<li>决定是否使用天气卫星。</li>
+<li>确认部署。</li>
+</ul>
+<h4 id="阶段三白天模拟">
+<a class="header-anchor" href="#%e9%98%b6%e6%ae%b5%e4%b8%89%e7%99%bd%e5%a4%a9%e6%a8%a1%e6%8b%9f"></a>
+阶段三：白天模拟
+</h4><p>自动处理：</p>
+<ul>
+<li>觅食、采食与起飞。</li>
+<li>鸟群分散与集结。</li>
+<li>飞行、消化与排种。</li>
+<li>幼苗生长。</li>
+<li>食物恢复。</li>
+<li>天气与火灾。</li>
+</ul>
+<h4 id="阶段四夜晚模拟">
+<a class="header-anchor" href="#%e9%98%b6%e6%ae%b5%e5%9b%9b%e5%a4%9c%e6%99%9a%e6%a8%a1%e6%8b%9f"></a>
+阶段四：夜晚模拟
+</h4><ul>
+<li>鸟群趋向休息区域聚拢。</li>
+<li>尚在海上的鸟继续向陆地飞行。</li>
+<li>消化、生长与食物恢复继续。</li>
+</ul>
+<h4 id="阶段五回合结算">
+<a class="header-anchor" href="#%e9%98%b6%e6%ae%b5%e4%ba%94%e5%9b%9e%e5%90%88%e7%bb%93%e7%ae%97"></a>
+阶段五：回合结算
+</h4><ul>
+<li>菌毯扩张与侵占。</li>
+<li>更新成熟植被统计。</li>
+<li>更新任务覆盖率。</li>
+<li>判断胜负与连续维持回合数。</li>
+</ul>
+<h3 id="63-同步结算原则">
+<a class="header-anchor" href="#63-%e5%90%8c%e6%ad%a5%e7%bb%93%e7%ae%97%e5%8e%9f%e5%88%99"></a>
+6.3 同步结算原则
+</h3><p>同一生态步采用统一结算：</p>
+<ul>
+<li>多只鸟不能重复消费同一份食物。</li>
+<li>新出现的菌毯不能在同一次夜晚结算继续扩张。</li>
+<li>多粒种子落到同一格，只形成一株植物。</li>
+<li>本回合新成熟的植物，只影响下一回合投放额度。</li>
+<li>结算顺序应固定，随机结果应能够复现，便于测试与复盘。</li>
+</ul>
+<h2 id="七植物投放系统">
+<a class="header-anchor" href="#%e4%b8%83%e6%a4%8d%e7%89%a9%e6%8a%95%e6%94%be%e7%b3%bb%e7%bb%9f"></a>
+七、植物投放系统
+</h2><h3 id="71-额度统计">
+<a class="header-anchor" href="#71-%e9%a2%9d%e5%ba%a6%e7%bb%9f%e8%ae%a1"></a>
+7.1 额度统计
+</h3><p>用户已确认“与地面种植数量成正比”。</p>
+<p>建议统计全地图存活的成熟地球植物格数：</p>
+<ul>
+<li>所有品种共同提供额度。</li>
+<li>幼苗不计入。</li>
+<li>成熟但缺少食物的植物仍然计入。</li>
+<li>被烧毁或被菌毯替代后不再计入。</li>
+<li>每格只计算一次。</li>
+<li>这是建议口径，不是已经确认的最终规则。</li>
+</ul>
+<h3 id="72-初始公式">
+<a class="header-anchor" href="#72-%e5%88%9d%e5%a7%8b%e5%85%ac%e5%bc%8f"></a>
+7.2 初始公式
+</h3><p>建议首轮测试：</p>
+<blockquote>
+<p>普通投放额度＝向下取整（成熟地球植物格数 × 0.05）</p>
+</blockquote>
+<table>
+  <thead>
+      <tr>
+          <th>成熟植物格数</th>
+          <th>本回合普通额度</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>20</td>
+          <td>1</td>
+      </tr>
+      <tr>
+          <td>40</td>
+          <td>2</td>
+      </tr>
+      <tr>
+          <td>60</td>
+          <td>3</td>
+      </tr>
+      <tr>
+          <td>100</td>
+          <td>5</td>
+      </tr>
+      <tr>
+          <td>200</td>
+          <td>10</td>
+      </tr>
+  </tbody>
+</table>
+<p>投放额度在清晨确定，当回合不追加。</p>
+<p>普通额度不累积到下一回合。</p>
+<h3 id="73-开局与应急储备">
+<a class="header-anchor" href="#73-%e5%bc%80%e5%b1%80%e4%b8%8e%e5%ba%94%e6%80%a5%e5%82%a8%e5%a4%87"></a>
+7.3 开局与应急储备
+</h3><p>比例规则可能在植被不足时产生零额度，因此建议：</p>
+<ul>
+<li>开局已有小型成熟生态据点。</li>
+<li>飞船拥有少量全关共享的应急投放储备，例如 6 株。</li>
+<li>应急储备可以补充当回合额度。</li>
+<li>仍然只能投放当回合选择的同一种植物。</li>
+<li>储备不自动恢复。</li>
+<li>若没有成熟植物、幼苗、可传播种子或应急储备等恢复来源，则明确判定失败，避免无限空转。</li>
+</ul>
+<h3 id="74-投放对象">
+<a class="header-anchor" href="#74-%e6%8a%95%e6%94%be%e5%af%b9%e8%b1%a1"></a>
+7.4 投放对象
+</h3><p>建议投放的是幼苗，不是立即提供食物的成熟植物。</p>
+<p>首版可投放到所有已测绘的适生空格：</p>
+<ul>
+<li>不能直接覆盖菌毯。</li>
+<li>不能直接种在海洋或未改造岩石上。</li>
+<li>不能无代价替换已有植物。</li>
+<li>先不增加复杂轨道投放限制，优先验证自然传播是否足够重要。</li>
+</ul>
+<h2 id="八地球植物系统">
+<a class="header-anchor" href="#%e5%85%ab%e5%9c%b0%e7%90%83%e6%a4%8d%e7%89%a9%e7%b3%bb%e7%bb%9f"></a>
+八、地球植物系统
+</h2><h3 id="81-四项属性">
+<a class="header-anchor" href="#81-%e5%9b%9b%e9%a1%b9%e5%b1%9e%e6%80%a7"></a>
+8.1 四项属性
+</h3><h4 id="美味度">
+<a class="header-anchor" href="#%e7%be%8e%e5%91%b3%e5%ba%a6"></a>
+美味度
+</h4><p>决定：</p>
+<ul>
+<li>吸引半径。</li>
+<li>鸟愿意采食时的饱食度门槛。</li>
+<li>高美味植物能够吸引不太饥饿的鸟；低美味植物主要吸引较饥饿的鸟。</li>
+<li>但美味度不是强制控制，鸟仍会考虑距离、风向、食物和拥挤。</li>
+</ul>
+<h4 id="产量">
+<a class="header-anchor" href="#%e4%ba%a7%e9%87%8f"></a>
+产量
+</h4><p>决定：</p>
+<ul>
+<li>最大食物库存。</li>
+<li>同时采食容量。</li>
+</ul>
+<p>两项分别记录：</p>
+<ul>
+<li>有空位但无食物，不能继续供养鸟。</li>
+<li>有食物但容量已满，其他鸟需要等待或寻找其他据点。</li>
+</ul>
+<h4 id="消化度">
+<a class="header-anchor" href="#%e6%b6%88%e5%8c%96%e5%ba%a6"></a>
+消化度
+</h4><p>决定：</p>
+<ul>
+<li>种子经过消化后的存活率。</li>
+<li>种子在体内的携带时间。</li>
+<li>传播距离由“携带时间＋鸟的实际移动”共同决定，不直接固定为某个格数。</li>
+</ul>
+<h4 id="生长速度">
+<a class="header-anchor" href="#%e7%94%9f%e9%95%bf%e9%80%9f%e5%ba%a6"></a>
+生长速度
+</h4><p>决定：</p>
+<ul>
+<li>种子、幼苗成熟所需时间。</li>
+<li>采食后恢复食物所需时间。</li>
+<li>产量是储量，生长速度是建立和恢复的速度。</li>
+</ul>
+<h3 id="82-生命周期">
+<a class="header-anchor" href="#82-%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f"></a>
+8.2 生命周期
+</h3><blockquote>
+<p>种子落地 → 萌发幼苗 → 成长 → 成熟植物</p>
+</blockquote>
+<p>成熟后：</p>
+<blockquote>
+<p>有食物 → 被采食 → 食物减少 → 逐步恢复</p>
+</blockquote>
+<p>采食不摧毁整株植物，不重置生长过程，也不立即补满食物。</p>
+<h3 id="83-植物分工">
+<a class="header-anchor" href="#83-%e6%a4%8d%e7%89%a9%e5%88%86%e5%b7%a5"></a>
+8.3 植物分工
+</h3><p>为避免命名混淆，将原“树木 B”暂称为“防风树”。</p>
+<table>
+  <thead>
+      <tr>
+          <th>植物</th>
+          <th>美味度</th>
+          <th>消化度</th>
+          <th>建议产量</th>
+          <th>建议生长速度</th>
+          <th>用途</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>A</td>
+          <td>高</td>
+          <td>易</td>
+          <td>低</td>
+          <td>快</td>
+          <td>快速启动、近距离填空、灾后落脚</td>
+      </tr>
+      <tr>
+          <td>B</td>
+          <td>中</td>
+          <td>普通</td>
+          <td>高</td>
+          <td>中</td>
+          <td>供养鸟群、建立补给骨架</td>
+      </tr>
+      <tr>
+          <td>C</td>
+          <td>低</td>
+          <td>难</td>
+          <td>中</td>
+          <td>慢</td>
+          <td>远距离拓殖</td>
+      </tr>
+      <tr>
+          <td>防风树</td>
+          <td>建议中</td>
+          <td>建议普通</td>
+          <td>中</td>
+          <td>慢</td>
+          <td>保护停靠点、塑造局部风场</td>
+      </tr>
+  </tbody>
+</table>
+<p>防风树的美味度和消化度尚待确认。</p>
+<h3 id="84-首轮测试数值">
+<a class="header-anchor" href="#84-%e9%a6%96%e8%bd%ae%e6%b5%8b%e8%af%95%e6%95%b0%e5%80%bc"></a>
+8.4 首轮测试数值
+</h3><table>
+  <thead>
+      <tr>
+          <th>参数</th>
+          <th>A</th>
+          <th>B</th>
+          <th>C</th>
+          <th>防风树</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>吸引半径</td>
+          <td>5 格</td>
+          <td>3 格</td>
+          <td>2 格</td>
+          <td>3 格</td>
+      </tr>
+      <tr>
+          <td>愿意采食的饱食度</td>
+          <td>＜80</td>
+          <td>＜60</td>
+          <td>＜40</td>
+          <td>＜60</td>
+      </tr>
+      <tr>
+          <td>最大食物库存</td>
+          <td>3 份</td>
+          <td>12 份</td>
+          <td>6 份</td>
+          <td>8 份</td>
+      </tr>
+      <tr>
+          <td>同时采食容量</td>
+          <td>3 只</td>
+          <td>12 只</td>
+          <td>6 只</td>
+          <td>8 只</td>
+      </tr>
+      <tr>
+          <td>正常成熟时间</td>
+          <td>1 回合</td>
+          <td>2 回合</td>
+          <td>3 回合</td>
+          <td>4 回合</td>
+      </tr>
+      <tr>
+          <td>从零恢复至满</td>
+          <td>1 回合</td>
+          <td>2 回合</td>
+          <td>3 回合</td>
+          <td>4 回合</td>
+      </tr>
+      <tr>
+          <td>消化携带时间</td>
+          <td>3 步</td>
+          <td>5 步</td>
+          <td>8 步</td>
+          <td>5 步</td>
+      </tr>
+      <tr>
+          <td>种子消化后存活率</td>
+          <td>40%</td>
+          <td>65%</td>
+          <td>85%</td>
+          <td>65%</td>
+      </tr>
+  </tbody>
+</table>
+<p>时间口径统一为每昼夜 10 个生态步，生长与恢复在昼夜均持续进行。天气修正另行叠加。</p>
+<p>食物按步逐渐恢复，不是达到指定回合突然补满。</p>
+<h3 id="85-防风效果">
+<a class="header-anchor" href="#85-%e9%98%b2%e9%a3%8e%e6%95%88%e6%9e%9c"></a>
+8.5 防风效果
+</h3><p>建议成熟防风树：</p>
+<ul>
+<li>在半径 2 格内削弱风力。</li>
+<li>多树可以叠加，但最低风力为零。</li>
+<li>不改变风向。</li>
+<li>幼树暂不产生完整效果。</li>
+<li><strong>防风的代价是</strong>：可能同时削弱顺风加速，减少远距离传播。</li>
+</ul>
+<h2 id="九鸟群系统">
+<a class="header-anchor" href="#%e4%b9%9d%e9%b8%9f%e7%be%a4%e7%b3%bb%e7%bb%9f"></a>
+九、鸟群系统
+</h2><h3 id="91-首版范围">
+<a class="header-anchor" href="#91-%e9%a6%96%e7%89%88%e8%8c%83%e5%9b%b4"></a>
+9.1 首版范围
+</h3><p>建议：</p>
+<ul>
+<li>一种鸟。</li>
+<li>固定鸟总数。</li>
+<li>暂不加入繁殖、死亡、疾病与遗传。</li>
+<li>饥饿影响行动，不直接导致死亡。</li>
+<li>先做清楚传播，再增加生态复杂度。</li>
+</ul>
+<h3 id="92-基础状态">
+<a class="header-anchor" href="#92-%e5%9f%ba%e7%a1%80%e7%8a%b6%e6%80%81"></a>
+9.2 基础状态
+</h3><p>每只鸟记录：</p>
+<ul>
+<li>位置与方向。</li>
+<li>饱食度。</li>
+<li>当前行为。</li>
+<li>携带种子的来源与剩余消化时间。</li>
+<li>所属临时群体。</li>
+<li>群体以单鸟行为为基础形成，可以分裂和重新聚拢。</li>
+</ul>
+<h3 id="93-觅食选择">
+<a class="header-anchor" href="#93-%e8%a7%85%e9%a3%9f%e9%80%89%e6%8b%a9"></a>
+9.3 觅食选择
+</h3><p>鸟在可感知植物中选择目标，综合考虑：</p>
+<blockquote>
+<p>食物吸引力 ＋ 饥饿需求 － 距离 － 拥挤 － 风向阻力</p>
+</blockquote>
+<ul>
+<li>没有合适食物时，可以探索或等待。</li>
+<li>不允许因为一个不可到达目标而永久锁死。</li>
+</ul>
+<h3 id="94-采食与再次起飞">
+<a class="header-anchor" href="#94-%e9%87%87%e9%a3%9f%e4%b8%8e%e5%86%8d%e6%ac%a1%e8%b5%b7%e9%a3%9e"></a>
+9.4 采食与再次起飞
+</h3><p>建议每次采食：</p>
+<ul>
+<li>消耗一份食物。</li>
+<li>增加饱食度。</li>
+<li>获得一份该植物的种子。</li>
+<li>正常采食后，鸟通常在下一生态步起飞，使 A 的短消化种子仍有机会传播到附近空格。</li>
+</ul>
+<p>同时：</p>
+<ul>
+<li>饱食度在停留与休息时也下降。</li>
+<li>鸟不会因为果实刚恢复就无限连续采食。</li>
+<li>夜晚或安全因素可以延迟起飞。</li>
+<li>延迟期间消化继续，可能导致种子落在原据点附近。</li>
+</ul>
+<h3 id="95-分散规则">
+<a class="header-anchor" href="#95-%e5%88%86%e6%95%a3%e8%a7%84%e5%88%99"></a>
+9.5 分散规则
+</h3><h4 id="觅食分散">
+<a class="header-anchor" href="#%e8%a7%85%e9%a3%9f%e5%88%86%e6%95%a3"></a>
+觅食分散
+</h4><p>食物目标不同或单点容量不足时，鸟群分开。</p>
+<h4 id="强风吹散">
+<a class="header-anchor" href="#%e5%bc%ba%e9%a3%8e%e5%90%b9%e6%95%a3"></a>
+强风吹散
+</h4><p>强风降低保持队形的能力，增加路线偏移和间距。</p>
+<h4 id="晴天顺风分散">
+<a class="header-anchor" href="#%e6%99%b4%e5%a4%a9%e9%a1%ba%e9%a3%8e%e5%88%86%e6%95%a3"></a>
+晴天顺风分散
+</h4><p>已确认：</p>
+<ul>
+<li>顺风且不下雨时，更容易分散，飞得更快。</li>
+<li>更远的传播不等于更多的有效萌发：种子可能越过目标陆地。</li>
+</ul>
+<h3 id="96-聚拢规则">
+<a class="header-anchor" href="#96-%e8%81%9a%e6%8b%a2%e8%a7%84%e5%88%99"></a>
+9.6 聚拢规则
+</h3><h4 id="夜晚休息">
+<a class="header-anchor" href="#%e5%a4%9c%e6%99%9a%e4%bc%91%e6%81%af"></a>
+夜晚休息
+</h4><p>趋向共同休息区域，在相邻格聚集，不要求全部挤入一格。</p>
+<h4 id="热气流盘旋">
+<a class="header-anchor" href="#%e7%83%ad%e6%b0%94%e6%b5%81%e7%9b%98%e6%97%8b"></a>
+热气流盘旋
+</h4><p>趋向共同盘旋中心，消化持续进行，种子可能集中落在附近。</p>
+<h4 id="跨海前集结">
+<a class="header-anchor" href="#%e8%b7%a8%e6%b5%b7%e5%89%8d%e9%9b%86%e7%bb%93"></a>
+跨海前集结
+</h4><p>准备渡海的鸟在海岸形成子群，等待短暂集结后出发。</p>
+<p>建议不要求“所有鸟到齐”或严格人数门槛，避免无限等待。</p>
+<h3 id="97-风与聚拢的冲突">
+<a class="header-anchor" href="#97-%e9%a3%8e%e4%b8%8e%e8%81%9a%e6%8b%a2%e7%9a%84%e5%86%b2%e7%aa%81"></a>
+9.7 风与聚拢的冲突
+</h3><p>区分：</p>
+<ul>
+<li><strong>聚拢意图</strong>：选择共同区域。</li>
+<li><strong>实际队形</strong>：仍受风影响。</li>
+<li>例如鸟群先在海岸集结，出海后遇到晴天顺风，再逐渐分散。</li>
+<li>雨天取消晴天顺风加成，但不等于禁飞；夜晚聚拢也不等于所有鸟立即停止移动。</li>
+</ul>
+<h3 id="98-不逆风起飞">
+<a class="header-anchor" href="#98-%e4%b8%8d%e9%80%86%e9%a3%8e%e8%b5%b7%e9%a3%9e"></a>
+9.8 不逆风起飞
+</h3><p>建议解释为：</p>
+<ul>
+<li>停留后起飞，不能选择与当地风向相反的初始航向。</li>
+<li>可以顺风、侧风、等待或换目标。</li>
+<li>首版不扩展为“飞行途中永远不能转向”，途中仍可根据环境调整路线。</li>
+</ul>
+<h2 id="十种子传播规则">
+<a class="header-anchor" href="#%e5%8d%81%e7%a7%8d%e5%ad%90%e4%bc%a0%e6%92%ad%e8%a7%84%e5%88%99"></a>
+十、种子传播规则
+</h2><h3 id="101-传播流程">
+<a class="header-anchor" href="#101-%e4%bc%a0%e6%92%ad%e6%b5%81%e7%a8%8b"></a>
+10.1 传播流程
+</h3><blockquote>
+<p>采食 → 携带 → 消化完成 → 排出 → 存活判定 → 落点判定 → 萌发</p>
+</blockquote>
+<p>消化在飞行、停留、盘旋和夜晚都继续计时。</p>
+<h3 id="102-落点结果">
+<a class="header-anchor" href="#102-%e8%90%bd%e7%82%b9%e7%bb%93%e6%9e%9c"></a>
+10.2 落点结果
+</h3><table>
+  <thead>
+      <tr>
+          <th>落点</th>
+          <th>结果</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>适生空土壤</td>
+          <td>尝试萌发</td>
+      </tr>
+      <tr>
+          <td>烧后空土壤</td>
+          <td>尝试萌发</td>
+      </tr>
+      <tr>
+          <td>海洋</td>
+          <td>损失</td>
+      </tr>
+      <tr>
+          <td>未改造岩石</td>
+          <td>无法萌发</td>
+      </tr>
+      <tr>
+          <td>菌毯格</td>
+          <td>首版无法萌发</td>
+      </tr>
+      <tr>
+          <td>已有植物格</td>
+          <td>首版不增加第二株植物</td>
+      </tr>
+  </tbody>
+</table>
+<p>首版不做长期种子库。</p>
+<p>同格多粒有效种子只生成一株幼苗，选择方式可复现，不偏向固定处理顺序。</p>
+<h3 id="103-萌发与降雨">
+<a class="header-anchor" href="#103-%e8%90%8c%e5%8f%91%e4%b8%8e%e9%99%8d%e9%9b%a8"></a>
+10.3 萌发与降雨
+</h3><p>建议降雨：</p>
+<ul>
+<li>提高有效种子的萌发成功率。</li>
+<li>提高幼苗短期生长速度。</li>
+</ul>
+<p>但不能：</p>
+<ul>
+<li>恢复已被消化破坏的种子。</li>
+<li>让海洋或裸岩直接适生。</li>
+<li>清除菌毯占据。</li>
+</ul>
+<h2 id="十一天气与卫星">
+<a class="header-anchor" href="#%e5%8d%81%e4%b8%80%e5%a4%a9%e6%b0%94%e4%b8%8e%e5%8d%ab%e6%98%9f"></a>
+十一、天气与卫星
+</h2><h3 id="111-风力等级">
+<a class="header-anchor" href="#111-%e9%a3%8e%e5%8a%9b%e7%ad%89%e7%ba%a7"></a>
+11.1 风力等级
+</h3><table>
+  <thead>
+      <tr>
+          <th>风力</th>
+          <th>作用</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>无风</td>
+          <td>起飞方向自由</td>
+      </tr>
+      <tr>
+          <td>微风</td>
+          <td>顺风略快</td>
+      </tr>
+      <tr>
+          <td>中风</td>
+          <td>顺风加速明显，传播有方向性</td>
+      </tr>
+      <tr>
+          <td>强风</td>
+          <td>鸟群更容易吹散</td>
+      </tr>
+  </tbody>
+</table>
+<p>基础风场可以全局一致，防风树形成局部变化。</p>
+<h3 id="112-天气预报">
+<a class="header-anchor" href="#112-%e5%a4%a9%e6%b0%94%e9%a2%84%e6%8a%a5"></a>
+11.2 天气预报
+</h3><p>正式关建议显示未来两回合预报。</p>
+<p>天气采用固定周期或有限变化，确保存在真实可用的跨海和传播窗口。</p>
+<h3 id="113-卫星资源">
+<a class="header-anchor" href="#113-%e5%8d%ab%e6%98%9f%e8%b5%84%e6%ba%90"></a>
+11.3 卫星资源
+</h3><p>建议：</p>
+<ul>
+<li>每回合最多一次干预。</li>
+<li>能源上限 6。</li>
+<li>每回合恢复 1。</li>
+<li>未使用能源可保存。</li>
+</ul>
+<h3 id="114-卫星能力">
+<a class="header-anchor" href="#114-%e5%8d%ab%e6%98%9f%e8%83%bd%e5%8a%9b"></a>
+11.4 卫星能力
+</h3><table>
+  <thead>
+      <tr>
+          <th>能力</th>
+          <th>建议消耗</th>
+          <th>效果</th>
+          <th>代价</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>局部降雨</td>
+          <td>1</td>
+          <td>促进萌发、生长，抑制火势</td>
+          <td>取消晴天顺风加成</td>
+      </tr>
+      <tr>
+          <td>人工热气流</td>
+          <td>2</td>
+          <td>聚拢盘旋</td>
+          <td>可能减少向外传播</td>
+      </tr>
+      <tr>
+          <td>干雷暴点火</td>
+          <td>4</td>
+          <td>引发火灾</td>
+          <td>可能烧毁己方生态</td>
+      </tr>
+  </tbody>
+</table>
+<p>不建议首版提供任意改变全地图风向的能力。</p>
+<h2 id="十二菌毯竞争与火灾">
+<a class="header-anchor" href="#%e5%8d%81%e4%ba%8c%e8%8f%8c%e6%af%af%e7%ab%9e%e4%ba%89%e4%b8%8e%e7%81%ab%e7%81%be"></a>
+十二、菌毯竞争与火灾
+</h2><h3 id="121-菌毯扩张">
+<a class="header-anchor" href="#121-%e8%8f%8c%e6%af%af%e6%89%a9%e5%bc%a0"></a>
+12.1 菌毯扩张
+</h3><p>建议固定为：</p>
+<ul>
+<li>每次夜晚结算，每个边缘菌毯格最多向一个上下左右相邻的有效格扩张。</li>
+<li>新格当夜不继续扩张。</li>
+<li>多来源争同格只生效一次。</li>
+<li>空土壤与岩石可直接占据。</li>
+<li>地球植物格需要侵占过程。</li>
+<li>海洋阻断首版扩张。</li>
+<li>扩张速度是关键平衡参数，需要单独测试。</li>
+</ul>
+<h3 id="122-植物侵占预警">
+<a class="header-anchor" href="#122-%e6%a4%8d%e7%89%a9%e4%be%b5%e5%8d%a0%e9%a2%84%e8%ad%a6"></a>
+12.2 植物侵占预警
+</h3><p>建议：</p>
+<ul>
+<li>第一次夜结算出现预警。</li>
+<li>下一次夜结算，若仍与菌毯相邻，则替换为菌毯。</li>
+<li>相邻菌毯被清除，预警取消。</li>
+<li>确保玩家至少拥有一次完整部署机会。</li>
+<li>幼苗和成熟植物均可被侵占；成熟不代表免疫。</li>
+</ul>
+<h3 id="123-外星飞船">
+<a class="header-anchor" href="#123-%e5%a4%96%e6%98%9f%e9%a3%9e%e8%88%b9"></a>
+12.3 外星飞船
+</h3><p>首版使用脚本化投放：</p>
+<ul>
+<li>指定回合抵达。</li>
+<li>提前预告投放位置。</li>
+<li>投放少量菌毯核心。</li>
+<li>后续由菌毯规则扩张。</li>
+<li>暂不制作复杂敌方经营 AI。</li>
+</ul>
+<h3 id="124-火灾">
+<a class="header-anchor" href="#124-%e7%81%ab%e7%81%be"></a>
+12.4 火灾
+</h3><p>火会烧毁：</p>
+<ul>
+<li>菌毯。</li>
+<li>地球幼苗。</li>
+<li>成熟植物。</li>
+</ul>
+<p>建议火势按生态步传播：</p>
+<ul>
+<li>顺风更容易蔓延。</li>
+<li>新燃烧格下一步才继续传播。</li>
+<li>降雨抑制或熄灭。</li>
+<li>海洋与缺乏可燃物区域阻断。</li>
+<li>鸟群尝试逃离，但不瞬间传送到安全区。</li>
+</ul>
+<h3 id="125-点火条件">
+<a class="header-anchor" href="#125-%e7%82%b9%e7%81%ab%e6%9d%a1%e4%bb%b6"></a>
+12.5 点火条件
+</h3><p>干雷暴只在当前无雨且存在可燃物时可用。</p>
+<p>确认前显示：</p>
+<ul>
+<li>直接点火格。</li>
+<li>可能受影响的己方植物。</li>
+<li>主要传播方向。</li>
+<li>无效点火不消耗能源。</li>
+</ul>
+<h3 id="126-烧后土壤">
+<a class="header-anchor" href="#126-%e7%83%a7%e5%90%8e%e5%9c%9f%e5%a3%a4"></a>
+12.6 烧后土壤
+</h3><p>菌毯烧毁后：</p>
+<ul>
+<li>占据清除。</li>
+<li>形成可种植土壤。</li>
+<li>获得短暂菌毯侵占保护。</li>
+<li>建议保护覆盖后续两次清晨部署机会，确保存在实际反攻窗口。</li>
+<li>保护不等于免疫火灾。</li>
+</ul>
+<h2 id="十三关卡设计">
+<a class="header-anchor" href="#%e5%8d%81%e4%b8%89%e5%85%b3%e5%8d%a1%e8%ae%be%e8%ae%a1"></a>
+十三、关卡设计
+</h2><h3 id="131-教学关第一片生态">
+<a class="header-anchor" href="#131-%e6%95%99%e5%ad%a6%e5%85%b3%e7%ac%ac%e4%b8%80%e7%89%87%e7%94%9f%e6%80%81"></a>
+13.1 教学关：第一片生态
+</h3><p><strong>定位</strong>：观察与理解。</p>
+<p>建议：</p>
+<ul>
+<li>12 × 8 格。</li>
+<li>全部土壤。</li>
+<li>无风、无菌毯。</li>
+<li>初始成熟据点与固定鸟群。</li>
+<li>不设紧迫回合限制。</li>
+</ul>
+<p>教学顺序：</p>
+<ul>
+<li>查看植物与食物。</li>
+<li>投放 A，观察成熟。</li>
+<li>观察采食、食物减少与恢复。</li>
+<li>跟踪携种鸟。</li>
+<li>看到排种与萌发。</li>
+<li>使用 B 理解高容量。</li>
+<li>使用 C 观察远方拓殖。</li>
+<li>看到成熟植被增加后额度提高。</li>
+<li><strong>目标</strong>：所有目标格形成成熟地球植被。</li>
+</ul>
+<h3 id="132-第一关顺风航线">
+<a class="header-anchor" href="#132-%e7%ac%ac%e4%b8%80%e5%85%b3%e9%a1%ba%e9%a3%8e%e8%88%aa%e7%ba%bf"></a>
+13.2 第一关：顺风航线
+</h3><p><strong>定位</strong>：天气与传播路线。</p>
+<p>建议：</p>
+<ul>
+<li>20 × 12 格。</li>
+<li>两片陆地，中间有海峡。</li>
+<li>周期风向与晴雨。</li>
+<li>解锁防风树、降雨和热气流。</li>
+</ul>
+<p>挑战：</p>
+<ul>
+<li>将鸟引向海岸。</li>
+<li>等待跨海窗口。</li>
+<li>在对岸形成成熟食物点。</li>
+<li>防止种子越过目标区域。</li>
+<li>平衡防风与远播。</li>
+</ul>
+<p>首轮目标建议：</p>
+<ul>
+<li>对岸指定区域成熟覆盖达到 80%。</li>
+<li>连续维持 2 回合。</li>
+<li>24 回合内完成。</li>
+</ul>
+<h3 id="133-第二关另一种改造">
+<a class="header-anchor" href="#133-%e7%ac%ac%e4%ba%8c%e5%85%b3%e5%8f%a6%e4%b8%80%e7%a7%8d%e6%94%b9%e9%80%a0"></a>
+13.3 第二关：另一种改造
+</h3><p><strong>定位</strong>：生态前线与环境转化。</p>
+<p>建议：</p>
+<ul>
+<li>20 × 14 格。</li>
+<li>岩石带成为菌毯通道。</li>
+<li>外星飞船按回合抵达。</li>
+<li>解锁点火。</li>
+</ul>
+<p>挑战：</p>
+<ul>
+<li>保护后方成熟植被和投放能力。</li>
+<li>避免补给网络被切断。</li>
+<li>选择燃烧区域。</li>
+<li>利用烧后土壤快速落脚。</li>
+<li>在扩张与保护之间分配植物选择。</li>
+</ul>
+<p>首轮目标建议：</p>
+<ul>
+<li>改造区成熟地球植被覆盖达到 75%。</li>
+<li>连续维持 3 回合。</li>
+<li>30 回合内完成。</li>
+<li>不要求清除全地图菌毯。</li>
+<li>以上地图尺寸和目标数值均待测试。</li>
+</ul>
+<h2 id="十四胜负与复盘">
+<a class="header-anchor" href="#%e5%8d%81%e5%9b%9b%e8%83%9c%e8%b4%9f%e4%b8%8e%e5%a4%8d%e7%9b%98"></a>
+十四、胜负与复盘
+</h2><h3 id="141-覆盖统计">
+<a class="header-anchor" href="#141-%e8%a6%86%e7%9b%96%e7%bb%9f%e8%ae%a1"></a>
+14.1 覆盖统计
+</h3><blockquote>
+<p>覆盖度 ＝ 目标区域成熟地球植物格数 ÷ 目标区域总格数</p>
+</blockquote>
+<p>幼苗显示为“建立中”，不计成熟覆盖。</p>
+<p>连续维持期间跌破要求，维持计数重新开始。</p>
+<h3 id="142-正式关失败">
+<a class="header-anchor" href="#142-%e6%ad%a3%e5%bc%8f%e5%85%b3%e5%a4%b1%e8%b4%a5"></a>
+14.2 正式关失败
+</h3><p>可以包括：</p>
+<ul>
+<li>达到回合上限。</li>
+<li>关键区域失守。</li>
+<li>生态不存在恢复来源。</li>
+<li>教学关以辅助和重试为主，不采用强惩罚。</li>
+</ul>
+<h3 id="143-结算评价">
+<a class="header-anchor" href="#143-%e7%bb%93%e7%ae%97%e8%af%84%e4%bb%b7"></a>
+14.3 结算评价
+</h3><p>建议记录：</p>
+<ul>
+<li>完成回合数。</li>
+<li>自然传播产生的成熟植被比例。</li>
+<li>卫星能源消耗。</li>
+<li>应急储备使用。</li>
+<li>被侵占或烧毁的植物数量。</li>
+<li>用于复盘，不必全部设为通关门槛。</li>
+</ul>
+<h2 id="十五界面与信息表达">
+<a class="header-anchor" href="#%e5%8d%81%e4%ba%94%e7%95%8c%e9%9d%a2%e4%b8%8e%e4%bf%a1%e6%81%af%e8%a1%a8%e8%be%be"></a>
+十五、界面与信息表达
+</h2><h3 id="151-主界面">
+<a class="header-anchor" href="#151-%e4%b8%bb%e7%95%8c%e9%9d%a2"></a>
+15.1 主界面
+</h3><h4 id="顶部状态">
+<a class="header-anchor" href="#%e9%a1%b6%e9%83%a8%e7%8a%b6%e6%80%81"></a>
+顶部状态
+</h4><ul>
+<li>回合。</li>
+<li>天气与预报。</li>
+<li>成熟植被数量。</li>
+<li>投放额度。</li>
+<li>应急储备。</li>
+<li>卫星能源。</li>
+<li>任务覆盖与维持进度。</li>
+</ul>
+<h4 id="植物卡">
+<a class="header-anchor" href="#%e6%a4%8d%e7%89%a9%e5%8d%a1"></a>
+植物卡
+</h4><p>显示四项属性与一句用途说明。</p>
+<h4 id="卫星区">
+<a class="header-anchor" href="#%e5%8d%ab%e6%98%9f%e5%8c%ba"></a>
+卫星区
+</h4><p>显示能力、消耗、范围与可用条件。</p>
+<h4 id="回合控制">
+<a class="header-anchor" href="#%e5%9b%9e%e5%90%88%e6%8e%a7%e5%88%b6"></a>
+回合控制
+</h4><ul>
+<li>确认部署。</li>
+<li>暂停。</li>
+<li>调整播放速度。</li>
+<li>下一回合。</li>
+</ul>
+<h3 id="152-信息图层">
+<a class="header-anchor" href="#152-%e4%bf%a1%e6%81%af%e5%9b%be%e5%b1%82"></a>
+15.2 信息图层
+</h3><table>
+  <thead>
+      <tr>
+          <th>图层</th>
+          <th>内容</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>生态</td>
+          <td>植物类型、成熟状态、菌毯</td>
+      </tr>
+      <tr>
+          <td>食物</td>
+          <td>库存与采食容量</td>
+      </tr>
+      <tr>
+          <td>风场</td>
+          <td>风向、风力、防风区</td>
+      </tr>
+      <tr>
+          <td>鸟群</td>
+          <td>行为与近期路线</td>
+      </tr>
+      <tr>
+          <td>种子</td>
+          <td>携带类型和近期落点</td>
+      </tr>
+      <tr>
+          <td>威胁</td>
+          <td>侵占预警、火势、保护期</td>
+      </tr>
+  </tbody>
+</table>
+<p>默认不同时开启全部图层。</p>
+<h3 id="153-行为解释">
+<a class="header-anchor" href="#153-%e8%a1%8c%e4%b8%ba%e8%a7%a3%e9%87%8a"></a>
+15.3 行为解释
+</h3><p>选中鸟群时显示：</p>
+<blockquote>
+<p>“食物点容量已满，正在分散觅食。”</p>
+</blockquote>
+<blockquote>
+<p>“顺风且无雨，飞行加速。”</p>
+</blockquote>
+<blockquote>
+<p>“目标位于逆风方向，暂缓起飞。”</p>
+</blockquote>
+<blockquote>
+<p>“正在海岸集结。”</p>
+</blockquote>
+<blockquote>
+<p>“种子落入海洋，未能萌发。”</p>
+</blockquote>
+<p>玩家可以无法精确控制结果，但必须能够理解原因。</p>
+<h2 id="十六美术音效与叙事表现">
+<a class="header-anchor" href="#%e5%8d%81%e5%85%ad%e7%be%8e%e6%9c%af%e9%9f%b3%e6%95%88%e4%b8%8e%e5%8f%99%e4%ba%8b%e8%a1%a8%e7%8e%b0"></a>
+十六、美术、音效与叙事表现
+</h2><h3 id="161-美术方向">
+<a class="header-anchor" href="#161-%e7%be%8e%e6%9c%af%e6%96%b9%e5%90%91"></a>
+16.1 美术方向
+</h3><p>建议采用清晰的科研沙盘风格：</p>
+<ul>
+<li>俯视或轻度倾斜视角。</li>
+<li>植物通过颜色和轮廓区分。</li>
+<li>幼苗与成熟植物形态明显不同。</li>
+<li>菌毯强调连续覆盖纹理。</li>
+<li>风使用稀疏流线。</li>
+<li>热气流表现为上升与盘旋。</li>
+<li>火灾与烧后土壤有明确阶段变化。</li>
+<li>首版优先可读性，不追求复杂写实。</li>
+</ul>
+<h3 id="162-鸟群表现">
+<a class="header-anchor" href="#162-%e9%b8%9f%e7%be%a4%e8%a1%a8%e7%8e%b0"></a>
+16.2 鸟群表现
+</h3><p>用运动体现状态：</p>
+<ul>
+<li><strong>觅食</strong>：靠近地表与植物。</li>
+<li><strong>晴天顺风</strong>：加速、拉开间距。</li>
+<li><strong>热气流</strong>：盘旋。</li>
+<li><strong>夜晚</strong>：聚集并减少移动。</li>
+<li><strong>跨海</strong>：集结后共同出发。</li>
+</ul>
+<h3 id="163-音效">
+<a class="header-anchor" href="#163-%e9%9f%b3%e6%95%88"></a>
+16.3 音效
+</h3><p>科研设备反馈。</p>
+<p>鸟鸣与振翅。</p>
+<p>风雨变化。</p>
+<p>雷声与火焰。</p>
+<p>避免给每个生态事件都播放独立音效。</p>
+<h3 id="164-叙事">
+<a class="header-anchor" href="#164-%e5%8f%99%e4%ba%8b"></a>
+16.4 叙事
+</h3><p>使用简短科研日志，记录实际发生的现象：</p>
+<ul>
+<li>首次自然传播。</li>
+<li>首次跨海拓殖。</li>
+<li>首次发现菌毯。</li>
+<li>首次将烧后岩石转化为植物据点。</li>
+<li>减少长文本对观察过程的打断。</li>
+</ul>
+<h2 id="十七原型范围与验证标准">
+<a class="header-anchor" href="#%e5%8d%81%e4%b8%83%e5%8e%9f%e5%9e%8b%e8%8c%83%e5%9b%b4%e4%b8%8e%e9%aa%8c%e8%af%81%e6%a0%87%e5%87%86"></a>
+十七、原型范围与验证标准
+</h2><h3 id="171-开发顺序">
+<a class="header-anchor" href="#171-%e5%bc%80%e5%8f%91%e9%a1%ba%e5%ba%8f"></a>
+17.1 开发顺序
+</h3><h4 id="第一阶段传播闭环">
+<a class="header-anchor" href="#%e7%ac%ac%e4%b8%80%e9%98%b6%e6%ae%b5%e4%bc%a0%e6%92%ad%e9%97%ad%e7%8e%af"></a>
+第一阶段：传播闭环
+</h4><p>只做：</p>
+<ul>
+<li>土壤地图。</li>
+<li>A、B、C。</li>
+<li>生长与恢复。</li>
+<li>鸟采食、起飞、消化、排种。</li>
+<li>比例投放。</li>
+<li>教学与解释。</li>
+</ul>
+<h4 id="第二阶段天气航线">
+<a class="header-anchor" href="#%e7%ac%ac%e4%ba%8c%e9%98%b6%e6%ae%b5%e5%a4%a9%e6%b0%94%e8%88%aa%e7%ba%bf"></a>
+第二阶段：天气航线
+</h4><p>加入：</p>
+<ul>
+<li>风与晴雨。</li>
+<li>防风树。</li>
+<li>热气流。</li>
+<li>海洋与跨海。</li>
+<li>第一关。</li>
+</ul>
+<h4 id="第三阶段生态竞争">
+<a class="header-anchor" href="#%e7%ac%ac%e4%b8%89%e9%98%b6%e6%ae%b5%e7%94%9f%e6%80%81%e7%ab%9e%e4%ba%89"></a>
+第三阶段：生态竞争
+</h4><p>加入：</p>
+<ul>
+<li>菌毯扩张。</li>
+<li>侵占预警。</li>
+<li>火灾与烧后土壤。</li>
+<li>外星投放。</li>
+<li>第二关。</li>
+<li>首版暂不做多物种、繁殖死亡、遗传、土壤化学、复杂食物链和联网竞争。</li>
+</ul>
+<h3 id="172-必须验证的问题">
+<a class="header-anchor" href="#172-%e5%bf%85%e9%a1%bb%e9%aa%8c%e8%af%81%e7%9a%84%e9%97%ae%e9%a2%98"></a>
+17.2 必须验证的问题
+</h3><h4 id="传播是否有效">
+<a class="header-anchor" href="#%e4%bc%a0%e6%92%ad%e6%98%af%e5%90%a6%e6%9c%89%e6%95%88"></a>
+传播是否有效？
+</h4><ul>
+<li><strong>不持续补种，生态是否能自行扩张？</strong></li>
+<li><strong>A 是否有机会在起飞后排种？</strong></li>
+<li><strong>C 是否能建立远方据点？</strong></li>
+<li><strong>植物是否各有用途？</strong></li>
+</ul>
+<p>分别测试：</p>
+<ul>
+<li>近距离铺开。</li>
+<li>稳定供食。</li>
+<li>跨海传播。</li>
+<li>菌毯前线抢占。</li>
+<li>一种植物不能在全部场景都最优。</li>
+</ul>
+<h4 id="比例投放是否压过传播">
+<a class="header-anchor" href="#%e6%af%94%e4%be%8b%e6%8a%95%e6%94%be%e6%98%af%e5%90%a6%e5%8e%8b%e8%bf%87%e4%bc%a0%e6%92%ad"></a>
+比例投放是否压过传播？
+</h4><p>比较：</p>
+<ul>
+<li>直接经营目标区。</li>
+<li>先在安全区扩产，再提高额度。</li>
+<li>不能让“先刷安全区”成为所有关卡的唯一答案。</li>
+</ul>
+<h4 id="竞争是否公平">
+<a class="header-anchor" href="#%e7%ab%9e%e4%ba%89%e6%98%af%e5%90%a6%e5%85%ac%e5%b9%b3"></a>
+竞争是否公平？
+</h4><ul>
+<li><strong>预警是否给出真实操作机会？</strong></li>
+<li><strong>烧后是否有足够播种时间？</strong></li>
+<li><strong>火灾是否有代价，也有使用价值？</strong></li>
+<li><strong>生态崩盘是否可被理解，而不是突然发生？</strong></li>
+</ul>
+<h3 id="173-建议验收目标">
+<a class="header-anchor" href="#173-%e5%bb%ba%e8%ae%ae%e9%aa%8c%e6%94%b6%e7%9b%ae%e6%a0%87"></a>
+17.3 建议验收目标
+</h3><p>玩家能描述完整传播链。</p>
+<p>合理打法中，自然传播贡献过半的新增成熟植被。</p>
+<p>不同植物组合形成不同路线。</p>
+<p>相同规则在不同地图和天气中形成不同格局。</p>
+<p>玩家失败后能够指出原因。</p>
+<p>无法恢复时明确结束，不无限等待。</p>
+<p>这些是验证目标，不是已经实现的结果。</p>
+<h2 id="十八主要风险与后续待定">
+<a class="header-anchor" href="#%e5%8d%81%e5%85%ab%e4%b8%bb%e8%a6%81%e9%a3%8e%e9%99%a9%e4%b8%8e%e5%90%8e%e7%bb%ad%e5%be%85%e5%ae%9a"></a>
+十八、主要风险与后续待定
+</h2><table>
+  <thead>
+      <tr>
+          <th>风险</th>
+          <th>应对方向</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>A 过强</td>
+          <td>保持低容量与短传播，避免属性全面占优</td>
+      </tr>
+      <tr>
+          <td>手动投放主导后期</td>
+          <td>调整投放比例，检查自然传播贡献</td>
+      </tr>
+      <tr>
+          <td>零额度死锁</td>
+          <td>初始据点、有限应急、明确失败条件</td>
+      </tr>
+      <tr>
+          <td>鸟群停留不再行动</td>
+          <td>持续饥饿、明确起飞与目标重选</td>
+      </tr>
+      <tr>
+          <td>跨海无限等待</td>
+          <td>子群集结、有限等待、可用天气窗口</td>
+      </tr>
+      <tr>
+          <td>菌毯扩张过快</td>
+          <td>调整结算间隔与扩张规则</td>
+      </tr>
+      <tr>
+          <td>火灾无代价清图</td>
+          <td>己方同样受损，能源与天气约束</td>
+      </tr>
+      <tr>
+          <td>信息过载</td>
+          <td>默认简洁，按需开启图层与解释</td>
+      </tr>
+  </tbody>
+</table>
+<p>仍需确认或实测：</p>
+<ul>
+<li>投放统计是否只计成熟植物。</li>
+<li>投放比例。</li>
+<li>防风树的四项属性。</li>
+<li>菌毯扩张速度。</li>
+<li>卫星范围、持续时间和消耗。</li>
+<li>正式关的回合上限与覆盖目标。</li>
+<li>后续是否加入繁殖、死亡与植物演替。</li>
+</ul>
+<h2 id="最终设计总结">
+<a class="header-anchor" href="#%e6%9c%80%e7%bb%88%e8%ae%be%e8%ae%a1%e6%80%bb%e7%bb%93"></a>
+最终设计总结
+</h2><p>本作的策略结构可以概括为：</p>
+<p>用快速植物建立起点，用高产植物维持鸟群，用难消化种子进行远播，用树木塑造风场，再通过天气和火灾改变生态形成的时间与位置。</p>
+<p>玩家每回合只做少量决策，但这些决策会经过植物、鸟群、天气和菌毯的持续互动，逐渐改变整张地图。</p></div>
+    <footer class="article-footer"><ul class="article-category-list"><li class="article-tag-list-item" data-aos="zoom-in">
+    <a
+      class="article-category-link"
+      href="/categories/%e6%b8%b8%e6%88%8f%e5%bc%80%e5%8f%91"
+      data-aos="zoom-in"
+      >游戏开发</a
+    >
+    </li></ul>
+<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e6%b8%b8%e6%88%8f%e5%bc%80%e5%8f%91"
+        rel="tag"
+        >游戏开发</a
+      >
+    </li><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e6%b8%b8%e6%88%8f%e8%ae%be%e8%ae%a1"
+        rel="tag"
+        >游戏设计</a
+      >
+    </li><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e6%b6%8c%e7%8e%b0"
+        rel="tag"
+        >涌现</a
+      >
+    </li><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e7%94%9f%e6%80%81%e6%a8%a1%e6%8b%9f"
+        rel="tag"
+        >生态模拟</a
+      >
+    </li><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e5%9b%9e%e5%90%88%e5%88%b6%e7%ad%96%e7%95%a5"
+        rel="tag"
+        >回合制策略</a
+      >
+    </li><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e7%8b%ac%e7%ab%8b%e6%b8%b8%e6%88%8f"
+        rel="tag"
+        >独立游戏</a
+      >
+    </li></ul>
+</footer>
+  </div><nav
+    id="article-nav"
+    aria-label="Article navigation"
+    data-aos="fade-up"
+  ><div class="article-nav-link-wrap left"><img
+              data-src="https://d-sketon.top/img/_backwebp/bg1.webp"
+              data-sizes="auto"
+              alt="《创世协议：轨道边缘》v3.0：把“涌现”做成一座会自己长出来的湖湾"
+              class="lazyload"
+            /><a
+          href="/post/emergence-protocol-v3/"
+          aria-label="前一篇:《创世协议：轨道边缘》v3.0：把“涌现”做成一座会自己长出来的湖湾"
+          title="前一篇:《创世协议：轨道边缘》v3.0：把“涌现”做成一座会自己长出来的湖湾"
+        ></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">《创世协议：轨道边缘》v3.0：把“涌现”做成一座会自己长出来的湖湾</h3>
+      </div></nav></article></section>
+        </div><footer id="footer" aria-label="Site footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info"><div>
+      <span class="icon-copyright"></span>2020-2026<span class="footer-info-sep rotate"></span>D-Sketon
+    </div><div>
+        基于&nbsp;<a
+          href="https://gohugo.io/"
+          target="_blank"
+          rel="noopener nofollow noreferrer"
+          >Hugo</a
+        >&nbsp;Theme.<a
+          href="https://github.com/D-Sketon/hugo-theme-reimu"
+          target="_blank"
+          rel="noopener nofollow noreferrer"
+          >Reimu</a
+        >
+      </div><div>
+        <span class="icon-brush"
+          >&nbsp;3.3k</span
+        >
+        &nbsp;|&nbsp;
+        <span class="icon-coffee">&nbsp;00:19</span>
+      </div><div>
+        <span class="icon-eye"></span>
+        <span id="busuanzi_container_site_pv"
+          >总访问量&nbsp;<span
+            id="busuanzi_value_site_pv"
+          ></span
+        ></span>
+        &nbsp;|&nbsp;
+        <span class="icon-user"></span>
+        <span id="busuanzi_container_site_uv"
+          >总访客量&nbsp;<span
+            id="busuanzi_value_site_uv"
+          ></span
+        ></span>
+      </div></div>
+</footer>
+<div class="sidebar-top">
+            <div class="sidebar-top-taichi rotate"></div>
+            <div class="arrow-up"></div>
+          </div><div id="mask" class="hide"></div>
+      </div><nav id="mobile-nav" aria-label="Mobile navigation">
+  <div class="sidebar-wrap"><div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class">
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一游戏概述">一、游戏概述</a>
+      <ul>
+        <li><a href="#11-一句话介绍">1.1 一句话介绍</a></li>
+        <li><a href="#12-类型与定位">1.2 类型与定位</a></li>
+        <li><a href="#13-核心体验">1.3 核心体验</a></li>
+        <li><a href="#14-设计支柱">1.4 设计支柱</a></li>
+        <li><a href="#15-涌现主题的设计标准">1.5 “涌现”主题的设计标准</a></li>
+      </ul>
+    </li>
+    <li><a href="#二已确认的设计基础">二、已确认的设计基础</a></li>
+    <li><a href="#三世界观与叙事">三、世界观与叙事</a>
+      <ul>
+        <li><a href="#31-故事背景">3.1 故事背景</a></li>
+        <li><a href="#32-玩家身份">3.2 玩家身份</a></li>
+        <li><a href="#33-叙事基调">3.3 叙事基调</a></li>
+      </ul>
+    </li>
+    <li><a href="#四核心玩法循环">四、核心玩法循环</a>
+      <ul>
+        <li><a href="#41-生态扩张循环">4.1 生态扩张循环</a></li>
+        <li><a href="#42-生态竞争循环">4.2 生态竞争循环</a></li>
+        <li><a href="#43-每回合的三个问题">4.3 每回合的三个问题</a></li>
+      </ul>
+    </li>
+    <li><a href="#五地图与地表规则">五、地图与地表规则</a>
+      <ul>
+        <li><a href="#51-地图数据结构">5.1 地图数据结构</a></li>
+        <li><a href="#52-地形作用">5.2 地形作用</a></li>
+        <li><a href="#53-扩张方式差异">5.3 扩张方式差异</a></li>
+        <li><a href="#54-目标区域">5.4 目标区域</a></li>
+      </ul>
+    </li>
+    <li><a href="#六回合与时间规则">六、回合与时间规则</a>
+      <ul>
+        <li><a href="#61-时间单位">6.1 时间单位</a></li>
+        <li><a href="#62-回合流程">6.2 回合流程</a></li>
+        <li><a href="#63-同步结算原则">6.3 同步结算原则</a></li>
+      </ul>
+    </li>
+    <li><a href="#七植物投放系统">七、植物投放系统</a>
+      <ul>
+        <li><a href="#71-额度统计">7.1 额度统计</a></li>
+        <li><a href="#72-初始公式">7.2 初始公式</a></li>
+        <li><a href="#73-开局与应急储备">7.3 开局与应急储备</a></li>
+        <li><a href="#74-投放对象">7.4 投放对象</a></li>
+      </ul>
+    </li>
+    <li><a href="#八地球植物系统">八、地球植物系统</a>
+      <ul>
+        <li><a href="#81-四项属性">8.1 四项属性</a></li>
+        <li><a href="#82-生命周期">8.2 生命周期</a></li>
+        <li><a href="#83-植物分工">8.3 植物分工</a></li>
+        <li><a href="#84-首轮测试数值">8.4 首轮测试数值</a></li>
+        <li><a href="#85-防风效果">8.5 防风效果</a></li>
+      </ul>
+    </li>
+    <li><a href="#九鸟群系统">九、鸟群系统</a>
+      <ul>
+        <li><a href="#91-首版范围">9.1 首版范围</a></li>
+        <li><a href="#92-基础状态">9.2 基础状态</a></li>
+        <li><a href="#93-觅食选择">9.3 觅食选择</a></li>
+        <li><a href="#94-采食与再次起飞">9.4 采食与再次起飞</a></li>
+        <li><a href="#95-分散规则">9.5 分散规则</a></li>
+        <li><a href="#96-聚拢规则">9.6 聚拢规则</a></li>
+        <li><a href="#97-风与聚拢的冲突">9.7 风与聚拢的冲突</a></li>
+        <li><a href="#98-不逆风起飞">9.8 不逆风起飞</a></li>
+      </ul>
+    </li>
+    <li><a href="#十种子传播规则">十、种子传播规则</a>
+      <ul>
+        <li><a href="#101-传播流程">10.1 传播流程</a></li>
+        <li><a href="#102-落点结果">10.2 落点结果</a></li>
+        <li><a href="#103-萌发与降雨">10.3 萌发与降雨</a></li>
+      </ul>
+    </li>
+    <li><a href="#十一天气与卫星">十一、天气与卫星</a>
+      <ul>
+        <li><a href="#111-风力等级">11.1 风力等级</a></li>
+        <li><a href="#112-天气预报">11.2 天气预报</a></li>
+        <li><a href="#113-卫星资源">11.3 卫星资源</a></li>
+        <li><a href="#114-卫星能力">11.4 卫星能力</a></li>
+      </ul>
+    </li>
+    <li><a href="#十二菌毯竞争与火灾">十二、菌毯竞争与火灾</a>
+      <ul>
+        <li><a href="#121-菌毯扩张">12.1 菌毯扩张</a></li>
+        <li><a href="#122-植物侵占预警">12.2 植物侵占预警</a></li>
+        <li><a href="#123-外星飞船">12.3 外星飞船</a></li>
+        <li><a href="#124-火灾">12.4 火灾</a></li>
+        <li><a href="#125-点火条件">12.5 点火条件</a></li>
+        <li><a href="#126-烧后土壤">12.6 烧后土壤</a></li>
+      </ul>
+    </li>
+    <li><a href="#十三关卡设计">十三、关卡设计</a>
+      <ul>
+        <li><a href="#131-教学关第一片生态">13.1 教学关：第一片生态</a></li>
+        <li><a href="#132-第一关顺风航线">13.2 第一关：顺风航线</a></li>
+        <li><a href="#133-第二关另一种改造">13.3 第二关：另一种改造</a></li>
+      </ul>
+    </li>
+    <li><a href="#十四胜负与复盘">十四、胜负与复盘</a>
+      <ul>
+        <li><a href="#141-覆盖统计">14.1 覆盖统计</a></li>
+        <li><a href="#142-正式关失败">14.2 正式关失败</a></li>
+        <li><a href="#143-结算评价">14.3 结算评价</a></li>
+      </ul>
+    </li>
+    <li><a href="#十五界面与信息表达">十五、界面与信息表达</a>
+      <ul>
+        <li><a href="#151-主界面">15.1 主界面</a></li>
+        <li><a href="#152-信息图层">15.2 信息图层</a></li>
+        <li><a href="#153-行为解释">15.3 行为解释</a></li>
+      </ul>
+    </li>
+    <li><a href="#十六美术音效与叙事表现">十六、美术、音效与叙事表现</a>
+      <ul>
+        <li><a href="#161-美术方向">16.1 美术方向</a></li>
+        <li><a href="#162-鸟群表现">16.2 鸟群表现</a></li>
+        <li><a href="#163-音效">16.3 音效</a></li>
+        <li><a href="#164-叙事">16.4 叙事</a></li>
+      </ul>
+    </li>
+    <li><a href="#十七原型范围与验证标准">十七、原型范围与验证标准</a>
+      <ul>
+        <li><a href="#171-开发顺序">17.1 开发顺序</a></li>
+        <li><a href="#172-必须验证的问题">17.2 必须验证的问题</a></li>
+        <li><a href="#173-建议验收目标">17.3 建议验收目标</a></li>
+      </ul>
+    </li>
+    <li><a href="#十八主要风险与后续待定">十八、主要风险与后续待定</a></li>
+    <li><a href="#最终设计总结">最终设计总结</a></li>
+  </ul>
+</nav>
+</div></div>
+        <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img
+    data-src="/avatar/avatar.webp"
+    data-sizes="auto"
+    alt="D-Sketon"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">D-Sketon</div>
+  <div class="sidebar-description">少女祈祷中...</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div><div class="sidebar-state-number">7</div>
+  </div>
+  <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      4
+    </div>
+  </a>
+  <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
+    <div>标签</div>
+    <div class="sidebar-state-number">28</div>
+  </a>
+</div>
+<div class="sidebar-social" ></div><div class="sidebar-menu"><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">首页</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">归档</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">关于</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a><div class='sidebar-menu-icon icon rotate'>&#xe62b;</div><div class="sidebar-menu-link">友链</div>
+    </div></div></div></div><div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div></nav>
+</div><script
+    src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"
+    
+    
+    
+    
+    integrity="sha384-3gT/vsepWkfz/ff7PpWNUeMzeWoH3cDhm/A8jM7ouoAK0/fP/9bcHHR5kHq2nf&#43;e" crossorigin="anonymous"></script><script
+    src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"
+    
+    
+    
+    
+    integrity="sha384-J08i8An/QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"></script><script src="/js/main.js" integrity="" crossorigin="anonymous"  ></script><script src="/js/aos.js" integrity="" crossorigin="anonymous"  ></script><script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", aosInit);
+    } else {
+      aosInit();
+    }
+  </script><script src="/js/pjax_main.js" integrity="" crossorigin="anonymous" data-pjax ></script><script>
+  var setupFirework = () => {
+    if (! false  || !window.matchMedia('(max-width: 768px)').matches) {
+      if (window.firework) {
+        const options = JSON.parse("{\"excludeelements\":[\"a\",\"button\"],\"particles\":[{\"colors\":[\"var(--red-1)\",\"var(--red-2)\",\"var(--red-3)\",\"var(--red-4)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"emit\"],\"number\":20,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.3,0.5],\"radius\":[16,32]}},{\"colors\":[\"var(--red-0)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"diffuse\"],\"number\":1,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.2,0.5],\"lineWidth\":6,\"radius\":20}}]}");
+        options.excludeElements = options.excludeelements;
+        delete options.excludeelements;
+        window.firework(options);
+      }
+    }
+  }
+</script><script
+    src="https://npm.webcache.cn/mouse-firework@0.2.0/dist/index.umd.js"
+    defer
+    
+    
+    onload="setupFirework()"
+    integrity="sha384-qi9WggRt19tv8Vc7pCHW3ulMNLwrn515zaLEWZjl1px07vz8&#43;pUoWX8n1rgq282T" crossorigin="anonymous"></script>
+
+<div id="lazy-script">
+  <div><script data-pjax>
+        window.REIMU_POST = {
+          author: "D-Sketon",
+          title: "《涌现：远航播种者》游戏策划案 V0.3：让鸟群替你种满一颗星球",
+          url: "https:\/\/boniufamily.top\/post\/emergence-seeders-design\/",
+          description: "一份回合制生态策略 \/ 星球改造解谜的完整设计稿：植物四项属性与生命周期、鸟群觅食与种子传播、风与天气卫星、菌毯竞争与火灾转化，以及教学关与两个正式关的规则、首轮测试数值和原型验证清单。",
+          cover: "https:\/\/boniufamily.top\/images\/banner.webp",
+        };
+      </script><script src="/js/insert_highlight.js" integrity="" crossorigin="anonymous" data-pjax ></script><script src="/js/tabs.js" integrity="" crossorigin="anonymous" data-pjax defer></script><script type="module" data-pjax>const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;const initPswp = (gallery, children) => {
+          if (_$$(`${gallery} ${children}`).length > 0) {
+            new PhotoSwipeLightbox({
+              gallery,
+              children,pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")}).init();
+          }
+        }
+        const pswp = () => {
+          initPswp('.article-entry', 'a.article-gallery-item');
+          initPswp('.article-gallery', 'a.article-gallery-item');
+        }
+        pswp()
+      </script></div>
+</div><script
+    src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js"
+    
+    async
+    
+    
+    integrity="sha384-0M75wtSkhjIInv4coYlaJU83&#43;OypaRCIq2SukQVQX04eGTCBXJDuWAbJet56id&#43;S" crossorigin="anonymous"></script><script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
+  </script><script>
+  const reimuCopyright = String.raw`
+   ______     ______     __     __    __     __  __    
+  /\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+  \ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+   \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+    \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                    
+  `;
+  console.log(String.raw`%c ${reimuCopyright}`, "color: #ff5252;");
+  console.log(
+    "%c Theme.Reimu" + " %c https://github.com/D-Sketon/hugo-theme-reimu ",
+    "color: white; background: #ff5252; padding:5px 0;",
+    "padding:4px;border:1px solid #ff5252;",
+  );
+</script></body>
+</html>
